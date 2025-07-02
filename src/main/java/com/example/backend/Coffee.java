@@ -1,5 +1,7 @@
 package com.example.backend;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 /*
@@ -27,7 +29,7 @@ public class Coffee {
     //product details
     private String packetSize; //e.g., "250g", "500g", "1kg"
     private double weight; //in grams
-    private boolean[] tag;
+    private List<Boolean> tag;
     private double price;
 
     //coffee quality
@@ -46,12 +48,12 @@ public class Coffee {
     private boolean isFarmToCup;
 
     //extras
-    private Vector<Review> reviews;
+    private List<Review> reviews;
 
 
     //new constructor
     public Coffee(int id, String name, String imageurl, String description, String packetSize, double weight,double price ,int strength, int flavour, int acidity, int aroma,
-                  boolean isRare, boolean isSmallBatch, boolean isFarmToCup, int currentStock, boolean[] tag) {
+                  boolean isRare, boolean isSmallBatch, boolean isFarmToCup, int currentStock, List<Boolean> tag) {
         this.id = id;
         this.name = name;
         this.imageurl = imageurl;
@@ -72,16 +74,16 @@ public class Coffee {
         this.numberOfSales = 0;
         this.isSoldOut = false;
         this.isNearSoldOut = false;
-        this.reviews = new Vector<Review>();
+        this.reviews = new ArrayList<Review>();
 
-        this.tag = new boolean[Tags.length];
+        this.tag = new ArrayList<>(3);
         this.tag = tag;
     }
 
     //existing constructor
 
     public Coffee(int id, String name, String imageurl, String description, String packetSize, double weight, double price ,int strength, int flavour, int acidity, int aroma,
-                  boolean isRare, boolean isSmallBatch, boolean isFarmToCup, int currentStock, int numberOfSales, boolean isSoldOut, boolean isNearSoldOut, Vector<Review> reviews, boolean[] tag) {
+                  boolean isRare, boolean isSmallBatch, boolean isFarmToCup, int currentStock, int numberOfSales, boolean isSoldOut, boolean isNearSoldOut, List<Review> reviews, List<Boolean> tag) {
         this.id = id;
         this.name = name;
         this.imageurl = imageurl;
@@ -102,7 +104,7 @@ public class Coffee {
         this.isNearSoldOut = isNearSoldOut;
         this.reviews = new Vector<Review>();
         this.reviews.addAll(reviews);
-        this.tag = new boolean[Tags.length];
+        this.tag = new ArrayList<>(3);
         this.tag = tag;
     }
     //getters and setters
@@ -119,11 +121,11 @@ public class Coffee {
         this.price = price;
     }
 
-    public boolean[] getTag() {
+    public List<Boolean> getTag() {
         return tag;
     }
 
-    public void setTag(boolean[] tag) {
+    public void setTag(List<Boolean> tag) {
         this.tag = tag;
     }
 
@@ -243,7 +245,7 @@ public class Coffee {
         this.isFarmToCup = isFarmToCup;
     }
 
-    public Vector<Review> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 

@@ -8,21 +8,26 @@ import java.time.format.DateTimeFormatter;
 
 
 public class Review {
+    private int reviewid;
     private double stars;
-    private Coffee coffee;
+    private int coffeeid;
     private String description;
     private boolean isVerified;
     private String title;
     private LocalDateTime timestamp;
     private int userid;
 
-    public Review( int userid, double stars, Coffee coffee, String description, LocalDateTime timestamp, boolean isVerified) {
+    public static int numberOfReviews = 0;
+
+    public Review( int userid, double stars, int coffeeid, String description, String timestamp, boolean isVerified, String title) {
+        this.title=title;
+        this.reviewid = numberOfReviews++;
         this.stars = stars;
-        this.coffee = coffee;
+        this.coffeeid = coffeeid;
         this.description = description;
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
 //        this.timestamp = LocalDateTime.parse(timestamp, formatter);
-        this.timestamp = timestamp;
+        setTimestamp(timestamp);
         this.userid = userid;
         this.isVerified = isVerified;
     }
@@ -63,12 +68,12 @@ public class Review {
         this.description = description;
     }
 
-    public Coffee getCoffee() {
-        return coffee;
+    public int getCoffeeId() {
+        return coffeeid;
     }
 
     public void setCoffee(Coffee coffee) {
-        this.coffee = coffee;
+        this.coffeeid = coffeeid;
     }
 
     public double getStars() {
@@ -85,5 +90,25 @@ public class Review {
 
     public void setVerified(boolean verified) {
         isVerified = verified;
+    }
+
+    public int getReviewid() {
+        return reviewid;
+    }
+
+    public void setReviewid(int reviewid) {
+        this.reviewid = reviewid;
+    }
+
+    public int getCoffeeid() {
+        return coffeeid;
+    }
+
+    public void setCoffeeid(int coffeeid) {
+        this.coffeeid = coffeeid;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }

@@ -28,6 +28,17 @@ public class User {
         this.userid = 10000 + ++usercount;
         this.username = username;
     }
+
+    public User(String username, int userid, String email, String address, boolean isAds, HashMap<Vector<Coffee>, Integer> buyHistory) {
+        this.username = username;
+        this.userid = userid;
+        this.email = email;
+        //this.passhash = passhash;
+        this.address = address;
+        this.isAds = isAds;
+        this.buyHistory = buyHistory;
+    }
+
     public User(String username)
     {
         this.username = username;

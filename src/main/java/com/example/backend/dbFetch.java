@@ -1,7 +1,9 @@
 package com.example.backend;
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
+import javax.print.Doc;
 import java.util.*;
 import java.time.Instant;
 
@@ -88,6 +90,24 @@ public class dbFetch {
     *  GET
     * */
 
+    private int getUserIdByToken(){
+        MongoCollection<Document> d  = database.getCollection("sessions");
+        return d.find(new Document("token",currentToken)).first().getInteger("id");
+    }
+
+    public User getUserinfo(){
+        this.collection = database.getCollection("users");
+        if(currentToken == null){
+            return null;
+        }
+        int userid = getUserIdByToken();
+        List<Document> matches = this.collection.find(new Document("userid",userid)).into(new ArrayList<>());
+        if(matches != null){
+            return parseUsers(matches).getFirst();
+        }
+        return null;
+    }
+
     public List<Coffee> getAllCoffees(){
         List<Coffee> coffees = new ArrayList<Coffee>();
         MongoCollection<Document> d = database.getCollection("coffees");
@@ -98,13 +118,11 @@ public class dbFetch {
         return coffees;
     }
 
-    public Coffee getCoffeeById(String id){
+    public Coffee getCoffeeById(int id){
         MongoCollection<Document> d = database.getCollection("coffees");
 
         List<Document> m = new ArrayList<>();
-        for (Document doc : d.find(new Document("id", id))) {
-            m.add(doc);
-        }
+        m = m = d.find(new Document("id" , id)).into(new ArrayList<>());
 
         if(m != null){
             parseCoffees(m);
@@ -117,9 +135,7 @@ public class dbFetch {
         List<Document> m = new ArrayList<>();
         List<Coffee> c = new ArrayList<>();
 
-        for (Document doc : d.find(new Document(key , value))) {
-            m.add(doc);
-        }
+        m = d.find(new Document(key , value)).into(new ArrayList<>());
 
         if(m != null){
             parseCoffees(m);
@@ -133,9 +149,7 @@ public class dbFetch {
         List<Document> m = new ArrayList<>();
         List<Coffee> c = new ArrayList<>();
 
-        for (Document doc : d.find(new Document(key , value))) {
-            m.add(doc);
-        }
+        m = d.find(new Document(key , value)).into(new ArrayList<>());
 
         if(m != null){
             parseCoffees(m);
@@ -149,9 +163,7 @@ public class dbFetch {
         List<Document> m = new ArrayList<>();
         List<Coffee> c = new ArrayList<>();
 
-        for (Document doc : d.find(new Document(key , value))) {
-            m.add(doc);
-        }
+        m = d.find(new Document(key , value)).into(new ArrayList<>());
 
         if(m != null){
             parseCoffees(m);
@@ -160,6 +172,45 @@ public class dbFetch {
         return c;
     }
 
+//    private List<Document> toList(Iterable<Document> iterable) {
+//        List<Document> list = new ArrayList<>();
+//        for (Document doc : iterable) {
+//            list.add(doc);
+//        }
+//        return list;
+//    }
+
+    // ⭐ All reviews
+    public List<Review> getAllReviews() {
+        MongoCollection<Document> d = database.getCollection("reviews");
+        List<Document> docs = d.find().into(new ArrayList<>());
+        return parseReviews(docs);
+    }
+
+
+    public List<Review> getCriticalReviews() {
+        MongoCollection<Document> d = database.getCollection("reviews");
+        List<Document> docs = d.find(Filters.lte("stars", 2.0)).into(new ArrayList<>());
+        return parseReviews(docs);
+    }
+
+
+    public List<Review> getModerateReviews() {
+        MongoCollection<Document> d = database.getCollection("reviews");
+        List<Document> docs = d.find(
+                Filters.and(
+                        Filters.gt("stars", 2.0),
+                        Filters.lt("stars", 4.0)
+                )).into(new ArrayList<>());
+        return parseReviews(docs);
+    }
+
+
+    public List<Review> getPositiveReviews() {
+        MongoCollection<Document> d = database.getCollection("reviews");
+        List<Document> docs = d.find(Filters.gte("stars", 4.0)).into(new ArrayList<>());
+        return parseReviews(docs);
+    }
 
 
 
@@ -191,6 +242,40 @@ public class dbFetch {
         }
 
         return coffees;
+    }
+
+
+    private List<User> parseUsers(List<Document> d) {
+        List<User> users = new ArrayList<>(d.size());
+
+        for (Document m : d) {
+            String username = m.getString("username");
+            int userid = m.getInteger("userid");
+            String email = m.getString("email");
+
+            String address = m.getString("address");
+            boolean isAds = m.getBoolean("isAds");
+
+            // buyHistory is assumed to be stored in a serializable way
+            // You might need to parse it from Document list form
+            List<Document> historyList = m.getList("buyHistory", Document.class);
+            HashMap<Vector<Coffee>, Integer> buyHistory = new HashMap<>();
+
+            if (historyList != null) {
+                for (Document entry : historyList) {
+                    List<Document> coffeeList = entry.getList("coffees", Document.class);
+                    int count = entry.getInteger("count");
+
+                    // Assuming each entry contains one vector and a count
+                    Vector<Coffee> coffeeVector = new Vector<>(parseCoffees(coffeeList));
+                    buyHistory.put(coffeeVector, count);
+                }
+            }
+
+            users.add(new User(username, userid, email, address, isAds, buyHistory));
+        }
+
+        return users;
     }
 
 
@@ -229,7 +314,18 @@ public class dbFetch {
         this.collection.insertOne(doc);
     }
 
-    
+
+    /*
+    * REMOVE
+    * */
+
+
+
+
+
+    /*
+    * UPDATE
+    * */
 
 
 }

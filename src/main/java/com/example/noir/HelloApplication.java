@@ -1,5 +1,6 @@
 package com.example.noir;
 
+import com.example.backend.*;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

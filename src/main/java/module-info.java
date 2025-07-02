@@ -2,8 +2,14 @@ module com.example.noir {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
+    requires jbcrypt;
+    requires org.mongodb.bson;
+    requires org.mongodb.driver.core;
+    requires org.mongodb.driver.sync.client;
 
 
     opens com.example.noir to javafx.fxml;
     exports com.example.noir;
+    exports com.example.backend;
+    opens com.example.backend to javafx.fxml;
 }

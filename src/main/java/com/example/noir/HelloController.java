@@ -59,8 +59,8 @@ public class HelloController {
     private void smoothScrollToMiddle() {
         double targetValue = 0.27; // Middle of the scroll pane
         double startValue = verticalScrollPane.getVvalue();
-        Duration duration = Duration.seconds(0.5); // 2 seconds animation
-        int frames = 120; // 60 frames for smooth animation
+        Duration duration = Duration.seconds(0.5); // 0.5 seconds animation
+        int frames = 120; // 120 frames for smooth animations
 
         Timeline timeline = new Timeline();
         for (int i = 0; i <= frames; i++) {

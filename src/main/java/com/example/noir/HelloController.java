@@ -1,97 +1,96 @@
 package com.example.noir;
 
-import javafx.animation.TranslateTransition;
 import javafx.animation.FadeTransition;
-import javafx.util.Duration;
+import javafx.animation.TranslateTransition;
+import javafx.animation.ParallelTransition;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ScrollEvent;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
+import javafx.scene.input.KeyCode;
+import javafx.util.Duration;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.List;
 
 public class HelloController {
-    @FXML private ScrollPane verticalScrollPane;
-    @FXML private ScrollPane horizontalScrollPane;
-
-    @FXML private ImageView productsHead;
+    @FXML private TextField newsletterField;
+    @FXML private Button submitButton;
     @FXML private ImageView reviewHead;
+    @FXML private ImageView productsHead;
     @FXML private ImageView frontIntro;
     @FXML private ImageView noirBg;
     @FXML private ImageView qualitiesHead;
-    @FXML private javafx.scene.text.Text title1;
-    private boolean[] animated;
-    private ImageView[] animatedImages;
+    @FXML private ScrollPane verticalScrollPane;
 
+    private List<ImageView> animatedImages;
+    private boolean[] animationPlayed;
 
     @FXML
-    public void initialize() {
-        animatedImages = new ImageView[]{
-            productsHead, reviewHead, frontIntro, noirBg, qualitiesHead
-        };
-        animated = new boolean[animatedImages.length];
+    private void initialize() {
+        // Newsletter functionality
+        submitButton.setOnAction(event -> saveEmail());
+        newsletterField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                saveEmail();
+            }
+        });
 
-        for (ImageView img : animatedImages) {
-            img.setTranslateY(100);
-            img.setOpacity(0);
-        }
+        // Initialize animated images list
+        animatedImages = Arrays.asList(reviewHead, productsHead, frontIntro, noirBg, qualitiesHead);
+        animationPlayed = new boolean[animatedImages.size()];
 
+        // Add scroll listener
         verticalScrollPane.vvalueProperty().addListener((observable, oldValue, newValue) -> {
             checkAndAnimateImages();
         });
-
-        // Add touchpad horizontal scrolling
-        horizontalScrollPane.addEventFilter(ScrollEvent.ANY, event -> {
-            if (event.getDeltaX() != 0) { // Touchpad horizontal gesture
-                double deltaX = event.getDeltaX();
-                double currentH = horizontalScrollPane.getHvalue();
-                double newH = currentH - (deltaX / horizontalScrollPane.getContent().getBoundsInLocal().getWidth() * 2.0);
-                horizontalScrollPane.setHvalue(clamp(newH));
-                event.consume();
-            }
-        });
-    }
-    private double clamp(double value) {
-        return Math.max(0, Math.min(1, value));
     }
 
     private void checkAndAnimateImages() {
-        double scrollPercentage = verticalScrollPane.getVvalue();
-        double viewportHeight = verticalScrollPane.getHeight();
+        double scrollPosition = verticalScrollPane.getVvalue();
+        double viewportHeight = verticalScrollPane.getViewportBounds().getHeight();
 
-        for (int i = 0; i < animatedImages.length; i++) {
-            if (!animated[i]) {
-                ImageView img = animatedImages[i];
-                double imagePosition = img.getLayoutY();
+        for (int i = 0; i < animatedImages.size(); i++) {
+            if (!animationPlayed[i]) {
+                ImageView image = animatedImages.get(i);
+                double imagePosition = image.getLayoutY() / verticalScrollPane.getContent().getBoundsInLocal().getHeight();
 
-                if (isImageInViewport(imagePosition, scrollPercentage, viewportHeight)) {
-                    animated[i] = true;
-                    animateImage(img);
+                // Check if image is in viewport
+                if (imagePosition <= scrollPosition + (viewportHeight / verticalScrollPane.getContent().getBoundsInLocal().getHeight())) {
+                    playFadeAnimation(image);
+                    animationPlayed[i] = true;
                 }
             }
         }
     }
 
-    private boolean isImageInViewport(double imagePosition, double scrollPercentage, double viewportHeight) {
-        double scrollPosition = scrollPercentage * verticalScrollPane.getContent().getBoundsInLocal().getHeight();
-        return imagePosition < (scrollPosition + viewportHeight) &&
-               imagePosition > (scrollPosition - viewportHeight/2);
-    }
-    @FXML
-
-
-    private void animateImage(ImageView img) {
-        TranslateTransition slideUp = new TranslateTransition(Duration.millis(1000), img);
-        slideUp.setFromY(100);
-        slideUp.setToY(0);
-
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), img);
+    private void playFadeAnimation(ImageView imageView) {
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), imageView);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
 
-        slideUp.play();
-        fadeIn.play();
+        TranslateTransition slideUp = new TranslateTransition(Duration.millis(1000), imageView);
+        slideUp.setFromY(50);
+        slideUp.setToY(0);
+
+        ParallelTransition parallelTransition = new ParallelTransition(fadeIn, slideUp);
+        parallelTransition.play();
+    }
+
+    private void saveEmail() {
+        String email = newsletterField.getText().trim();
+        if (email.isEmpty()) {
+            return;
+        }
+
+        try (PrintWriter out = new PrintWriter(new FileWriter("newsletters.txt", true))) {
+            out.println(email);
+            newsletterField.clear();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

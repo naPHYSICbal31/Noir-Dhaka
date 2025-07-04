@@ -52,12 +52,13 @@ public class HelloApplication extends Application {
     }
     public void start(Stage stage) throws IOException {
         try {
-
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
             stage.setScene(scene);
+            scene.getRoot().requestFocus(); // Add this line to prevent automatic focus on TextField
+            stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

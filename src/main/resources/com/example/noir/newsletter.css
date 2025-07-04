@@ -1,0 +1,39 @@
+.text-field {
+    -fx-background-color: #8cad88;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-padding: 10px;
+    -fx-font-family: "Courier New";
+    -fx-font-size: 16px;
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: black;
+}
+
+.text-field:hover {
+    -fx-background-color: #789475;
+    -fx-cursor: text;
+}
+
+.text-field:focused {
+    -fx-background-color: #789475;
+    -fx-border-color: black;
+}
+
+.submit-button {
+    -fx-background-color: #8cad88;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-text-fill: black;
+    -fx-font-size: 20px;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-cursor: hand;
+}
+
+.submit-button:hover {
+    -fx-background-color: #789475;
+}
+
+.submit-button:pressed {
+    -fx-background-color: #6b8a6d;
+}

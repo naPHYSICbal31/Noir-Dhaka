@@ -35,12 +35,12 @@
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <ImageView fitHeight="647.0" fitWidth="1440.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="647.0" fitWidth="1440.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/front_banner.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="reviewHead" fitHeight="132.0" fitWidth="940.0" layoutX="268.0" layoutY="765.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="reviewHead" fitHeight="132.0" fitWidth="940.0" layoutX="268.0" layoutY="800.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/review_head.png" />
                </image>
@@ -135,6 +135,12 @@
                   <Image url="@images/code.png" />
                </image>
             </ImageView>
+            <ImageView fitHeight="78.0" fitWidth="86.0" layoutX="22.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/noir%20logo.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="scrollButton" layoutX="1300.0" layoutY="10.0" style="-fx-background-color: #333333; -fx-text-fill: white;          -fx-padding: 10px 20px; -fx-cursor: hand;" text="Scroll to Middle" />
          </children></AnchorPane>
   </content>
 </ScrollPane>

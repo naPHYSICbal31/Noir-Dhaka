@@ -1,8 +1,11 @@
 package com.example.noir;
 
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.animation.ParallelTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -19,6 +22,7 @@ import java.util.List;
 public class HelloController {
     @FXML private TextField newsletterField;
     @FXML private Button submitButton;
+    @FXML private Button scrollButton;
     @FXML private ImageView reviewHead;
     @FXML private ImageView productsHead;
     @FXML private ImageView frontIntro;
@@ -47,6 +51,30 @@ public class HelloController {
         verticalScrollPane.vvalueProperty().addListener((observable, oldValue, newValue) -> {
             checkAndAnimateImages();
         });
+
+        // Setup scroll button
+        scrollButton.setOnAction(event -> smoothScrollToMiddle());
+    }
+
+    private void smoothScrollToMiddle() {
+        double targetValue = 0.27; // Middle of the scroll pane
+        double startValue = verticalScrollPane.getVvalue();
+        Duration duration = Duration.seconds(0.5); // 2 seconds animation
+        int frames = 120; // 60 frames for smooth animation
+
+        Timeline timeline = new Timeline();
+        for (int i = 0; i <= frames; i++) {
+            double fraction = (double) i / frames;
+            double value = startValue + (targetValue - startValue) * fraction;
+            
+            KeyFrame keyFrame = new KeyFrame(
+                duration.multiply(fraction),
+                event -> verticalScrollPane.setVvalue(value)
+            );
+            timeline.getKeyFrames().add(keyFrame);
+        }
+        
+        timeline.play();
     }
 
     private void checkAndAnimateImages() {
@@ -58,7 +86,6 @@ public class HelloController {
                 ImageView image = animatedImages.get(i);
                 double imagePosition = image.getLayoutY() / verticalScrollPane.getContent().getBoundsInLocal().getHeight();
 
-                // Check if image is in viewport
                 if (imagePosition <= scrollPosition + (viewportHeight / verticalScrollPane.getContent().getBoundsInLocal().getHeight())) {
                     playFadeAnimation(image);
                     animationPlayed[i] = true;

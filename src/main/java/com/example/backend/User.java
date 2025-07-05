@@ -1,4 +1,5 @@
 package com.example.backend;
+import java.security.Timestamp;
 import java.util.HashMap;
 import java.util.Vector;
 import java.util.Map;
@@ -17,10 +18,10 @@ public class User {
     //settings
     private boolean isAds;
     //history
-    private HashMap<Vector<Coffee>,Integer> buyHistory;
+    private HashMap<Coffee,Integer> buyHistory;
 
     public User(String username,String pass, String email,  String address, boolean isAds) {
-        this.buyHistory = new HashMap<Vector<Coffee>,Integer>();
+        this.buyHistory = new HashMap<Coffee,Integer>();
         this.isAds = isAds;
         this.address = address;
         this.setPass(pass);
@@ -29,7 +30,7 @@ public class User {
         this.username = username;
     }
 
-    public User(String username, int userid, String email, String address, boolean isAds, HashMap<Vector<Coffee>, Integer> buyHistory) {
+    public User(String username, int userid, String email, String address, boolean isAds, HashMap<Coffee, Integer> buyHistory) {
         this.username = username;
         this.userid = userid;
         this.email = email;
@@ -54,11 +55,11 @@ public class User {
         return BCrypt.hashpw(pass, BCrypt.gensalt());
     }
 
-    public HashMap<Vector<Coffee>, Integer> getBuyHistory() {
+    public HashMap<Coffee, Integer> getBuyHistory() {
         return buyHistory;
     }
 
-    public void setBuyHistory(HashMap<Vector<Coffee>, Integer> buyHistory) {
+    public void setBuyHistory(HashMap<Coffee, Integer> buyHistory) {
         this.buyHistory = buyHistory;
     }
 
@@ -112,5 +113,24 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+
+
+    /*
+    *  FUNCTIONS OTHER THAN GETTER SETTER
+    * */
+
+    public void addBuyHistory(Cart c){
+
+        HashMap<Coffee, Integer> j = c.getBuyHistory();
+
+        for(Map.Entry<Coffee, Integer> entry : j.entrySet()){
+            if(j.containsKey(entry.getKey())){
+                this.buyHistory.put(entry.getKey(), j.get(entry.getKey())+entry.getValue());
+            }else{
+                this.buyHistory.put(entry.getKey(), entry.getValue());
+            }
+        }
     }
 }

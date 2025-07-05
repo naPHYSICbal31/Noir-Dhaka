@@ -114,7 +114,9 @@ public class dbFetch {
 
         List<Document> allCoffees = d.find().into(new ArrayList<>());
 
-
+        for(Document x : allCoffees){
+            coffees.add(parseCoffee(x));
+        }
         return coffees;
     }
 
@@ -180,7 +182,7 @@ public class dbFetch {
 //        return list;
 //    }
 
-    // ⭐ All reviews
+
     public List<Review> getAllReviews() {
         MongoCollection<Document> d = database.getCollection("reviews");
         List<Document> docs = d.find().into(new ArrayList<>());
@@ -212,7 +214,9 @@ public class dbFetch {
         return parseReviews(docs);
     }
 
-
+    /*
+    *  PRIVATE PARSE FUNCTIONS
+    * */
 
     private List<Review> parseReviews(List<Document> d){
 
@@ -244,6 +248,13 @@ public class dbFetch {
         return coffees;
     }
 
+    private Coffee parseCoffee(Document d){
+        List<Document> rev = d.getList("reviews", Document.class);
+        List<Review> revs = parseReviews(rev);
+        List<Boolean> tg = d.getList("tags", Boolean.class);
+        return new Coffee(d.getInteger("id"), d.getString("name"),d.getString("imageurl"),d.getString("description"),d.getString("packetSize"),d.getDouble("weight"),d.getDouble("packetSize"),d.getInteger("strength"),d.getInteger("flavour"),d.getInteger("acidity"),d.getInteger("aroma"),d.getBoolean("isRare"),d.getBoolean("isSmallBatch"),d.getBoolean("isFarmToCup"),d.getInteger("currentStock"),d.getInteger("numberOfSales"),d.getBoolean("isSoldOut"),d.getBoolean("isNearSoldOut"),revs,tg);
+
+    }
 
     private List<User> parseUsers(List<Document> d) {
         List<User> users = new ArrayList<>(d.size());
@@ -259,16 +270,13 @@ public class dbFetch {
             // buyHistory is assumed to be stored in a serializable way
             // You might need to parse it from Document list form
             List<Document> historyList = m.getList("buyHistory", Document.class);
-            HashMap<Vector<Coffee>, Integer> buyHistory = new HashMap<>();
+            HashMap<Coffee, Integer> buyHistory = new HashMap<>();
 
             if (historyList != null) {
                 for (Document entry : historyList) {
-                    List<Document> coffeeList = entry.getList("coffees", Document.class);
+                    Document coffee =  (Document) entry.get("coffee");
                     int count = entry.getInteger("count");
-
-                    // Assuming each entry contains one vector and a count
-                    Vector<Coffee> coffeeVector = new Vector<>(parseCoffees(coffeeList));
-                    buyHistory.put(coffeeVector, count);
+                    buyHistory.put(parseCoffee(coffee), count);
                 }
             }
 
@@ -290,7 +298,23 @@ public class dbFetch {
 
     public void addCoffee(Coffee coffee){
         this.collection = database.getCollection("coffees");
-        this.collection.insertOne(new Document("id", coffee.getId()).append( "name", coffee.getName()).append("imageurl", coffee.getImageurl()).append("description", coffee.getDescription()).append("packetSize", coffee.getPacketSize()).append("weight", coffee.getWeight()).append("tag", Arrays.asList(coffee.getTag())).append("price", coffee.getPrice()).append("strength", coffee.getStrength()).append("flavour",  coffee.getFlavour()).append("acidity", coffee.getAcidity()).append("aroma", coffee.getAroma()).append("currentStock", coffee.getCurrentStock()).append("numberOfSales", coffee.getNumberOfSales()).append("isSoldOut", coffee.isSoldOut()).append("isNearSoldOUt", coffee.isNearSoldOut()).append("isRare", coffee.isRare()).append("isSmallBatch", coffee.isSmallBatch()).append("isFarmToCup", coffee.isFarmToCup()));
+
+        List<Document> reviews = new ArrayList<>();
+
+        for(Review review : coffee.getReviews()){
+            Document doc = new Document("review", review.getReviewid())
+                    .append("stars", review.getStars())
+                    .append("coffeeid", review.getCoffeeid())
+                    .append("description", review.getDescription())
+                    .append("isVerified", review.isVerified())
+                    .append("title", review.getTitle())
+                    .append("timestamp", review.getTimestamp().toString()) // convert LocalDateTime to string
+                    .append("userid", review.getUserid());
+
+            reviews.add(doc);
+        }
+
+        this.collection.insertOne(new Document("id", coffee.getId()).append( "name", coffee.getName()).append("imageurl", coffee.getImageurl()).append("description", coffee.getDescription()).append("packetSize", coffee.getPacketSize()).append("weight", coffee.getWeight()).append("tag", Arrays.asList(coffee.getTag())).append("price", coffee.getPrice()).append("strength", coffee.getStrength()).append("flavour",  coffee.getFlavour()).append("acidity", coffee.getAcidity()).append("aroma", coffee.getAroma()).append("currentStock", coffee.getCurrentStock()).append("numberOfSales", coffee.getNumberOfSales()).append("isSoldOut", coffee.isSoldOut()).append("isNearSoldOUt", coffee.isNearSoldOut()).append("isRare", coffee.isRare()).append("isSmallBatch", coffee.isSmallBatch()).append("isFarmToCup", coffee.isFarmToCup()).append("reviews", reviews));
     }
 
     public void addCoffees(List<Coffee> coffees){
@@ -326,6 +350,63 @@ public class dbFetch {
     /*
     * UPDATE
     * */
+
+    public void updateUser(User user){
+        int id = getUserIdByToken();
+
+        this.collection = database.getCollection("users");
+
+        List<Document> history= new ArrayList<>();
+
+        for(Map.Entry<Coffee, Integer> entry : user.getBuyHistory().entrySet()){
+            Coffee coffee = entry.getKey();
+            int count = entry.getValue();
+
+            //    new Document("id", coffee.getId()).append( "name", coffee.getName()).append("imageurl", coffee.getImageurl()).append("description", coffee.getDescription()).append("packetSize", coffee.getPacketSize()).append("weight", coffee.getWeight()).append("tag", Arrays.asList(coffee.getTag())).append("price", coffee.getPrice()).append("strength", coffee.getStrength()).append("flavour",  coffee.getFlavour()).append("acidity", coffee.getAcidity()).append("aroma", coffee.getAroma()).append("currentStock", coffee.getCurrentStock()).append("numberOfSales", coffee.getNumberOfSales()).append("isSoldOut", coffee.isSoldOut()).append("isNearSoldOUt", coffee.isNearSoldOut()).append("isRare", coffee.isRare()).append("isSmallBatch", coffee.isSmallBatch()).append("isFarmToCup", coffee.isFarmToCup()));
+            //
+            Document cof = new Document("id", coffee.getId()).append( "name", coffee.getName()).append("imageurl", coffee.getImageurl()).append("description", coffee.getDescription()).append("packetSize", coffee.getPacketSize()).append("weight", coffee.getWeight()).append("tag", Arrays.asList(coffee.getTag())).append("price", coffee.getPrice()).append("strength", coffee.getStrength()).append("flavour",  coffee.getFlavour()).append("acidity", coffee.getAcidity()).append("aroma", coffee.getAroma()).append("currentStock", coffee.getCurrentStock()).append("numberOfSales", coffee.getNumberOfSales()).append("isSoldOut", coffee.isSoldOut()).append("isNearSoldOUt", coffee.isNearSoldOut()).append("isRare", coffee.isRare()).append("isSmallBatch", coffee.isSmallBatch()).append("isFarmToCup", coffee.isFarmToCup());
+
+            Document res = new Document("coffee", cof).append("count", count);
+
+            history.add(res);
+        }
+
+
+        Document newUser = new Document("id", user.getUserid()).append("username", user.getUsername()).append("email", user.getEmail()).append("address", user.getAddress()).append("isAds", user.isAds()).append("buyHistory", history);
+
+
+        this.collection.findOneAndReplace(
+                new Document("id", id), newUser
+        );
+
+        //this.collection.updateOne(, parseUsers())
+    }
+
+    public void updateCoffee(Coffee coffee){
+        this.collection = database.getCollection("coffees");
+
+        List<Document> reviews = new ArrayList<>();
+
+        for(Review review : coffee.getReviews()){
+            Document doc = new Document("review", review.getReviewid())
+                    .append("stars", review.getStars())
+                    .append("coffeeid", review.getCoffeeid())
+                    .append("description", review.getDescription())
+                    .append("isVerified", review.isVerified())
+                    .append("title", review.getTitle())
+                    .append("timestamp", review.getTimestamp().toString()) // convert LocalDateTime to string
+                    .append("userid", review.getUserid());
+
+            reviews.add(doc);
+        }
+
+        Document j = new Document("id", coffee.getId()).append( "name", coffee.getName()).append("imageurl", coffee.getImageurl()).append("description", coffee.getDescription()).append("packetSize", coffee.getPacketSize()).append("weight", coffee.getWeight()).append("tag", Arrays.asList(coffee.getTag())).append("price", coffee.getPrice()).append("strength", coffee.getStrength()).append("flavour",  coffee.getFlavour()).append("acidity", coffee.getAcidity()).append("aroma", coffee.getAroma()).append("currentStock", coffee.getCurrentStock()).append("numberOfSales", coffee.getNumberOfSales()).append("isSoldOut", coffee.isSoldOut()).append("isNearSoldOUt", coffee.isNearSoldOut()).append("isRare", coffee.isRare()).append("isSmallBatch", coffee.isSmallBatch()).append("isFarmToCup", coffee.isFarmToCup()).append("reviews", reviews);
+
+        this.collection.findOneAndReplace(new Document("coffeeid", coffee.getId()), j);
+    }
+
+    // public void update review???
+
 
 
 }

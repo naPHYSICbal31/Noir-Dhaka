@@ -174,14 +174,6 @@ public class dbFetch {
         return c;
     }
 
-//    private List<Document> toList(Iterable<Document> iterable) {
-//        List<Document> list = new ArrayList<>();
-//        for (Document doc : iterable) {
-//            list.add(doc);
-//        }
-//        return list;
-//    }
-
 
     public List<Review> getAllReviews() {
         MongoCollection<Document> d = database.getCollection("reviews");
@@ -190,30 +182,58 @@ public class dbFetch {
     }
 
 
-    public List<Review> getCriticalReviews() {
+    public List<Review> getCriticalReviews(Coffee coffee) {
         MongoCollection<Document> d = database.getCollection("reviews");
-        List<Document> docs = d.find(Filters.lte("stars", 2.0)).into(new ArrayList<>());
+        List<Document> docs = d.find(Filters.and(
+                Filters.lte("stars", 2.0),
+                Filters.eq("coffeeid", coffee.getId())
+                )
+        ).into(new ArrayList<>());
         return parseReviews(docs);
     }
 
 
-    public List<Review> getModerateReviews() {
+    public List<Review> getModerateReviews(Coffee coffee) {
         MongoCollection<Document> d = database.getCollection("reviews");
         List<Document> docs = d.find(
                 Filters.and(
                         Filters.gt("stars", 2.0),
-                        Filters.lt("stars", 4.0)
+                        Filters.lt("stars", 4.0),
+                        Filters.eq("coffeeid", coffee.getId())
                 )).into(new ArrayList<>());
         return parseReviews(docs);
     }
 
 
-    public List<Review> getPositiveReviews() {
+    public List<Review> getPositiveReviews(Coffee coffee) {
         MongoCollection<Document> d = database.getCollection("reviews");
-        List<Document> docs = d.find(Filters.gte("stars", 4.0)).into(new ArrayList<>());
+        List<Document> docs = d.find(Filters.and(
+                        Filters.gte("stars", 4.0),
+                        Filters.eq("coffeeid", coffee.getId())
+                )
+        ).into(new ArrayList<>());
         return parseReviews(docs);
     }
 
+    public Cart getCart(){
+        int userid = getUserIdByToken();
+
+        this.collection = database.getCollection("carts");
+
+        Document match = this.collection.find(new Document("userid", userid)).first();
+
+        if(match != null){
+            return null;
+        }
+        HashMap<Integer,Integer> buyHistory = new HashMap<>();
+
+        for(Document x : match.getList("coffees", Document.class)){
+            buyHistory.put(x.getInteger("coffeeid"), x.getInteger("count"));
+        }
+
+        return new Cart(buyHistory);
+
+    }
     /*
     *  PRIVATE PARSE FUNCTIONS
     * */
@@ -270,13 +290,13 @@ public class dbFetch {
             // buyHistory is assumed to be stored in a serializable way
             // You might need to parse it from Document list form
             List<Document> historyList = m.getList("buyHistory", Document.class);
-            HashMap<Coffee, Integer> buyHistory = new HashMap<>();
+            HashMap<Integer, Integer> buyHistory = new HashMap<>();
 
             if (historyList != null) {
                 for (Document entry : historyList) {
-                    Document coffee =  (Document) entry.get("coffee");
+                    int coffee = entry.getInteger("coffeeid");
                     int count = entry.getInteger("count");
-                    buyHistory.put(parseCoffee(coffee), count);
+                    buyHistory.put(coffee , count);
                 }
             }
 
@@ -338,12 +358,29 @@ public class dbFetch {
         this.collection.insertOne(doc);
     }
 
+    public void addCart(Cart c){
+        this.collection = database.getCollection("carts");
+        int userid = getUserIdByToken();
+        List<Document> coffees = new ArrayList<>();
+
+        for(Map.Entry<Integer, Integer> entry: c.getBuyHistory().entrySet()){
+            int coffeeid = entry.getKey();
+            int count = entry.getValue();
+
+            coffees.add(new Document("coffeeid", coffeeid).append("count", count));
+        }
+
+        Document docx = new Document("userid", userid).append("timestamp", Instant.now().toString()).append("coffees", coffees);
+    }
 
     /*
     * REMOVE
     * */
 
-
+    public void removeCart(){
+        this.collection = database.getCollection("carts");
+        this.collection.deleteOne(new Document("userid", getUserIdByToken()));
+    }
 
 
 
@@ -358,15 +395,13 @@ public class dbFetch {
 
         List<Document> history= new ArrayList<>();
 
-        for(Map.Entry<Coffee, Integer> entry : user.getBuyHistory().entrySet()){
-            Coffee coffee = entry.getKey();
+        for(Map.Entry<Integer, Integer> entry : user.getBuyHistory().entrySet()){
+            Integer coffee = entry.getKey();
             int count = entry.getValue();
 
             //    new Document("id", coffee.getId()).append( "name", coffee.getName()).append("imageurl", coffee.getImageurl()).append("description", coffee.getDescription()).append("packetSize", coffee.getPacketSize()).append("weight", coffee.getWeight()).append("tag", Arrays.asList(coffee.getTag())).append("price", coffee.getPrice()).append("strength", coffee.getStrength()).append("flavour",  coffee.getFlavour()).append("acidity", coffee.getAcidity()).append("aroma", coffee.getAroma()).append("currentStock", coffee.getCurrentStock()).append("numberOfSales", coffee.getNumberOfSales()).append("isSoldOut", coffee.isSoldOut()).append("isNearSoldOUt", coffee.isNearSoldOut()).append("isRare", coffee.isRare()).append("isSmallBatch", coffee.isSmallBatch()).append("isFarmToCup", coffee.isFarmToCup()));
             //
-            Document cof = new Document("id", coffee.getId()).append( "name", coffee.getName()).append("imageurl", coffee.getImageurl()).append("description", coffee.getDescription()).append("packetSize", coffee.getPacketSize()).append("weight", coffee.getWeight()).append("tag", Arrays.asList(coffee.getTag())).append("price", coffee.getPrice()).append("strength", coffee.getStrength()).append("flavour",  coffee.getFlavour()).append("acidity", coffee.getAcidity()).append("aroma", coffee.getAroma()).append("currentStock", coffee.getCurrentStock()).append("numberOfSales", coffee.getNumberOfSales()).append("isSoldOut", coffee.isSoldOut()).append("isNearSoldOUt", coffee.isNearSoldOut()).append("isRare", coffee.isRare()).append("isSmallBatch", coffee.isSmallBatch()).append("isFarmToCup", coffee.isFarmToCup());
-
-            Document res = new Document("coffee", cof).append("count", count);
+            Document res = new Document("coffeeid", coffee).append("count", count);
 
             history.add(res);
         }

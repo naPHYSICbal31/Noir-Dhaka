@@ -18,10 +18,10 @@ public class User {
     //settings
     private boolean isAds;
     //history
-    private HashMap<Coffee,Integer> buyHistory;
+    private HashMap<Integer,Integer> buyHistory;
 
     public User(String username,String pass, String email,  String address, boolean isAds) {
-        this.buyHistory = new HashMap<Coffee,Integer>();
+        this.buyHistory = new HashMap<Integer,Integer>();
         this.isAds = isAds;
         this.address = address;
         this.setPass(pass);
@@ -30,7 +30,7 @@ public class User {
         this.username = username;
     }
 
-    public User(String username, int userid, String email, String address, boolean isAds, HashMap<Coffee, Integer> buyHistory) {
+    public User(String username, int userid, String email, String address, boolean isAds, HashMap<Integer, Integer> buyHistory) {
         this.username = username;
         this.userid = userid;
         this.email = email;
@@ -55,11 +55,11 @@ public class User {
         return BCrypt.hashpw(pass, BCrypt.gensalt());
     }
 
-    public HashMap<Coffee, Integer> getBuyHistory() {
+    public HashMap<Integer, Integer> getBuyHistory() {
         return buyHistory;
     }
 
-    public void setBuyHistory(HashMap<Coffee, Integer> buyHistory) {
+    public void setBuyHistory(HashMap<Integer, Integer> buyHistory) {
         this.buyHistory = buyHistory;
     }
 
@@ -121,11 +121,11 @@ public class User {
     *  FUNCTIONS OTHER THAN GETTER SETTER
     * */
 
-    public void addBuyHistory(Cart c){
+    public void addBuyHistoryFromCart(Cart c){
 
-        HashMap<Coffee, Integer> j = c.getBuyHistory();
+        HashMap<Integer, Integer> j = c.getBuyHistory();
 
-        for(Map.Entry<Coffee, Integer> entry : j.entrySet()){
+        for(Map.Entry<Integer, Integer> entry : j.entrySet()){
             if(j.containsKey(entry.getKey())){
                 this.buyHistory.put(entry.getKey(), j.get(entry.getKey())+entry.getValue());
             }else{
@@ -133,4 +133,6 @@ public class User {
             }
         }
     }
+
+    //public void addBuyHistory(Coffee coffee){}
 }

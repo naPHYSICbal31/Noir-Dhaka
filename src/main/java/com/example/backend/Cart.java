@@ -1,42 +1,58 @@
 package com.example.backend;
+import java.time.Instant;
 import java.util.*;
+
+import static com.example.backend.dbFetch.currentToken;
+
+
 public class Cart {
-    private HashMap<Coffee,Integer> buyHistory;
+    private String token;
+    private HashMap<Integer,Integer> buyHistory;
+    private String timestamp;// coffeeId, count
 
     public Cart(){
+        token = currentToken;
         buyHistory = new HashMap<>();
+        timestamp = Instant.now().toString();
     }
 
-    public HashMap<Coffee, Integer> getBuyHistory() {
-        return buyHistory;
-    }
-
-    public void setBuyHistory(HashMap<Coffee, Integer> buyHistory) {
+    public Cart(HashMap<Integer,Integer> buyHistory){
+        token = currentToken;
         this.buyHistory = buyHistory;
     }
 
-    public void addToCart(Coffee coffee){
-        if(this.buyHistory.containsKey(coffee)){
-            this.buyHistory.put(coffee,this.buyHistory.get(coffee)+1);
-            return;
-        }
-        this.buyHistory.put(coffee,1);
+    public HashMap<Integer, Integer> getBuyHistory() {
+        return buyHistory;
     }
 
-    public void removeFromCart(Coffee coffee){
-        if(this.buyHistory.containsKey(coffee)){
-            if(this.buyHistory.get(coffee)==1){
-                this.buyHistory.remove(coffee);
+
+    public void setBuyHistory(HashMap<Integer, Integer> buyHistory) {
+        this.buyHistory = buyHistory;
+    }
+
+    public void addToCart(Integer coffeeid){
+        if(this.buyHistory.containsKey(coffeeid)){
+            this.buyHistory.put(coffeeid,this.buyHistory.get(coffeeid)+1);
+            return;
+        }
+        this.buyHistory.put(coffeeid,1);
+    }
+
+    public void removeFromCart(Integer coffeeid){
+        if(this.buyHistory.containsKey(coffeeid)){
+            if(this.buyHistory.get(coffeeid)==1){
+                this.buyHistory.remove(coffeeid);
                 return;
             }
-            this.buyHistory.put(coffee,this.buyHistory.get(coffee)-1);
+            this.buyHistory.put(coffeeid,this.buyHistory.get(coffeeid)-1);
         }
     }
 
     public double getTotalPrice(){
         double sum =0;
-        for(Coffee j : buyHistory.keySet()) {
-            sum += j.getPrice() * this.buyHistory.get(j);
+        dbFetch auth =  new dbFetch();
+        for(Integer j : buyHistory.keySet()) {
+            sum += auth.getCoffeeById(j).getPrice() * this.buyHistory.get(j);
         }
         return sum;
     }

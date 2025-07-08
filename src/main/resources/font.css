@@ -1,0 +1,42 @@
+.root {
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.button {
+    -fx-background-color: #1858ff;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15;
+    -fx-cursor: hand;
+    -fx-padding: 10 20 10 20;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("/fonts/RetrokiaCaps-Rough.otf");
+}
+
+.Label{
+
+}
+
+#titleLabel{
+
+}
+
+#top1, #top2, #top3, #top4 {
+    -fx-opacity: 0.7;
+    -fx-cursor: hand;
+}
+
+#top1:hover, #top2:hover, #top3:hover, #top4:hover {
+    -fx-opacity: 1.0;
+    -fx-underline: true;
+}
+
+.nav-text {
+
+}

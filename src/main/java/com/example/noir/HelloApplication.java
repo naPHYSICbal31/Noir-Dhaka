@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -53,7 +54,12 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+            Font customFont = Font.loadFont(getClass().getResourceAsStream("/fonts/RetrokiaCaps-Rough.otf"), 20);
+            if (customFont == null) {
+               System.err.println("Failed to load custom font");
+            }
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+            scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
             stage.setScene(scene);

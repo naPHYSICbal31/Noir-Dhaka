@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
+import javafx.scene.text.Text;
 
 public class HelloController {
     @FXML private TextField newsletterField;
@@ -32,6 +33,60 @@ public class HelloController {
 
     private List<ImageView> animatedImages;
     private boolean[] animationPlayed;
+
+@FXML
+private Text top1Text;
+@FXML
+private Text top2Text;
+@FXML
+private Text top3Text;
+@FXML
+private Text top4Text;
+
+@FXML
+private void handleTop1Click() {
+    // Scroll to Products section
+    smoothScrollTo(0.27,.375); // Adjust this value to match Products section position
+}
+
+@FXML
+private void handleTop2Click() {
+    // Scroll to Subscriptions section
+    smoothScrollTo(0.82,0.625); // Adjust this value to match Subscriptions section position
+}
+
+@FXML
+private void handleTop3Click() {
+    // Scroll to Reviews section
+    smoothScrollTo(0.1478,0.2); // Adjust this value to match Reviews section position
+}
+
+@FXML
+private void handleTop4Click() {
+    // Scroll to About Us section
+    smoothScrollTo(0.465,0.5); // Adjust this value to match About Us section position
+}
+
+// Modified scroll method that takes a target value parameter
+private void smoothScrollTo(double targetValue,double time) {
+    double startValue = verticalScrollPane.getVvalue();
+    Duration duration = Duration.seconds(time);
+    int frames = 240;
+
+    Timeline timeline = new Timeline();
+    for (int i = 0; i <= frames; i++) {
+        double fraction = (double) i / frames;
+        double value = startValue + (targetValue - startValue) * fraction;
+        
+        KeyFrame keyFrame = new KeyFrame(
+            duration.multiply(fraction),
+            event -> verticalScrollPane.setVvalue(value)
+        );
+        timeline.getKeyFrames().add(keyFrame);
+    }
+    
+    timeline.play();
+}
 
     @FXML
     private void initialize() {
@@ -51,9 +106,6 @@ public class HelloController {
         verticalScrollPane.vvalueProperty().addListener((observable, oldValue, newValue) -> {
             checkAndAnimateImages();
         });
-
-        // Setup scroll button
-        scrollButton.setOnAction(event -> smoothScrollToMiddle());
     }
 
     private void smoothScrollToMiddle() {
@@ -120,4 +172,7 @@ public class HelloController {
             e.printStackTrace();
         }
     }
+
+// Temporary method to help find correct scroll values
+
 }

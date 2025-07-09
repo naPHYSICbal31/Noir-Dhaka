@@ -1,17 +1,19 @@
 package com.example.noir;
 
-import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -42,6 +44,9 @@ private Text top2Text;
 private Text top3Text;
 @FXML
 private Text top4Text;
+@FXML
+private ImageView profileImage;
+
 
 @FXML
 private void handleTop1Click() {
@@ -66,6 +71,18 @@ private void handleTop4Click() {
     // Scroll to About Us section
     smoothScrollTo(0.465,0.5); // Adjust this value to match About Us section position
 }
+    @FXML
+    private void handleProfileClick() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Stage stage = (Stage) profileImage.getScene().getWindow();
+            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 // Modified scroll method that takes a target value parameter
 private void smoothScrollTo(double targetValue,double time) {

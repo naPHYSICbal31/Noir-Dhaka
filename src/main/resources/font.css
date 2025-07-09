@@ -40,3 +40,13 @@
 .nav-text {
 
 }
+
+#profile, #cart {
+    -fx-transition: scale 0.2s ease-in-out;
+}
+
+#profile:hover, #cart:hover {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-cursor: hand;
+}

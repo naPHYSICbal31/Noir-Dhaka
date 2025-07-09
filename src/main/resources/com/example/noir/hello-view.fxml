@@ -143,26 +143,36 @@
                </image>
             </ImageView>
             <Text layoutX="268.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="100.5367431640625" />
-            <Text id="top1" layoutX="128.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-text" text="Products" wrappingWidth="158.936767578125">
+            <Text id="top1" fx:id="top1Text" layoutX="128.0" layoutY="92.0" onMouseClicked="#handleTop1Click" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-text" text="Products" wrappingWidth="158.936767578125">
     <font>
         <Font name="RetrokiaCaps-Rough" size="18.0" />
     </font>
 </Text>
-            <Text id="top3" layoutX="448.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-text" text="Reviews" wrappingWidth="124.5465087890625">
+            <Text id="top3" fx:id="top3Text" layoutX="448.0" layoutY="92.0" onMouseClicked="#handleTop3Click" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-text" text="Reviews" wrappingWidth="124.5465087890625">
     <font>
         <Font name="RetrokiaCaps-Rough" size="18.0" />
     </font>
 </Text>
-            <Text id="top2" layoutX="258.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-text" text="Subscriptions">
+            <Text id="top2" fx:id="top2Text" layoutX="258.0" layoutY="92.0" onMouseClicked="#handleTop2Click" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-text" text="Subscriptions">
     <font>
         <Font name="RetrokiaCaps-Rough" size="18.0" />
     </font>
 </Text>
-            <Text id="top4" layoutX="558.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-text" text="about us">
+            <Text id="top4" fx:id="top4Text" layoutX="558.0" layoutY="92.0" onMouseClicked="#handleTop4Click" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-text" text="about us">
     <font>
         <Font name="RetrokiaCaps-Rough" size="18.0" />
     </font>
 </Text>
+            <ImageView id="profile" fitHeight="77.0" fitWidth="50.0" layoutX="1260.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handleProfileClick">
+               <image>
+                  <Image url="@images/profile.png" />
+               </image>
+            </ImageView>
+            <ImageView id="cart" fitHeight="77.0" fitWidth="50.0" layoutX="1333.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/cart.png" />
+               </image>
+            </ImageView>
          </children></AnchorPane>
   </content>
 </ScrollPane>

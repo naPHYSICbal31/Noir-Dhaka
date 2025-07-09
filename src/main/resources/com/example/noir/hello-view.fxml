@@ -23,7 +23,7 @@
                               <Image url="@images/products-1.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="620.0" fitWidth="1450.0" layoutX="1445.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="620.0" fitWidth="1450.0" layoutX="-1" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/products-2.png" />
                            </image>
@@ -57,7 +57,7 @@
                   <Image url="@images/front_intro.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="noirBg" fitHeight="748.0" fitWidth="563.0" layoutX="-1.0" layoutY="1976.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="noirBg" fitHeight="748.0" fitWidth="563.0" layoutX="-1" layoutY="1976.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/noir_bg_final.jpg" />
                </image>
@@ -163,11 +163,11 @@
         <Font name="RetrokiaCaps-Rough" size="18.0" />
     </font>
 </Text>
-            <ImageView id="profile" fitHeight="77.0" fitWidth="50.0" layoutX="1260.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handleProfileClick">
-               <image>
-                  <Image url="@images/profile.png" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="profile" fitHeight="77.0" fitWidth="50.0" layoutX="1260.0" layoutY="60.0" onMouseClicked="#handleProfileClick" pickOnBounds="true" preserveRatio="true">
+    <image>
+        <Image url="@images/profile.png" />
+    </image>
+</ImageView>
             <ImageView id="cart" fitHeight="77.0" fitWidth="50.0" layoutX="1333.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/cart.png" />

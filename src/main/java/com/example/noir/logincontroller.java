@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -25,16 +26,25 @@ public class logincontroller implements Initializable {
     private Button loginButton;
 
     @FXML
+    private Button regbutton;
+
+    @FXML
+    private Line line;
+
+    @FXML
     private Text login1;
 
     @FXML
     private Text login2;
 
     @FXML
-    private ImageView loginbg; // Changed to match FXML id
+    private ImageView loginbg;
 
     @FXML
     private ImageView noir_logo;
+
+    // Track which button is currently active
+    private boolean isLoginActive = true;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,19 +54,73 @@ public class logincontroller implements Initializable {
         // Initialize all elements in their starting positions
         initializeElements();
         
+        // Set up button click handlers
+        setupButtonHandlers();
+        
+        // Set initial button states
+        setInitialButtonStates();
+        
         // Start the animation sequence
         startAnimationSequence();
+    }
+
+    private void setupButtonHandlers() {
+        // Add click handlers for both buttons
+        loginButton.setOnAction(event -> switchToLogin());
+        regbutton.setOnAction(event -> switchToRegister());
+    }
+
+    private void setInitialButtonStates() {
+        // Initially set login button as active (green background)
+        loginButton.getStyleClass().add("active-button");
+        regbutton.getStyleClass().add("inactive-button");
+    }
+
+    @FXML
+    private void switchToLogin() {
+        if (!isLoginActive) {
+            // Remove current styles
+            loginButton.getStyleClass().removeAll("active-button", "inactive-button");
+            regbutton.getStyleClass().removeAll("active-button", "inactive-button");
+            
+            // Set login as active
+            loginButton.getStyleClass().add("active-button");
+            regbutton.getStyleClass().add("inactive-button");
+            
+            isLoginActive = true;
+            
+            // Add your login form logic here
+            System.out.println("Switched to Login");
+        }
+    }
+
+    @FXML
+    private void switchToRegister() {
+        if (isLoginActive) {
+            // Remove current styles
+            loginButton.getStyleClass().removeAll("active-button", "inactive-button");
+            regbutton.getStyleClass().removeAll("active-button", "inactive-button");
+            
+            // Set register as active
+            regbutton.getStyleClass().add("active-button");
+            loginButton.getStyleClass().add("inactive-button");
+            
+            isLoginActive = false;
+            
+            // Add your register form logic here
+            System.out.println("Switched to Register");
+        }
     }
 
     private void initializeElements() {
         // Check if ImageViews exist before animating them
         if (loginbg != null) {
-            loginbg.setTranslateY(200);
+            loginbg.setTranslateY(800);
             loginbg.setOpacity(0);
         }
         
         if (noir_logo != null) {
-            noir_logo.setTranslateY(150);
+            noir_logo.setTranslateY(800);
             noir_logo.setOpacity(0);
         }
         
@@ -69,6 +133,23 @@ public class logincontroller implements Initializable {
         if (login2 != null) {
             login2.setTranslateX(-400);
             login2.setOpacity(0);
+        }
+
+        // Hide buttons by moving them below the screen
+        if (loginButton != null) {
+            loginButton.setTranslateY(100);
+            loginButton.setOpacity(0);
+        }
+
+        if (regbutton != null) {
+            regbutton.setTranslateY(100);
+            regbutton.setOpacity(0);
+        }
+
+        // Hide line separator
+        if (line != null) {
+            line.setTranslateY(100);
+            line.setOpacity(0);
         }
     }
 
@@ -89,15 +170,36 @@ public class logincontroller implements Initializable {
         // Step 3: Animate login1 text sliding in from left (starts after logo completes)
         if (login1 != null) {
             Timeline login1Animation = createSlideInAnimation(login1, Duration.millis(500));
-            login1Animation.setDelay(Duration.millis(600)); // 200ms + 600ms logo animation
+            login1Animation.setDelay(Duration.millis(600));
             login1Animation.play();
         }
         
         // Step 4: Animate login2 text sliding in from left (starts 300ms after login1)
         if (login2 != null) {
             Timeline login2Animation = createSlideInAnimation(login2, Duration.millis(500));
-            login2Animation.setDelay(Duration.millis(900)); // 800ms + 300ms delay
+            login2Animation.setDelay(Duration.millis(900));
             login2Animation.play();
+        }
+
+        // Step 5: Animate login button sliding up from bottom (starts after login2)
+        if (loginButton != null) {
+            Timeline loginButtonAnimation = createButtonSlideUpAnimation(loginButton, 100, Duration.millis(400));
+            loginButtonAnimation.setDelay(Duration.millis(1200));
+            loginButtonAnimation.play();
+        }
+
+        // Step 6: Animate line separator sliding up (starts with login button)
+        if (line != null) {
+            Timeline lineAnimation = createLineSlideUpAnimation(line, 100, Duration.millis(400));
+            lineAnimation.setDelay(Duration.millis(1200));
+            lineAnimation.play();
+        }
+
+        // Step 7: Animate register button sliding up from bottom (starts 100ms after login button)
+        if (regbutton != null) {
+            Timeline regButtonAnimation = createButtonSlideUpAnimation(regbutton, 100, Duration.millis(400));
+            regButtonAnimation.setDelay(Duration.millis(1300));
+            regButtonAnimation.play();
         }
     }
 
@@ -123,6 +225,32 @@ public class logincontroller implements Initializable {
             new KeyFrame(duration,
                 new KeyValue(textElement.translateXProperty(), 0, Interpolator.EASE_OUT),
                 new KeyValue(textElement.opacityProperty(), 1, Interpolator.EASE_OUT)
+            )
+        );
+    }
+
+    private Timeline createButtonSlideUpAnimation(Button button, double startOffset, Duration duration) {
+        return new Timeline(
+            new KeyFrame(Duration.ZERO,
+                new KeyValue(button.translateYProperty(), startOffset),
+                new KeyValue(button.opacityProperty(), 0)
+            ),
+            new KeyFrame(duration,
+                new KeyValue(button.translateYProperty(), 0, Interpolator.EASE_OUT),
+                new KeyValue(button.opacityProperty(), 1, Interpolator.EASE_OUT)
+            )
+        );
+    }
+
+    private Timeline createLineSlideUpAnimation(Line line, double startOffset, Duration duration) {
+        return new Timeline(
+            new KeyFrame(Duration.ZERO,
+                new KeyValue(line.translateYProperty(), startOffset),
+                new KeyValue(line.opacityProperty(), 0)
+            ),
+            new KeyFrame(duration,
+                new KeyValue(line.translateYProperty(), 0, Interpolator.EASE_OUT),
+                new KeyValue(line.opacityProperty(), 1, Interpolator.EASE_OUT)
             )
         );
     }

@@ -71,7 +71,7 @@ public class HelloApplication extends Application {
             } else {
                 System.out.println("Euclid Circular A Regular font loaded successfully");
             }
-            
+
             // Load Euclid Circular A Bold font (corrected filename)
             Font euclidBold = Font.loadFont(getClass().getResourceAsStream("/fonts/euclidbold.ttf"), 16);
             if (euclidBold == null) {

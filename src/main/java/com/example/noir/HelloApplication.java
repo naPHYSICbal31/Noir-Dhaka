@@ -19,6 +19,7 @@ public class HelloApplication extends Application {
     int reviewCount = 0;
     User[] users = new User[100];
     int userCount = 0;
+    
     public void loadReviews() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("C://Users//nafis//Desktop//codes//Project//Noir//src//main//resources//files//reviews.txt"));
         String line;
@@ -44,6 +45,7 @@ public class HelloApplication extends Application {
             }
         }
     }
+    
     public void displayReview(Review review)
     {
         if(review != null)
@@ -51,13 +53,45 @@ public class HelloApplication extends Application {
             title1.setText(review.getTitle());
         }
     }
-    public void start(Stage stage) throws IOException {
+    
+    private void loadGlobalFonts() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+            // Load RetrokiaCaps-Rough font (existing)
             Font customFont = Font.loadFont(getClass().getResourceAsStream("/fonts/RetrokiaCaps-Rough.otf"), 20);
             if (customFont == null) {
-               System.err.println("Failed to load custom font");
+                System.err.println("Failed to load RetrokiaCaps-Rough font");
+            } else {
+                System.out.println("RetrokiaCaps-Rough font loaded successfully");
             }
+            
+            // Load Euclid Circular A Regular font (corrected filename)
+            Font euclidRegular = Font.loadFont(getClass().getResourceAsStream("/fonts/euclidregular.ttf"), 16);
+            if (euclidRegular == null) {
+                System.err.println("Failed to load Euclid Circular A Regular font");
+            } else {
+                System.out.println("Euclid Circular A Regular font loaded successfully");
+            }
+            
+            // Load Euclid Circular A Bold font (corrected filename)
+            Font euclidBold = Font.loadFont(getClass().getResourceAsStream("/fonts/euclidbold.ttf"), 16);
+            if (euclidBold == null) {
+                System.err.println("Failed to load Euclid Circular A Bold font");
+            } else {
+                System.out.println("Euclid Circular A Bold font loaded successfully");
+            }
+            
+        } catch (Exception e) {
+            System.err.println("Error loading fonts: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    public void start(Stage stage) throws IOException {
+        try {
+            // Load fonts first
+            loadGlobalFonts();
+            
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
             scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
             stage.setTitle("Noir Dhaka");
@@ -71,6 +105,7 @@ public class HelloApplication extends Application {
             System.exit(1);
         }
     }
+    
     public static void main(String[] args) {
         launch();
     }

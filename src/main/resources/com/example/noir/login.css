@@ -1,0 +1,90 @@
+/* General page styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fff;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding-right: 100px; /* Add some spacing from the right edge */
+}
+
+/* Container for login/signup form */
+.container {
+    width: 320px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background-color: white;
+    margin-left: auto; /* Push to the right */
+}
+
+/* Tabs: Login / Signup */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #222;
+}
+
+.tab.active {
+    color: white;
+    background-color: #ff69b4;
+    border-radius: 4px 4px 0 0;
+}
+
+/* Input fields */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #ff69b4;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+/* Continue button */
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #222;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Register link */
+.register-link {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+.register-link a {
+    color: #ff69b4;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}

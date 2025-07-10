@@ -1,0 +1,51 @@
+.root {
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.button {
+    -fx-background-color: #1858ff;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15;
+    -fx-cursor: hand;
+    -fx-padding: 10 20 10 20;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("/fonts/euclidbold.ttf");
+}
+
+/* Define custom fonts */
+@font-face {
+    font-family: "Euclid Circular A Regular";
+    src: url("../../../fonts/euclidregular.ttf");
+}
+
+@font-face {
+    font-family: "Euclid Circular A Bold";
+    src: url("../../../fonts/euclidbold.ttf");
+}
+
+/* Apply fonts to specific text elements */
+#login1 {
+    -fx-font-family: "Euclid Circular A Regular";
+    -fx-font-size: 36px;
+}
+
+#login2 {
+    -fx-font-family: "Euclid Circular A Regular";
+    -fx-font-size: 18px;
+}
+
+/* You can also add other styling */
+.login-text {
+    -fx-text-fill: #333333;
+}
+
+.login-text-bold {
+    -fx-text-fill: #222222;
+}

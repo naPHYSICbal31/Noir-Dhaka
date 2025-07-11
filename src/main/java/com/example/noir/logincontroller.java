@@ -29,6 +29,8 @@ public class logincontroller implements Initializable {
     private Button regbutton;
 
     @FXML
+    private Button continuebutton;
+    @FXML
     private Line line;
 
     @FXML
@@ -50,16 +52,16 @@ public class logincontroller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Load custom fonts
         loadCustomFonts();
-        
+
         // Initialize all elements in their starting positions
         initializeElements();
-        
+
         // Set up button click handlers
         setupButtonHandlers();
-        
+
         // Set initial button states
         setInitialButtonStates();
-        
+
         // Start the animation sequence
         startAnimationSequence();
     }
@@ -82,13 +84,13 @@ public class logincontroller implements Initializable {
             // Remove current styles
             loginButton.getStyleClass().removeAll("active-button", "inactive-button");
             regbutton.getStyleClass().removeAll("active-button", "inactive-button");
-            
+
             // Set login as active
             loginButton.getStyleClass().add("active-button");
             regbutton.getStyleClass().add("inactive-button");
-            
+
             isLoginActive = true;
-            
+
             // Add your login form logic here
             System.out.println("Switched to Login");
         }
@@ -100,13 +102,13 @@ public class logincontroller implements Initializable {
             // Remove current styles
             loginButton.getStyleClass().removeAll("active-button", "inactive-button");
             regbutton.getStyleClass().removeAll("active-button", "inactive-button");
-            
+
             // Set register as active
             regbutton.getStyleClass().add("active-button");
             loginButton.getStyleClass().add("inactive-button");
-            
+
             isLoginActive = false;
-            
+
             // Add your register form logic here
             System.out.println("Switched to Register");
         }
@@ -118,18 +120,18 @@ public class logincontroller implements Initializable {
             loginbg.setTranslateY(800);
             loginbg.setOpacity(0);
         }
-        
+
         if (noir_logo != null) {
             noir_logo.setTranslateY(800);
             noir_logo.setOpacity(0);
         }
-        
+
         // Hide text elements by moving them off-screen to the left
         if (login1 != null) {
             login1.setTranslateX(-400);
             login1.setOpacity(0);
         }
-        
+
         if (login2 != null) {
             login2.setTranslateX(-400);
             login2.setOpacity(0);
@@ -145,11 +147,26 @@ public class logincontroller implements Initializable {
             regbutton.setTranslateY(100);
             regbutton.setOpacity(0);
         }
+        if (continuebutton != null) {
+            continuebutton.setTranslateY(100);
+            continuebutton.setOpacity(0);
+        }
 
         // Hide line separator
         if (line != null) {
             line.setTranslateY(100);
             line.setOpacity(0);
+        }
+
+        // Hide text fields by moving them below the screen
+        if (usernameField != null) {
+            usernameField.setTranslateY(100);
+            usernameField.setOpacity(0);
+        }
+
+        if (passwordField != null) {
+            passwordField.setTranslateY(100);
+            passwordField.setOpacity(0);
         }
     }
 
@@ -159,21 +176,21 @@ public class logincontroller implements Initializable {
             Timeline backgroundAnimation = createSlideUpAnimation(loginbg, 800, Duration.millis(400));
             backgroundAnimation.play();
         }
-        
+
         // Step 2: Animate logo sliding up from bottom (starts 200ms after background)
         if (noir_logo != null) {
             Timeline logoAnimation = createSlideUpAnimation(noir_logo, 800, Duration.millis(400));
             logoAnimation.setDelay(Duration.millis(200));
             logoAnimation.play();
         }
-        
+
         // Step 3: Animate login1 text sliding in from left (starts after logo completes)
         if (login1 != null) {
             Timeline login1Animation = createSlideInAnimation(login1, Duration.millis(500));
             login1Animation.setDelay(Duration.millis(600));
             login1Animation.play();
         }
-        
+
         // Step 4: Animate login2 text sliding in from left (starts 300ms after login1)
         if (login2 != null) {
             Timeline login2Animation = createSlideInAnimation(login2, Duration.millis(500));
@@ -200,6 +217,25 @@ public class logincontroller implements Initializable {
             Timeline regButtonAnimation = createButtonSlideUpAnimation(regbutton, 100, Duration.millis(400));
             regButtonAnimation.setDelay(Duration.millis(1300));
             regButtonAnimation.play();
+        }
+        if (continuebutton != null) {
+            Timeline continueButtonAnimation = createButtonSlideUpAnimation(continuebutton, 100, Duration.millis(400));
+            continueButtonAnimation.setDelay(Duration.millis(1300));
+            continueButtonAnimation.play();
+        }
+
+        // Step 8: Animate username field sliding up from bottom (starts after register button)
+        if (usernameField != null) {
+            Timeline usernameAnimation = createTextFieldSlideUpAnimation(usernameField, 100, Duration.millis(400));
+            usernameAnimation.setDelay(Duration.millis(1400));
+            usernameAnimation.play();
+        }
+
+        // Step 9: Animate password field sliding up from bottom (starts 100ms after username field)
+        if (passwordField != null) {
+            Timeline passwordAnimation = createTextFieldSlideUpAnimation(passwordField, 100, Duration.millis(400));
+            passwordAnimation.setDelay(Duration.millis(1500));
+            passwordAnimation.play();
         }
     }
 
@@ -255,20 +291,48 @@ public class logincontroller implements Initializable {
         );
     }
 
+    // New method for text field animations
+    private Timeline createTextFieldSlideUpAnimation(TextField textField, double startOffset, Duration duration) {
+        return new Timeline(
+            new KeyFrame(Duration.ZERO,
+                new KeyValue(textField.translateYProperty(), startOffset),
+                new KeyValue(textField.opacityProperty(), 0)
+            ),
+            new KeyFrame(duration,
+                new KeyValue(textField.translateYProperty(), 0, Interpolator.EASE_OUT),
+                new KeyValue(textField.opacityProperty(), 1, Interpolator.EASE_OUT)
+            )
+        );
+    }
+
+    // Overloaded method for PasswordField
+    private Timeline createTextFieldSlideUpAnimation(PasswordField passwordField, double startOffset, Duration duration) {
+        return new Timeline(
+            new KeyFrame(Duration.ZERO,
+                new KeyValue(passwordField.translateYProperty(), startOffset),
+                new KeyValue(passwordField.opacityProperty(), 0)
+            ),
+            new KeyFrame(duration,
+                new KeyValue(passwordField.translateYProperty(), 0, Interpolator.EASE_OUT),
+                new KeyValue(passwordField.opacityProperty(), 1, Interpolator.EASE_OUT)
+            )
+        );
+    }
+
     private void loadCustomFonts() {
         try {
             // Load Euclid Circular A Regular font (using correct filename)
             Font euclidRegular = Font.loadFont(
-                getClass().getResourceAsStream("/fonts/euclidregular.ttf"), 
+                getClass().getResourceAsStream("/fonts/euclidregular.ttf"),
                 36 // Default size, can be overridden by CSS
             );
-            
+
             // Load Euclid Circular A Bold font (using correct filename)
             Font euclidBold = Font.loadFont(
-                getClass().getResourceAsStream("/fonts/euclidbold.ttf"), 
+                getClass().getResourceAsStream("/fonts/euclidbold.ttf"),
                 36 // Default size, can be overridden by CSS
             );
-            
+
             // Apply fonts to text elements
             if (euclidRegular != null && login1 != null) {
                 login1.setFont(euclidBold);
@@ -276,14 +340,14 @@ public class logincontroller implements Initializable {
             } else {
                 System.err.println("Failed to load Euclid Circular A Regular font or login1 is null");
             }
-            
+
             if (euclidBold != null && login2 != null) {
                 login2.setFont(euclidRegular);
                 System.out.println("Euclid Circular A Regular loaded successfully");
             } else {
                 System.err.println("Failed to load Euclid Circular A Bold font or login2 is null");
             }
-            
+
         } catch (Exception e) {
             System.err.println("Error loading custom fonts: " + e.getMessage());
             e.printStackTrace();

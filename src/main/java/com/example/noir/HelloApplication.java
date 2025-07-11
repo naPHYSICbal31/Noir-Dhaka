@@ -97,6 +97,16 @@ public class HelloApplication extends Application {
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
             stage.setScene(scene);
+            
+            // Try this approach for loading the icon
+            try {
+                stage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("images/noir_logo.png")));
+                System.out.println("Icon loaded successfully");
+            } catch (Exception iconException) {
+                System.err.println("Failed to load application icon: " + iconException.getMessage());
+                iconException.printStackTrace();
+            }
+            
             scene.getRoot().requestFocus(); // Add this line to prevent automatic focus on TextField
             stage.centerOnScreen();
             stage.show();

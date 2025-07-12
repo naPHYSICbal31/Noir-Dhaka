@@ -42,21 +42,61 @@
       <TextField fx:id="usernameField" layoutX="1031.0" layoutY="211.0" prefHeight="36.0" prefWidth="327.0" promptText="username" />
       
       <Button fx:id="continuebutton" layoutX="1026.0" layoutY="377.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="338.0" text="CONTINUE" />
-      <Text layoutX="1174.0" layoutY="477.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" wrappingWidth="42.271902084350586">
+      <Text fx:id="orText" layoutX="1174.0" layoutY="477.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" wrappingWidth="42.271902084350586">
          <font>
             <Font name="RetrokiaCaps-Rough" size="24.0" />
          </font>
       </Text>
-      <Line endX="150.5999755859375" layoutX="1015.0" layoutY="468.0" startX="17.0" />
-      <Line endX="43.800048828125" layoutX="1317.0" layoutY="469.0" startX="-89.0" />
-      <Text layoutX="1133.0" layoutY="509.0" strokeType="OUTSIDE" strokeWidth="0.0" text="continue with" wrappingWidth="133.800048828125">
+      <Line fx:id="line2" endX="150.5999755859375" layoutX="1015.0" layoutY="468.0" startX="17.0" />
+      <Line fx:id="line3" endX="43.800048828125" layoutX="1317.0" layoutY="469.0" startX="-89.0" />
+      <Text fx:id="continueWithText" layoutX="1133.0" layoutY="509.0" strokeType="OUTSIDE" strokeWidth="0.0" text="continue with" wrappingWidth="133.800048828125">
          <font>
             <Font name="RetrokiaCaps-Rough" size="14.0" />
          </font>
       </Text>
-      <Button fx:id="googleButton1" layoutX="1020.0" layoutY="547.0" mnemonicParsing="false" onAction="#handleGoogleLogin" prefHeight="50.0" prefWidth="50.0" styleClass="social-button" />
-      <Button fx:id="appleButton1" layoutX="1116.0" layoutY="547.0" mnemonicParsing="false" onAction="#handleAppleLogin" prefHeight="50.0" prefWidth="50.0" styleClass="social-button" />
-      <Button fx:id="githubButton1" layoutX="1306.0" layoutY="547.0" mnemonicParsing="false" onAction="#handleGithubLogin" prefHeight="50.0" prefWidth="50.0" styleClass="social-button" />
-      <Button fx:id="googleButton11" layoutX="1216.0" layoutY="547.0" mnemonicParsing="false" onAction="#handleGoogleLogin" prefHeight="50.0" prefWidth="50.0" styleClass="social-button" />
+
+      <!-- Google Button with Image -->
+      <Button fx:id="googleButton1" layoutX="1020.0" layoutY="547.0" mnemonicParsing="false" onAction="#handleGoogleLogin" prefHeight="50.0" prefWidth="50.0" styleClass="social-button">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/google_icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+
+      <!-- Apple Button with Image -->
+      <Button fx:id="appleButton1" layoutX="1116.0" layoutY="547.0" mnemonicParsing="false" onAction="#handleAppleLogin" prefHeight="50.0" prefWidth="50.0" styleClass="social-button">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/apple_icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+
+      <!-- GitHub Button with Image -->
+      <Button fx:id="githubButton1" layoutX="1306.0" layoutY="547.0" mnemonicParsing="false" onAction="#handleGithubLogin" prefHeight="50.0" prefWidth="50.0" styleClass="social-button">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/github_icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+
+      <!-- Facebook Button with Image (replacing the duplicate Google button) -->
+      <Button fx:id="facebookButton1" layoutX="1216.0" layoutY="547.0" mnemonicParsing="false" onAction="#handleFacebookLogin" prefHeight="50.0" prefWidth="50.0" styleClass="social-button">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/facebook_icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

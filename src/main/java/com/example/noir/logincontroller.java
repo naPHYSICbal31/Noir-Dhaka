@@ -33,13 +33,16 @@ public class logincontroller implements Initializable {
     private Button continuebutton;
     
     @FXML
-    private Button googleButton;
+    private Button googleButton1;
     
     @FXML
-    private Button appleButton;
+    private Button appleButton1;
     
     @FXML
-    private Button githubButton;
+    private Button githubButton1;
+    
+    @FXML
+    private Button facebookButton1;
     
     @FXML
     private HBox socialButtonsContainer;
@@ -48,10 +51,22 @@ public class logincontroller implements Initializable {
     private Line line;
 
     @FXML
+    private Line line2;
+
+    @FXML
+    private Line line3;
+
+    @FXML
     private Text login1;
 
     @FXML
     private Text login2;
+
+    @FXML
+    private Text orText;
+
+    @FXML
+    private Text continueWithText;
 
     @FXML
     private ImageView loginbg;
@@ -152,6 +167,14 @@ public class logincontroller implements Initializable {
         // GitHubAuthService.authenticate();
     }
 
+    @FXML
+    private void handleFacebookLogin() {
+        System.out.println("Facebook login clicked");
+        // Add your Facebook OAuth logic here
+        // For example:
+        // FacebookAuthService.authenticate();
+    }
+
     private void initializeElements() {
         // Check if ImageViews exist before animating them
         if (loginbg != null) {
@@ -175,6 +198,17 @@ public class logincontroller implements Initializable {
             login2.setOpacity(0);
         }
 
+        // Hide new text elements by moving them off-screen to the left
+        if (orText != null) {
+            orText.setTranslateX(-400);
+            orText.setOpacity(0);
+        }
+
+        if (continueWithText != null) {
+            continueWithText.setTranslateX(-400);
+            continueWithText.setOpacity(0);
+        }
+
         // Hide buttons by moving them below the screen
         if (loginButton != null) {
             loginButton.setTranslateY(100);
@@ -190,16 +224,38 @@ public class logincontroller implements Initializable {
             continuebutton.setOpacity(0);
         }
 
-        // Hide social buttons container
-        if (socialButtonsContainer != null) {
-            socialButtonsContainer.setTranslateY(100);
-            socialButtonsContainer.setOpacity(0);
+        // Hide social buttons
+        if (googleButton1 != null) {
+            googleButton1.setTranslateY(100);
+            googleButton1.setOpacity(0);
+        }
+        if (appleButton1 != null) {
+            appleButton1.setTranslateY(100);
+            appleButton1.setOpacity(0);
+        }
+        if (githubButton1 != null) {
+            githubButton1.setTranslateY(100);
+            githubButton1.setOpacity(0);
+        }
+        if (facebookButton1 != null) {
+            facebookButton1.setTranslateY(100);
+            facebookButton1.setOpacity(0);
         }
 
-        // Hide line separator
+        // Hide line separators
         if (line != null) {
             line.setTranslateY(100);
             line.setOpacity(0);
+        }
+
+        if (line2 != null) {
+            line2.setTranslateY(100);
+            line2.setOpacity(0);
+        }
+
+        if (line3 != null) {
+            line3.setTranslateY(100);
+            line3.setOpacity(0);
         }
 
         // Hide text fields by moving them below the screen
@@ -277,18 +333,61 @@ public class logincontroller implements Initializable {
             passwordAnimation.play();
         }
 
-        // Step 10: Animate social buttons container sliding up from bottom (starts after password field)
-        if (socialButtonsContainer != null) {
-            Timeline socialButtonsAnimation = createHBoxSlideUpAnimation(socialButtonsContainer, 100, Duration.millis(400));
-            socialButtonsAnimation.setDelay(Duration.millis(1600));
-            socialButtonsAnimation.play();
-        }
-
-        // Step 11: Animate continue button sliding up from bottom (starts after social buttons)
+        // Step 10: Animate continue button sliding up from bottom (starts after password field)
         if (continuebutton != null) {
             Timeline continueButtonAnimation = createButtonSlideUpAnimation(continuebutton, 100, Duration.millis(400));
-            continueButtonAnimation.setDelay(Duration.millis(1700));
+            continueButtonAnimation.setDelay(Duration.millis(1600));
             continueButtonAnimation.play();
+        }
+
+        // Step 11: Animate OR text sliding in from left (starts after continue button)
+        if (orText != null) {
+            Timeline orTextAnimation = createSlideInAnimation(orText, Duration.millis(400));
+            orTextAnimation.setDelay(Duration.millis(1700));
+            orTextAnimation.play();
+        }
+
+        // Step 12: Animate line2 sliding up from bottom (starts with OR text)
+        if (line2 != null) {
+            Timeline line2Animation = createLineSlideUpAnimation(line2, 100, Duration.millis(400));
+            line2Animation.setDelay(Duration.millis(1700));
+            line2Animation.play();
+        }
+
+        // Step 13: Animate line3 sliding up from bottom (starts with OR text)
+        if (line3 != null) {
+            Timeline line3Animation = createLineSlideUpAnimation(line3, 100, Duration.millis(400));
+            line3Animation.setDelay(Duration.millis(1700));
+            line3Animation.play();
+        }
+
+        // Step 14: Animate "continue with" text sliding in from left (starts after OR text)
+        if (continueWithText != null) {
+            Timeline continueWithTextAnimation = createSlideInAnimation(continueWithText, Duration.millis(400));
+            continueWithTextAnimation.setDelay(Duration.millis(1800));
+            continueWithTextAnimation.play();
+        }
+
+        // Step 15: Animate social buttons sliding up from bottom (starts after continue with text)
+        if (googleButton1 != null) {
+            Timeline googleButtonAnimation = createButtonSlideUpAnimation(googleButton1, 100, Duration.millis(400));
+            googleButtonAnimation.setDelay(Duration.millis(1900));
+            googleButtonAnimation.play();
+        }
+        if (appleButton1 != null) {
+            Timeline appleButtonAnimation = createButtonSlideUpAnimation(appleButton1, 100, Duration.millis(400));
+            appleButtonAnimation.setDelay(Duration.millis(1950));
+            appleButtonAnimation.play();
+        }
+        if (facebookButton1 != null) {
+            Timeline facebookButtonAnimation = createButtonSlideUpAnimation(facebookButton1, 100, Duration.millis(400));
+            facebookButtonAnimation.setDelay(Duration.millis(2000));
+            facebookButtonAnimation.play();
+        }
+        if (githubButton1 != null) {
+            Timeline githubButtonAnimation = createButtonSlideUpAnimation(githubButton1, 100, Duration.millis(400));
+            githubButtonAnimation.setDelay(Duration.millis(2050));
+            githubButtonAnimation.play();
         }
     }
 
@@ -340,20 +439,6 @@ public class logincontroller implements Initializable {
             new KeyFrame(duration,
                 new KeyValue(line.translateYProperty(), 0, Interpolator.EASE_OUT),
                 new KeyValue(line.opacityProperty(), 1, Interpolator.EASE_OUT)
-            )
-        );
-    }
-
-    // New method for HBox animations (for social buttons container)
-    private Timeline createHBoxSlideUpAnimation(HBox hbox, double startOffset, Duration duration) {
-        return new Timeline(
-            new KeyFrame(Duration.ZERO,
-                new KeyValue(hbox.translateYProperty(), startOffset),
-                new KeyValue(hbox.opacityProperty(), 0)
-            ),
-            new KeyFrame(duration,
-                new KeyValue(hbox.translateYProperty(), 0, Interpolator.EASE_OUT),
-                new KeyValue(hbox.opacityProperty(), 1, Interpolator.EASE_OUT)
             )
         );
     }

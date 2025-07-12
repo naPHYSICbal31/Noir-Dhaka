@@ -101,6 +101,13 @@ public class dbFetch {
         return f.find(new Document("username",m)).first().getInteger("id");
     }
 
+    private String getUserNameById(int id){
+        MongoCollection<Document> d  = database.getCollection("users");
+        String m =  d.find(new Document("id", id)).first().getString("username");
+
+        return m;
+    }
+
     public User getUserinfo(){
         this.collection = database.getCollection("users");
         if(currentToken == null){
@@ -422,6 +429,25 @@ public class dbFetch {
     public void removeCart(){
         this.collection = database.getCollection("carts");
         this.collection.deleteOne(new Document("userid", getUserIdByToken()));
+    }
+
+    public void removeCart(int userid){
+        this.collection = database.getCollection("carts");
+        this.collection.deleteOne(new Document("userid", userid));
+    }
+
+    public void removeUser(int id){
+        this.collection = database.getCollection("session");
+        this.collection.deleteOne(new Document("username", getUserNameById(id)));
+
+        removeCart(id);
+        this.collection = database.getCollection("users");
+        this.collection.deleteOne(new Document("id", id));
+
+    }
+
+    public void removeCoffee(int id){
+
     }
 
 

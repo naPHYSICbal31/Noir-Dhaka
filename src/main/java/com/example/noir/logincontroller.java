@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -30,6 +31,19 @@ public class logincontroller implements Initializable {
 
     @FXML
     private Button continuebutton;
+    
+    @FXML
+    private Button googleButton;
+    
+    @FXML
+    private Button appleButton;
+    
+    @FXML
+    private Button githubButton;
+    
+    @FXML
+    private HBox socialButtonsContainer;
+    
     @FXML
     private Line line;
 
@@ -114,6 +128,30 @@ public class logincontroller implements Initializable {
         }
     }
 
+    @FXML
+    private void handleGoogleLogin() {
+        System.out.println("Google login clicked");
+        // Add your Google OAuth logic here
+        // For example:
+        // GoogleAuthService.authenticate();
+    }
+
+    @FXML
+    private void handleAppleLogin() {
+        System.out.println("Apple login clicked");
+        // Add your Apple OAuth logic here
+        // For example:
+        // AppleAuthService.authenticate();
+    }
+
+    @FXML
+    private void handleGithubLogin() {
+        System.out.println("GitHub login clicked");
+        // Add your GitHub OAuth logic here
+        // For example:
+        // GitHubAuthService.authenticate();
+    }
+
     private void initializeElements() {
         // Check if ImageViews exist before animating them
         if (loginbg != null) {
@@ -150,6 +188,12 @@ public class logincontroller implements Initializable {
         if (continuebutton != null) {
             continuebutton.setTranslateY(100);
             continuebutton.setOpacity(0);
+        }
+
+        // Hide social buttons container
+        if (socialButtonsContainer != null) {
+            socialButtonsContainer.setTranslateY(100);
+            socialButtonsContainer.setOpacity(0);
         }
 
         // Hide line separator
@@ -218,11 +262,6 @@ public class logincontroller implements Initializable {
             regButtonAnimation.setDelay(Duration.millis(1300));
             regButtonAnimation.play();
         }
-        if (continuebutton != null) {
-            Timeline continueButtonAnimation = createButtonSlideUpAnimation(continuebutton, 100, Duration.millis(400));
-            continueButtonAnimation.setDelay(Duration.millis(1300));
-            continueButtonAnimation.play();
-        }
 
         // Step 8: Animate username field sliding up from bottom (starts after register button)
         if (usernameField != null) {
@@ -236,6 +275,20 @@ public class logincontroller implements Initializable {
             Timeline passwordAnimation = createTextFieldSlideUpAnimation(passwordField, 100, Duration.millis(400));
             passwordAnimation.setDelay(Duration.millis(1500));
             passwordAnimation.play();
+        }
+
+        // Step 10: Animate social buttons container sliding up from bottom (starts after password field)
+        if (socialButtonsContainer != null) {
+            Timeline socialButtonsAnimation = createHBoxSlideUpAnimation(socialButtonsContainer, 100, Duration.millis(400));
+            socialButtonsAnimation.setDelay(Duration.millis(1600));
+            socialButtonsAnimation.play();
+        }
+
+        // Step 11: Animate continue button sliding up from bottom (starts after social buttons)
+        if (continuebutton != null) {
+            Timeline continueButtonAnimation = createButtonSlideUpAnimation(continuebutton, 100, Duration.millis(400));
+            continueButtonAnimation.setDelay(Duration.millis(1700));
+            continueButtonAnimation.play();
         }
     }
 
@@ -287,6 +340,20 @@ public class logincontroller implements Initializable {
             new KeyFrame(duration,
                 new KeyValue(line.translateYProperty(), 0, Interpolator.EASE_OUT),
                 new KeyValue(line.opacityProperty(), 1, Interpolator.EASE_OUT)
+            )
+        );
+    }
+
+    // New method for HBox animations (for social buttons container)
+    private Timeline createHBoxSlideUpAnimation(HBox hbox, double startOffset, Duration duration) {
+        return new Timeline(
+            new KeyFrame(Duration.ZERO,
+                new KeyValue(hbox.translateYProperty(), startOffset),
+                new KeyValue(hbox.opacityProperty(), 0)
+            ),
+            new KeyFrame(duration,
+                new KeyValue(hbox.translateYProperty(), 0, Interpolator.EASE_OUT),
+                new KeyValue(hbox.opacityProperty(), 1, Interpolator.EASE_OUT)
             )
         );
     }

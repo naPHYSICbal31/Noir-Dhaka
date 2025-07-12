@@ -145,3 +145,22 @@
 .login-text-bold {
     -fx-text-fill: #222222;
 }
+.social-button {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #333333;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.social-button:hover {
+    -fx-background-color: #e0e0e0;
+    -fx-border-color: #999999;
+}
+
+.social-button:pressed {
+    -fx-background-color: #d0d0d0;
+}

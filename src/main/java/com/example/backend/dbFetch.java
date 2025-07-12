@@ -13,9 +13,8 @@ public class dbFetch {
     private MongoDatabase database;
     private MongoCollection<Document> collection;
     public dbFetch() {
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
-            MongoDatabase database = mongoClient.getDatabase("noirdb");
-        }
+        this.mongoClient = MongoClients.create("mongodb://localhost:27017");
+        this.database = mongoClient.getDatabase("noirdb");
     }
 
 
@@ -27,7 +26,7 @@ public class dbFetch {
      * Methods throw exceptions with messages instead of returning false
      */
 
-    static String currentToken;
+    protected static String currentToken;
 
     public void register(User user){
         this.collection = database.getCollection("users");
@@ -45,20 +44,25 @@ public class dbFetch {
 
     }
 
-    public void validateLogin(String username, String password){
+    public void validateLogin(String username, String password) throws RuntimeException{
         this.collection = database.getCollection("creds");
         String pass = User.hashpass(password);
 
-        Document match = collection.find(new Document("user",username)).first();
+        Document match = collection.find(new Document("username",username)).first();
 
         if(match != null){
             String compPass = match.getString("password");
-            if(compPass.equals(pass)){
+            try{if(compPass.equals(pass)){
                 terminateSession(username);
                 setAndGenToken(username);
+
+            }else{
+                throw new RuntimeException("Invalid username or password");
+            }}finally {
+
             }
         }
-        throw new RuntimeException("Invalid username or password");
+
     }
 
     public void logOut(){
@@ -66,9 +70,9 @@ public class dbFetch {
         currentToken = null;
     }
 
-    private void terminateSession(String token){
+    private void terminateSession(String username){
         MongoCollection<Document> d = database.getCollection("sessions");
-        d.findOneAndDelete(new Document("token",token));
+        d.findOneAndDelete(new Document("username",username));
     }
 
     private void setAndGenToken(String username){
@@ -92,7 +96,9 @@ public class dbFetch {
 
     private int getUserIdByToken(){
         MongoCollection<Document> d  = database.getCollection("sessions");
-        return d.find(new Document("token",currentToken)).first().getInteger("id");
+        String m =  d.find(new Document("sessionToken", currentToken)).first().getString("username");
+        MongoCollection<Document> f =  database.getCollection("users");
+        return f.find(new Document("username",m)).first().getInteger("id");
     }
 
     public User getUserinfo(){
@@ -101,7 +107,7 @@ public class dbFetch {
             return null;
         }
         int userid = getUserIdByToken();
-        List<Document> matches = this.collection.find(new Document("userid",userid)).into(new ArrayList<>());
+        List<Document> matches = this.collection.find(new Document("id",userid)).into(new ArrayList<>());
         if(matches != null){
             return parseUsers(matches).getFirst();
         }
@@ -123,11 +129,12 @@ public class dbFetch {
     public Coffee getCoffeeById(int id){
         MongoCollection<Document> d = database.getCollection("coffees");
 
-        List<Document> m = new ArrayList<>();
-        m = m = d.find(new Document("id" , id)).into(new ArrayList<>());
+
+        Document m = d.find(new Document("id" , id)).first();
 
         if(m != null){
-            parseCoffees(m);
+            return parseCoffee(m);
+
         }
         return null;
     }
@@ -259,10 +266,15 @@ public class dbFetch {
     private List<Coffee> parseCoffees(List<Document> d){
         List<Coffee> coffees = new ArrayList<>(d.size());
         for(Document m : d){
+            boolean isRare = Boolean.TRUE.equals(m.getBoolean("isRare"));
+            boolean isSmallBatch = Boolean.TRUE.equals(m.getBoolean("isSmallBatch"));
+            boolean isFarmToCup = Boolean.TRUE.equals(m.getBoolean("isFarmToCup"));
+            boolean isSoldOut = Boolean.TRUE.equals(m.getBoolean("isSoldOut"));
+            boolean isNearSoldOut = Boolean.TRUE.equals(m.getBoolean("isNearSoldOut"));
             List<Document> rev = m.getList("reviews", Document.class);
             List<Review> revs = parseReviews(rev);
-            List<Boolean> tg = m.getList("tags", Boolean.class);
-            coffees.add(new Coffee(m.getInteger("id"), m.getString("name"),m.getString("imageurl"),m.getString("description"),m.getString("packetSize"),m.getDouble("weight"),m.getDouble("packetSize"),m.getInteger("strength"),m.getInteger("flavour"),m.getInteger("acidity"),m.getInteger("aroma"),m.getBoolean("isRare"),m.getBoolean("isSmallBatch"),m.getBoolean("isFarmToCup"),m.getInteger("currentStock"),m.getInteger("numberOfSales"),m.getBoolean("isSoldOut"),m.getBoolean("isNearSoldOut"),revs,tg));
+            List<Boolean> tg = m.getList("tag", Boolean.class);
+            coffees.add(new Coffee(m.getInteger("id"), m.getString("name"),m.getString("imageurl"),m.getString("description"),m.getString("packetSize"),m.getDouble("weight"),m.getDouble("price"),m.getInteger("strength"),m.getInteger("flavour"),m.getInteger("acidity"),m.getInteger("aroma"),isRare,isSmallBatch,isFarmToCup,m.getInteger("currentStock"),m.getInteger("numberOfSales"),isSoldOut,isNearSoldOut,revs,tg));
         }
 
         return coffees;
@@ -271,17 +283,45 @@ public class dbFetch {
     private Coffee parseCoffee(Document d){
         List<Document> rev = d.getList("reviews", Document.class);
         List<Review> revs = parseReviews(rev);
-        List<Boolean> tg = d.getList("tags", Boolean.class);
-        return new Coffee(d.getInteger("id"), d.getString("name"),d.getString("imageurl"),d.getString("description"),d.getString("packetSize"),d.getDouble("weight"),d.getDouble("packetSize"),d.getInteger("strength"),d.getInteger("flavour"),d.getInteger("acidity"),d.getInteger("aroma"),d.getBoolean("isRare"),d.getBoolean("isSmallBatch"),d.getBoolean("isFarmToCup"),d.getInteger("currentStock"),d.getInteger("numberOfSales"),d.getBoolean("isSoldOut"),d.getBoolean("isNearSoldOut"),revs,tg);
+        List<Boolean> tg = d.getList("tag", Boolean.class);
+        boolean isRare = Boolean.TRUE.equals(d.getBoolean("isRare"));
+        boolean isSmallBatch = Boolean.TRUE.equals(d.getBoolean("isSmallBatch"));
+        boolean isFarmToCup = Boolean.TRUE.equals(d.getBoolean("isFarmToCup"));
+        boolean isSoldOut = Boolean.TRUE.equals(d.getBoolean("isSoldOut"));
+        boolean isNearSoldOut = Boolean.TRUE.equals(d.getBoolean("isNearSoldOut"));
 
+        return new Coffee(
+                d.getInteger("id"),
+                d.getString("name"),
+                d.getString("imageurl"),
+                d.getString("description"),
+                d.getString("packetSize"),
+                d.getDouble("weight"),
+                d.getDouble("price"),
+                d.getInteger("strength"),
+                d.getInteger("flavour"),
+                d.getInteger("acidity"),
+                d.getInteger("aroma"),
+                isRare,
+                isSmallBatch,
+                isFarmToCup,
+                d.getInteger("currentStock"),
+                d.getInteger("numberOfSales"),
+                isSoldOut,
+                isNearSoldOut,
+                revs,
+                tg
+        );
     }
+
+
 
     private List<User> parseUsers(List<Document> d) {
         List<User> users = new ArrayList<>(d.size());
 
         for (Document m : d) {
             String username = m.getString("username");
-            int userid = m.getInteger("userid");
+            int userid = m.getInteger("id");
             String email = m.getString("email");
 
             String address = m.getString("address");
@@ -334,7 +374,7 @@ public class dbFetch {
             reviews.add(doc);
         }
 
-        this.collection.insertOne(new Document("id", coffee.getId()).append( "name", coffee.getName()).append("imageurl", coffee.getImageurl()).append("description", coffee.getDescription()).append("packetSize", coffee.getPacketSize()).append("weight", coffee.getWeight()).append("tag", Arrays.asList(coffee.getTag())).append("price", coffee.getPrice()).append("strength", coffee.getStrength()).append("flavour",  coffee.getFlavour()).append("acidity", coffee.getAcidity()).append("aroma", coffee.getAroma()).append("currentStock", coffee.getCurrentStock()).append("numberOfSales", coffee.getNumberOfSales()).append("isSoldOut", coffee.isSoldOut()).append("isNearSoldOUt", coffee.isNearSoldOut()).append("isRare", coffee.isRare()).append("isSmallBatch", coffee.isSmallBatch()).append("isFarmToCup", coffee.isFarmToCup()).append("reviews", reviews));
+        this.collection.insertOne(new Document("id", coffee.getId()).append( "name", coffee.getName()).append("imageurl", coffee.getImageurl()).append("description", coffee.getDescription()).append("packetSize", coffee.getPacketSize()).append("weight", coffee.getWeight()).append("tag", coffee.getTag()).append("price", coffee.getPrice()).append("strength", coffee.getStrength()).append("flavour",  coffee.getFlavour()).append("acidity", coffee.getAcidity()).append("aroma", coffee.getAroma()).append("currentStock", coffee.getCurrentStock()).append("numberOfSales", coffee.getNumberOfSales()).append("isSoldOut", coffee.isSoldOut()).append("isNearSoldOUt", coffee.isNearSoldOut()).append("isRare", coffee.isRare()).append("isSmallBatch", coffee.isSmallBatch()).append("isFarmToCup", coffee.isFarmToCup()).append("reviews", reviews));
     }
 
     public void addCoffees(List<Coffee> coffees){
@@ -371,6 +411,8 @@ public class dbFetch {
         }
 
         Document docx = new Document("userid", userid).append("timestamp", Instant.now().toString()).append("coffees", coffees);
+
+        this.collection.insertOne(docx);
     }
 
     /*

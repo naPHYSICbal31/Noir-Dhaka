@@ -1,5 +1,6 @@
 package com.example.backend;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
 /*
@@ -56,7 +57,7 @@ public class Review {
     }
 
     public void setTimestamp(String timestamp) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         this.timestamp = LocalDateTime.parse(timestamp, formatter);
     }
 

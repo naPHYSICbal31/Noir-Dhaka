@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Vector;
 import java.util.Map;
 import org.mindrot.jbcrypt.BCrypt;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class User {
     private String username;
@@ -40,6 +42,27 @@ public class User {
         this.buyHistory = buyHistory;
     }
 
+
+
+
+    private static String hashSHA256(String input) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(input.getBytes());
+
+
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hashBytes) {
+                String hex = String.format("%02x", b);
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 algorithm not found");
+        }
+    }
+
     public User(String username)
     {
         this.username = username;
@@ -52,7 +75,7 @@ public class User {
     }
 
     public static String hashpass(String pass) {
-        return BCrypt.hashpw(pass, BCrypt.gensalt());
+        return hashSHA256(pass);
     }
 
     public HashMap<Integer, Integer> getBuyHistory() {

@@ -52,14 +52,9 @@
                   <Image url="@images/products_head.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="frontIntro" fitHeight="769.0" fitWidth="873.0" layoutX="557.0" layoutY="1976.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="noirBg" fitHeight="751.0" fitWidth="598.0" layoutX="-20.0" layoutY="1976.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/front_intro.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="noirBg" fitHeight="748.0" fitWidth="563.0" layoutX="-1" layoutY="1976.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/noir_bg_final.jpg" />
+                  <Image url="@images/front_bg.png" />
                </image>
             </ImageView>
             <ImageView fx:id="qualitiesHead" fitHeight="210.0" fitWidth="1432.0" layoutX="-2.0" layoutY="2742.0" pickOnBounds="true" preserveRatio="true">
@@ -163,6 +158,11 @@
         <Font name="RetrokiaCaps-Rough" size="18.0" />
     </font>
 </Text>
+            <ImageView fx:id="bggreen" fitHeight="54.0" fitWidth="550.0" layoutX="5.0" layoutY="2129.0" pickOnBounds="true">
+               <image>
+                  <Image url="@images/Screenshot%202025-07-16%20221113.png" />
+               </image>
+            </ImageView>
             <ImageView fx:id="profile" fitHeight="77.0" fitWidth="50.0" layoutX="1260.0" layoutY="60.0" onMouseClicked="#handleProfileClick" pickOnBounds="true" preserveRatio="true">
     <image>
         <Image url="@images/profile.png" />
@@ -171,6 +171,21 @@
             <ImageView id="cart" fitHeight="77.0" fitWidth="50.0" layoutX="1333.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/cart.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="frontIntro" fitHeight="769.0" fitWidth="873.0" layoutX="557.0" layoutY="1976.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/front_intro.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="logobg" fitHeight="62.0" fitWidth="42.0" layoutX="12.0" layoutY="2137.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/noir_logo.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="txtbg" fitHeight="150.0" fitWidth="200.0" layoutX="170.0" layoutY="2131.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Screenshot%202025-07-16%20221359.png" />
                </image>
             </ImageView>
          </children></AnchorPane>

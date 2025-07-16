@@ -65,7 +65,7 @@ public class HelloApplication extends Application {
             }
             
             // Load Euclid Circular A Regular font (corrected filename)
-            Font euclidRegular = Font.loadFont(getClass().getResourceAsStream("/fonts/euclidregular.ttf"), 16);
+            Font euclidRegular = Font.loadFont(getClass().getResourceAsStream("/fonts/RetrokiaCaps-Rough.otf"), 16);
             if (euclidRegular == null) {
                 System.err.println("Failed to load Euclid Circular A Regular font");
             } else {
@@ -73,7 +73,7 @@ public class HelloApplication extends Application {
             }
 
             // Load Euclid Circular A Bold font (corrected filename)
-            Font euclidBold = Font.loadFont(getClass().getResourceAsStream("/fonts/euclidbold.ttf"), 16);
+            Font euclidBold = Font.loadFont(getClass().getResourceAsStream("/fonts/RetrokiaCaps-Rough.otf"), 16);
             if (euclidBold == null) {
                 System.err.println("Failed to load Euclid Circular A Bold font");
             } else {

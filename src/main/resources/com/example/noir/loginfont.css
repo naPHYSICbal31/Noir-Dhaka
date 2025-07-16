@@ -41,30 +41,37 @@
 
 /* TextField styling to match the color scheme */
 .text-field {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-color: rgba(255, 255, 255, 0.9);
     -fx-background-radius: 15;
-    -fx-border-color: #72A603;
-    -fx-border-width: 2px;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
     -fx-border-radius: 15;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-size: 16px;
     -fx-font-family: "Euclid Circular A Regular";
-    -fx-padding: 10 15 10 15;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);
+    -fx-padding: 12 15 12 15;
+    -fx-prompt-text-fill: rgba(0, 0, 0, 0.5);
+    -fx-effect: none;
 }
 
 /* TextField focus state */
 .text-field:focused {
-    -fx-border-color: #A9F305;
-    -fx-border-width: 2px;
-    -fx-background-color: rgba(255, 255, 255, 0.15);
-    -fx-effect: dropshadow(gaussian, rgba(169, 243, 5, 0.3), 8, 0, 0, 2);
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: rgba(0, 0, 0, 0.5);
+    -fx-effect: none;
 }
 
 /* TextField hover state */
 .text-field:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.12);
-    -fx-border-color: #A9F305;
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: rgba(0, 0, 0, 0.5);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 2);
 }
 
 /* Placeholder text styling */
@@ -163,4 +170,8 @@
 
 .social-button:pressed {
     -fx-background-color: #d0d0d0;
+}
+#noir_logo:hover {
+    -fx-cursor: hand;
+    -fx-opacity: 0.8;
 }

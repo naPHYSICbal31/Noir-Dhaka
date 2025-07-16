@@ -5,6 +5,7 @@ import javafx.animation.TranslateTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -32,7 +33,9 @@ public class HelloController {
     @FXML private ImageView noirBg;
     @FXML private ImageView qualitiesHead;
     @FXML private ScrollPane verticalScrollPane;
-
+    @FXML private ImageView txtbg;
+    @FXML private ImageView logobg;
+    @FXML private ImageView bggreen;
     private List<ImageView> animatedImages;
     private boolean[] animationPlayed;
 
@@ -118,7 +121,7 @@ private void smoothScrollTo(double targetValue,double time) {
         });
 
         // Initialize animated images list
-        animatedImages = Arrays.asList(reviewHead, productsHead, frontIntro, noirBg, qualitiesHead);
+        animatedImages = Arrays.asList(reviewHead, productsHead, qualitiesHead);
         animationPlayed = new boolean[animatedImages.size()];
 
         // Add scroll listener
@@ -191,6 +194,13 @@ private void smoothScrollTo(double targetValue,double time) {
             e.printStackTrace();
         }
     }
+    public void scrollToTop() {
+        // Reset scroll position to top with a quick animation
+        Platform.runLater(() -> {
+            smoothScrollTo(0.0, 0.0001); // 0.5 seconds duration
+        });
+    }
+
 
 // Temporary method to help find correct scroll values
 

@@ -33,6 +33,16 @@
                               <Image url="@images/products-3.png" />
                            </image>
                         </ImageView>
+                        <ImageView fitHeight="442.0" fitWidth="440.0" layoutX="514.0" layoutY="58.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="bucaramanga" fitHeight="406.0" fitWidth="403.0" layoutX="533.0" layoutY="82.0" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/bucaramanga.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
               </content>
@@ -160,7 +170,7 @@
 </Text>
             <ImageView fx:id="bggreen" fitHeight="54.0" fitWidth="550.0" layoutX="5.0" layoutY="2129.0" pickOnBounds="true">
                <image>
-                  <Image url="@images/Screenshot%202025-07-16%20221113.png" />
+                  <Image url="@images/random4.png" />
                </image>
             </ImageView>
             <ImageView fx:id="profile" fitHeight="77.0" fitWidth="50.0" layoutX="1260.0" layoutY="60.0" onMouseClicked="#handleProfileClick" pickOnBounds="true" preserveRatio="true">
@@ -185,7 +195,7 @@
             </ImageView>
             <ImageView fx:id="txtbg" fitHeight="150.0" fitWidth="200.0" layoutX="170.0" layoutY="2131.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/Screenshot%202025-07-16%20221359.png" />
+                  <Image url="@images/random2.png" />
                </image>
             </ImageView>
          </children></AnchorPane>

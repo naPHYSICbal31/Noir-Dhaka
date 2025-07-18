@@ -851,8 +851,8 @@ public class logincontroller implements Initializable {
         String password = passwordField.getText();
         try{
             auth.validateLogin(username, password);
-
             handleLogoClick();
+
             /* TODO
              * Navigate back to the HelloApplication
              */
@@ -873,6 +873,7 @@ public class logincontroller implements Initializable {
         System.out.println("Login attempt with username: " + username);
 
     }
+
 
     @FXML
     private void handleRegister() {

@@ -1,5 +1,5 @@
 package com.example.noir;
-
+import com.example.backend.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.animation.ParallelTransition;
@@ -22,6 +22,8 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 import javafx.scene.text.Text;
+import javafx.animation.ScaleTransition;
+import javafx.scene.input.MouseEvent;
 
 public class HelloController {
     @FXML private TextField newsletterField;
@@ -49,8 +51,6 @@ private Text top3Text;
 private Text top4Text;
 @FXML
 private ImageView profile;
-
-
 @FXML
 private void handleTop1Click() {
     // Scroll to Products section
@@ -77,16 +77,28 @@ private void handleTop4Click() {
     @FXML
     private void handleProfileClick() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
-            Stage stage = (Stage) profile.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
-            stage.setTitle("Noir Dhaka");
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            if (dbFetch.currentToken != null) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
+                Stage stage = (Stage) profile.getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            }
+            else
+                {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+                    Stage stage = (Stage) profile.getScene().getWindow();
+                    Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                    stage.setTitle("Noir Dhaka");
+                    stage.setResizable(false);
+                    stage.setScene(scene);
+                    stage.centerOnScreen();
+                }
+            } catch(IOException e){
+                e.printStackTrace();
+            }
     }
 
 // Modified scroll method that takes a target value parameter
@@ -198,6 +210,23 @@ private void smoothScrollTo(double targetValue,double time) {
         // Reset scroll position to top with a quick animation
         Platform.runLater(() -> {
             smoothScrollTo(0.0, 0.0001); // 0.5 seconds duration
+        });
+    }
+    @FXML
+    private void handlehoverzoom(MouseEvent event) {
+        ImageView imageView = (ImageView) event.getSource();
+
+        // Create a scale transition for zoom effect
+        javafx.animation.ScaleTransition scaleTransition = new javafx.animation.ScaleTransition(Duration.millis(300), imageView);
+        scaleTransition.setToX(1.1); // Scale to 110% of original size
+        scaleTransition.setToY(1.1);
+        scaleTransition.play();
+        // Add mouse exited handler to zoom back out
+        imageView.setOnMouseExited(exitEvent -> {
+            javafx.animation.ScaleTransition scaleBack = new javafx.animation.ScaleTransition(Duration.millis(300), imageView);
+            scaleBack.setToX(1.0); // Scale back to original size
+            scaleBack.setToY(1.0);
+            scaleBack.play();
         });
     }
 

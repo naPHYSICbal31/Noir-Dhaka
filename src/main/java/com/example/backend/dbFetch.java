@@ -26,7 +26,7 @@ public class dbFetch {
      * Methods throw exceptions with messages instead of returning false
      */
 
-    protected static String currentToken;
+    public static String currentToken;
 
     public void register(User user){
         this.collection = database.getCollection("users");

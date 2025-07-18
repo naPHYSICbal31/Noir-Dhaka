@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.noir.ProfileController"
-            prefHeight="1440.0" prefWidth="810.0">
 
+<AnchorPane prefHeight="810.0" prefWidth="1440.0" style="-fx-background-color: #e9e9e9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.noir.ProfileController">
+   <children>
+      <ImageView fitHeight="126.0" fitWidth="1440.0" pickOnBounds="true">
+         <image>
+            <Image url="@images/blankgbg.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="86.0" fitWidth="94.0" layoutX="22.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/noir_logo.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="top1" layoutX="155.0" layoutY="71.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="products">
+         <font>
+            <Font name="RetrokiaCaps-Rough" size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="top4" layoutX="795.0" layoutY="71.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="ABOUT US">
+         <font>
+            <Font name="RetrokiaCaps-Rough" size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="top3" layoutX="625.0" layoutY="71.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="reviews">
+         <font>
+            <Font name="RetrokiaCaps-Rough" size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="top2" layoutX="355.0" layoutY="71.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="subscriptions">
+         <font>
+            <Font name="RetrokiaCaps-Rough" size="24.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#748e72" height="126.0" layoutX="1126.0" stroke="TRANSPARENT" strokeType="INSIDE" width="315.0" />
+      <Text layoutX="1197.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FIND YOUR COFFEE">
+         <font>
+            <Font name="RetrokiaCaps-Rough" size="18.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="109.0" fitWidth="72.0" layoutX="1042.0" layoutY="25.0" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+         <image>
+            <Image url="@images/shopping-bag.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="194.0" fitWidth="1439.0" layoutX="1.0" layoutY="617.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Screenshot%202025-07-19%20011253.png" />
+         </image>
+      </ImageView>
+   </children>
 </AnchorPane>

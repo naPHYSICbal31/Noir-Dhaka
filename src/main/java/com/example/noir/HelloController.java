@@ -52,25 +52,25 @@ private Text top4Text;
 @FXML
 private ImageView profile;
 @FXML
-private void handleTop1Click() {
+public void handleTop1Click() {
     // Scroll to Products section
     smoothScrollTo(0.27,.375); // Adjust this value to match Products section position
 }
 
 @FXML
-private void handleTop2Click() {
+public void handleTop2Click() {
     // Scroll to Subscriptions section
     smoothScrollTo(0.82,0.625); // Adjust this value to match Subscriptions section position
 }
 
 @FXML
-private void handleTop3Click() {
+public void handleTop3Click() {
     // Scroll to Reviews section
     smoothScrollTo(0.1478,0.2); // Adjust this value to match Reviews section position
 }
 
 @FXML
-private void handleTop4Click() {
+public void handleTop4Click() {
     // Scroll to About Us section
     smoothScrollTo(0.465,0.5); // Adjust this value to match About Us section position
 }
@@ -102,7 +102,7 @@ private void handleTop4Click() {
     }
 
 // Modified scroll method that takes a target value parameter
-private void smoothScrollTo(double targetValue,double time) {
+public void smoothScrollTo(double targetValue,double time) {
     double startValue = verticalScrollPane.getVvalue();
     Duration duration = Duration.seconds(time);
     int frames = 240;
@@ -139,6 +139,11 @@ private void smoothScrollTo(double targetValue,double time) {
         // Add scroll listener
         verticalScrollPane.vvalueProperty().addListener((observable, oldValue, newValue) -> {
             checkAndAnimateImages();
+        });
+        
+        // Reset scroll position to top when scene loads
+        Platform.runLater(() -> {
+            verticalScrollPane.setVvalue(0.0);
         });
     }
 
@@ -242,7 +247,37 @@ private void smoothScrollTo(double targetValue,double time) {
             textElement.setUnderline(false);
         });
     }
+    @FXML
+    public void redirectToCoffee(MouseEvent event) {
+        try {
+            // Get the source of the event (could be ImageView or Text)
+            Object source = event.getSource();
 
+            // Get the current stage
+            Stage stage = null;
+            if (source instanceof ImageView) {
+                stage = (Stage) ((ImageView) source).getScene().getWindow();
+            } else if (source instanceof Text) {
+                stage = (Stage) ((Text) source).getScene().getWindow();
+            }
+
+            // Load the specific FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("coffee.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+
+            // Get the controller and reset scroll position
+            coffeeController coffeeController = fxmlLoader.getController();
+
+            // Set up the stage
+            stage.setTitle("Noir Dhaka");
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 @FXML
 private void redirectToScene(MouseEvent event) {
     try {
@@ -258,14 +293,47 @@ private void redirectToScene(MouseEvent event) {
         }
         
         // Load the specific FXML file
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("coffee.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+        
+        // Get the controller and reset scroll position
+        HelloController helloController = fxmlLoader.getController();
         
         // Set up the stage
         stage.setTitle("Noir Dhaka");
         stage.setResizable(false);
         stage.setScene(scene);
         stage.centerOnScreen();
+        
+        // Reset scroll position to top after scene is set
+        Platform.runLater(() -> {
+            helloController.scrollToTop();
+            
+            // Switch statement to handle different navigation targets
+            if (source instanceof Text) {
+                Text textSource = (Text) source;
+                String fxId = textSource.getId();
+                
+                // Add the missing switch statement
+                switch (fxId) {
+                    case "top1":
+                        helloController.handleTop1Click();
+                        break;
+                    case "top2":
+                        helloController.handleTop2Click();
+                        break;
+                    case "top3":
+                        helloController.handleTop3Click();
+                        break;
+                    case "top4":
+                        helloController.handleTop4Click();
+                        break;
+                    default:
+                        // No specific scroll action for other elements
+                        break;
+                }
+            }
+        });
         
     } catch (IOException e) {
         e.printStackTrace();

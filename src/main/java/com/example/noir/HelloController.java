@@ -229,6 +229,50 @@ private void smoothScrollTo(double targetValue,double time) {
             scaleBack.play();
         });
     }
+    @FXML
+    private void addunderline(MouseEvent event) {
+        // Get the Text object that triggered the event
+        Text textElement = (Text) event.getSource();
+
+        // Add underline when mouse enters
+        textElement.setUnderline(true);
+
+        // Add mouse exited handler to remove underline when mouse leaves
+        textElement.setOnMouseExited(exitEvent -> {
+            textElement.setUnderline(false);
+        });
+    }
+
+@FXML
+private void redirectToScene(MouseEvent event) {
+    try {
+        // Get the source of the event (could be ImageView or Text)
+        Object source = event.getSource();
+        
+        // Get the current stage
+        Stage stage = null;
+        if (source instanceof ImageView) {
+            stage = (Stage) ((ImageView) source).getScene().getWindow();
+        } else if (source instanceof Text) {
+            stage = (Stage) ((Text) source).getScene().getWindow();
+        }
+        
+        // Load the specific FXML file
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("coffee.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+        
+        // Set up the stage
+        stage.setTitle("Noir Dhaka");
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+
 
 
 // Temporary method to help find correct scroll values

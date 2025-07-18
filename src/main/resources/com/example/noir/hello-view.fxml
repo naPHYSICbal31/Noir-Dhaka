@@ -38,11 +38,31 @@
                               <Image url="@images/blankbg.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="bucaramanga" fitHeight="406.0" fitWidth="403.0" layoutX="533.0" layoutY="82.0" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="bucaramanga" fitHeight="403.0" fitWidth="403.0" layoutX="533.0" layoutY="82.0" onMouseClicked="#redirectToScene" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                            <image>
                               <Image url="@images/bucaramanga.png" />
                            </image>
                         </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="534.0" layoutY="516.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt2" layoutX="542.0" layoutY="551.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="COLOMBIAN BUCARAMANGA" wrappingWidth="397.53184509277344">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="641.0" layoutY="571.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtk2" layoutX="649.0" layoutY="624.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="1,732.83 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
               </content>

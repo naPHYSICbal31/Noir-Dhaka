@@ -21,10 +21,13 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import com.example.backend.*;
 
 public class logincontroller implements Initializable {
     public static final int TRANSLATE_X = -400;
     // Login form fields
+    private dbFetch auth;
+
     @FXML
     private TextField usernameField;
 
@@ -136,8 +139,12 @@ public class logincontroller implements Initializable {
     // Track which button is currently active
     private boolean isLoginActive = true;
 
+    @FXML
+    private ImageView profile;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        auth = new dbFetch();
         // Load custom fonts
         loadCustomFonts();
 
@@ -155,13 +162,12 @@ public class logincontroller implements Initializable {
     }
 
     private void setupButtonHandlers() {
-        // Add click handlers for both buttons
         loginButton.setOnAction(event -> switchToLogin());
         regbutton.setOnAction(event -> switchToRegister());
     }
 
     private void setInitialButtonStates() {
-        // Initially set login button as active (green background)
+
         loginButton.getStyleClass().add("active-button");
         regbutton.getStyleClass().add("inactive-button");
     }
@@ -169,7 +175,7 @@ public class logincontroller implements Initializable {
     @FXML
     private void switchToLogin() {
         if (!isLoginActive) {
-            // Remove current styles
+
             loginButton.getStyleClass().removeAll("active-button", "inactive-button");
             regbutton.getStyleClass().removeAll("active-button", "inactive-button");
 
@@ -663,69 +669,60 @@ public class logincontroller implements Initializable {
     }
 
     private void startAnimationSequence() {
-        // Step 1: Animate background image sliding up from bottom
+
         if (loginbg != null) {
             Timeline backgroundAnimation = createSlideUpAnimation(loginbg, 800, Duration.millis(400));
             backgroundAnimation.play();
         }
 
-        // Step 2: Animate logo sliding up from bottom (starts 200ms after background)
+
         if (noir_logo != null) {
             Timeline logoAnimation = createSlideUpAnimation(noir_logo, 800, Duration.millis(400));
             logoAnimation.setDelay(Duration.millis(200));
             logoAnimation.play();
         }
 
-        // Step 3: Animate login1 text sliding in from left (starts after logo completes)
         if (orText2 != null) {
             Timeline login1Animation = createSlideInAnimation(orText2, Duration.millis(500));
             login1Animation.setDelay(Duration.millis(600));
             login1Animation.play();
         }
 
-        // Step 4: Animate login2 text sliding in from left (starts 300ms after login1)
         if (orText3 != null) {
             Timeline login2Animation = createSlideInAnimation(orText3, Duration.millis(500));
             login2Animation.setDelay(Duration.millis(900));
             login2Animation.play();
         }
 
-        // Step 5: Animate login button sliding up from bottom (starts after login2)
         if (loginButton != null) {
             Timeline loginButtonAnimation = createButtonSlideUpAnimation(loginButton, 100, Duration.millis(400));
             loginButtonAnimation.setDelay(Duration.millis(1200));
             loginButtonAnimation.play();
         }
 
-        // Step 6: Animate line separator sliding up (starts with login button)
         if (line != null) {
             Timeline lineAnimation = createLineSlideUpAnimation(line, 100, Duration.millis(400));
             lineAnimation.setDelay(Duration.millis(1200));
             lineAnimation.play();
         }
-
-        // Step 7: Animate register button sliding up from bottom (starts 100ms after login button)
         if (regbutton != null) {
             Timeline regButtonAnimation = createButtonSlideUpAnimation(regbutton, 100, Duration.millis(400));
             regButtonAnimation.setDelay(Duration.millis(1300));
             regButtonAnimation.play();
         }
 
-        // Step 8: Animate login form sliding up from bottom (starts after register button)
         if (loginForm != null) {
             Timeline loginFormAnimation = createFormSlideUpAnimation(loginForm, 100, Duration.millis(400));
             loginFormAnimation.setDelay(Duration.millis(1400));
             loginFormAnimation.play();
         }
 
-        // Step 9: Animate OR text sliding in from left (starts after login form)
         if (orText != null) {
             Timeline orTextAnimation = createSlideInAnimation(orText, Duration.millis(400));
             orTextAnimation.setDelay(Duration.millis(1700));
             orTextAnimation.play();
         }
 
-        // Step 10: Animate line2 sliding up from bottom (starts with OR text)
         if (line2 != null) {
             Timeline line2Animation = createLineSlideUpAnimation(line2, 100, Duration.millis(400));
             line2Animation.setDelay(Duration.millis(1700));
@@ -739,14 +736,12 @@ public class logincontroller implements Initializable {
             line3Animation.play();
         }
 
-        // Step 12: Animate "continue with" text sliding in from left (starts after OR text)
         if (continueWithText != null) {
             Timeline continueWithTextAnimation = createSlideInAnimation(continueWithText, Duration.millis(400));
             continueWithTextAnimation.setDelay(Duration.millis(1800));
             continueWithTextAnimation.play();
         }
 
-        // Step 13: Animate social buttons sliding up from bottom (starts after continue with text)
         if (googleButton1 != null) {
             Timeline googleButtonAnimation = createButtonSlideUpAnimation(googleButton1, 100, Duration.millis(400));
             googleButtonAnimation.setDelay(Duration.millis(1900));
@@ -836,7 +831,7 @@ public class logincontroller implements Initializable {
 
     private void loadCustomFonts() {
         try{
-            // Load Euclid Circular A Bold font (using correct filename)
+
             Font retrokia = Font.loadFont(
                 getClass().getResourceAsStream("/fonts/RetrokiaCaps-Rough.otf"),
                 36 // Default size, can be overridden by CSS
@@ -854,9 +849,43 @@ public class logincontroller implements Initializable {
     private void handleLogin() {
         String username = usernameField.getText();
         String password = passwordField.getText();
+        try{
+            auth.validateLogin(username, password);
 
-        // Add your login logic here
+            goToDashBoard();
+            /* TODO
+             * Navigate back to the HelloApplication
+             */
+
+
+
+        }catch(Exception e){
+            usernameField.clear();
+            passwordField.clear();
+
+            System.out.println(e.getMessage());
+
+            /* TODO
+            *  Show error message in a notification or smth
+            * */
+        }
+
         System.out.println("Login attempt with username: " + username);
+
+    }
+    @FXML
+    private void goToDashBoard() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+            Stage stage = (Stage) profile.getScene().getWindow();
+            Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+            stage.setTitle("Noir Dhaka");
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -870,6 +899,19 @@ public class logincontroller implements Initializable {
         // Add your registration logic here
         if (password.equals(confirmPassword)) {
             System.out.println("Registration attempt with username: " + username + ", email: " + email);
+
+            /* TODO
+            * implement isAds
+            * */
+            User user = new User(username, password, email, address, true);
+            try{
+                auth.register(user);
+                goToDashBoard();
+            }catch(Exception e){
+                /* TODO
+                    Error message ... maybe same username alr registered
+                 */
+            }
         } else {
             System.out.println("Passwords do not match!");
         }

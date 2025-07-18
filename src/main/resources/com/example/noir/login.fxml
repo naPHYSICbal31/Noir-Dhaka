@@ -34,7 +34,7 @@
          <children>
             <TextField fx:id="usernameField" layoutY="0.0" prefHeight="36.0" prefWidth="327.0" promptText="username" />
             <PasswordField fx:id="passwordField" layoutY="74.0" prefHeight="36.0" prefWidth="327.0" promptText="password" />
-            <Button fx:id="continuebutton" layoutY="166.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="327.0" text="CONTINUE" />
+            <Button fx:id="continuebutton" layoutY="166.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="327.0" text="CONTINUE" onMouseClicked="#handleLogin" />
          </children>
       </AnchorPane>
       
@@ -46,7 +46,7 @@
             <TextField fx:id="regAddressField" layoutY="148.0" prefHeight="36.0" prefWidth="327.0" promptText="address" />
             <PasswordField fx:id="regPasswordField" layoutY="222.0" prefHeight="36.0" prefWidth="327.0" promptText="password" />
             <PasswordField fx:id="regConfirmPasswordField" layoutY="296.0" prefHeight="36.0" prefWidth="327.0" promptText="confirm password" />
-            <Button fx:id="regContinueButton" layoutX="-3.0" layoutY="368.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="327.0" text="REGISTER" />
+            <Button fx:id="regContinueButton" layoutX="-3.0" layoutY="368.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="327.0" text="REGISTER" onMouseClicked="#handleRegister" />
          </children>
       </AnchorPane>
 

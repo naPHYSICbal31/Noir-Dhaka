@@ -48,7 +48,7 @@ private Text top3Text;
 @FXML
 private Text top4Text;
 @FXML
-private ImageView profile;  // Change from 'profileImage' to 'profile' to match FXML id
+private ImageView profile;
 
 
 @FXML
@@ -78,7 +78,7 @@ private void handleTop4Click() {
     private void handleProfileClick() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
-            Stage stage = (Stage) profile.getScene().getWindow();  // Use 'profile' instead of 'profileImage'
+            Stage stage = (Stage) profile.getScene().getWindow();
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);

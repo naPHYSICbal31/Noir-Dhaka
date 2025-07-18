@@ -852,7 +852,7 @@ public class logincontroller implements Initializable {
         try{
             auth.validateLogin(username, password);
 
-            goToDashBoard();
+            handleLogoClick();
             /* TODO
              * Navigate back to the HelloApplication
              */
@@ -873,20 +873,6 @@ public class logincontroller implements Initializable {
         System.out.println("Login attempt with username: " + username);
 
     }
-    @FXML
-    private void goToDashBoard() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
-            Stage stage = (Stage) profile.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
-            stage.setTitle("Noir Dhaka");
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     private void handleRegister() {
@@ -906,7 +892,7 @@ public class logincontroller implements Initializable {
             User user = new User(username, password, email, address, true);
             try{
                 auth.register(user);
-                goToDashBoard();
+                handleLogoClick();
             }catch(Exception e){
                 /* TODO
                     Error message ... maybe same username alr registered

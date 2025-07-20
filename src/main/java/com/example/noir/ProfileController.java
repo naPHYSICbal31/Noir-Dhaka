@@ -33,6 +33,7 @@ import com.example.backend.Coffee;
 import com.example.backend.Review;
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
+import java.util.ArrayList;
 public class ProfileController implements Initializable {
     @FXML
     private ScrollPane verticalScrollPane;
@@ -51,31 +52,33 @@ public class ProfileController implements Initializable {
     // Add UI components to display database data
     @FXML
     public Label usernameLabel;
-    
+
     @FXML
     private Label emailLabel;
-    
     @FXML
     private Label addressLabel;
-    
+
     @FXML
     private ListView<String> coffeeListView;
-    
+
     @FXML
     private TableView<Coffee> coffeeTableView;
-    
+
     @FXML
     private TableColumn<Coffee, String> nameColumn;
-    
+
     @FXML
     private TableColumn<Coffee, Double> priceColumn;
-    
+
     @FXML
     private TableColumn<Coffee, String> descriptionColumn;
-    
+    @FXML
+    private TableColumn<Coffee, Integer> coffeeCountColumn;
+
     private dbFetch database;
     private Font euclidBoldFont;
-    
+    private User currentUser; // Add this as a class field
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadFonts();
@@ -84,8 +87,9 @@ public class ProfileController implements Initializable {
         loadCoffeeData();
         setupTableColumns();
         applyCustomFonts();
+        applyTableViewStyles();
     }
-    
+
     private void loadFonts() {
         try {
             // Load EuclidCircularA-Bold font
@@ -102,7 +106,7 @@ public class ProfileController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     private void applyCustomFonts() {
         // Apply the loaded font to UI components
         if (euclidBoldFont != null) {
@@ -117,10 +121,10 @@ public class ProfileController implements Initializable {
             usernameLabel411.setFont(euclidBoldFont);
         }
     }
-    
+
     private void loadUserData() {
         try {
-            User currentUser = database.getUserinfo();
+            currentUser = database.getUserinfo(); // Store the user data
             if (currentUser != null) {
                 if (usernameLabel != null) {
                     usernameLabel.setText(currentUser.getUsername());
@@ -136,50 +140,125 @@ public class ProfileController implements Initializable {
             System.err.println("Error loading user data: " + e.getMessage());
         }
     }
-    
-    private void loadCoffeeData() {
-        try {
-            List<Coffee> allCoffees = database.getAllCoffees();
+
+private void loadCoffeeData() {
+    try {
+        List<Coffee> allCoffees = database.getAllCoffees();
+
+        // For ListView - display only purchased coffee names
+        if (coffeeListView != null) {
+            ObservableList<String> purchasedCoffeeNames = FXCollections.observableArrayList();
             
-            // For ListView - display coffee names
-            if (coffeeListView != null) {
-                ObservableList<String> coffeeNames = FXCollections.observableArrayList();
+            if (currentUser != null && currentUser.getBuyHistory() != null) {
                 for (Coffee coffee : allCoffees) {
-                    coffeeNames.add(coffee.getName());
+                    Integer purchaseCount = currentUser.getBuyHistory().get(coffee.getId());
+                    if (purchaseCount != null && purchaseCount > 0) {
+                        purchasedCoffeeNames.add(coffee.getName());
+                    }
                 }
-                coffeeListView.setItems(coffeeNames);
             }
             
-            // For TableView - display full coffee details
-            if (coffeeTableView != null) {
-                ObservableList<Coffee> coffeeData = FXCollections.observableArrayList(allCoffees);
-                coffeeTableView.setItems(coffeeData);
-            }
-            
-        } catch (Exception e) {
-            System.err.println("Error loading coffee data: " + e.getMessage());
+            coffeeListView.setItems(purchasedCoffeeNames);
         }
+
+        // For TableView - display only coffees with non-zero purchase count
+        if (coffeeTableView != null) {
+            List<Coffee> purchasedCoffees = new ArrayList<>();
+            
+            if (currentUser != null && currentUser.getBuyHistory() != null) {
+                for (Coffee coffee : allCoffees) {
+                    Integer purchaseCount = currentUser.getBuyHistory().get(coffee.getId());
+                    // Only add coffees that have been purchased (count > 0)
+                    if (purchaseCount != null && purchaseCount > 0) {
+                        purchasedCoffees.add(coffee);
+                    }
+                }
+            }
+            
+            ObservableList<Coffee> filteredCoffeeData = FXCollections.observableArrayList(purchasedCoffees);
+            coffeeTableView.setItems(filteredCoffeeData);
+        }
+
+    } catch (Exception e) {
+        System.err.println("Error loading coffee data: " + e.getMessage());
     }
-    
+}
+
     private void setupTableColumns() {
         if (nameColumn != null) {
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+            nameColumn.setCellFactory(column -> {
+                return new javafx.scene.control.TableCell<Coffee, String>() {
+                    private javafx.scene.text.Text text;
+
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            text = new javafx.scene.text.Text(item);
+                            text.setWrappingWidth(nameColumn.getWidth() - 20);
+                            text.textProperty().bind(itemProperty());
+                            setGraphic(text);
+                            setText(null);
+                        }
+                    }
+                };
+            });
         }
+
         if (priceColumn != null) {
             priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         }
+
         if (descriptionColumn != null) {
             descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+            descriptionColumn.setCellFactory(column -> {
+                return new javafx.scene.control.TableCell<Coffee, String>() {
+                    private javafx.scene.text.Text text;
+
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            text = new javafx.scene.text.Text(item);
+                            text.setWrappingWidth(descriptionColumn.getWidth() - 20);
+                            text.textProperty().bind(itemProperty());
+                            setGraphic(text);
+                            setText(null);
+                        }
+                    }
+                };
+            });
+        }
+
+        // Add the coffee count column setup
+        if (coffeeCountColumn != null) {
+            coffeeCountColumn.setCellValueFactory(cellData -> {
+                Coffee coffee = cellData.getValue();
+            
+                if (currentUser != null && currentUser.getBuyHistory() != null) {
+                    // Get count from buy history using coffee ID
+                    Integer count = currentUser.getBuyHistory().get(coffee.getId());
+                    return new javafx.beans.property.SimpleIntegerProperty(count != null ? count : 0).asObject();
+                }
+                return new javafx.beans.property.SimpleIntegerProperty(0).asObject();
+            });
         }
     }
-    
+
     // Method to refresh data
     @FXML
     private void refreshData() {
-        loadUserData();
+        loadUserData(); // This will update currentUser
         loadCoffeeData();
     }
-    
+
     // Your existing methods...
     @FXML
     private void handlehoverzoom(MouseEvent event) {
@@ -198,7 +277,7 @@ public class ProfileController implements Initializable {
             scaleBack.play();
         });
     }
-    
+
     @FXML
     private void addunderline(MouseEvent event) {
         // Get the Text object that triggered the event
@@ -212,13 +291,13 @@ public class ProfileController implements Initializable {
             textElement.setUnderline(false);
         });
     }
-    
+
     @FXML
     private void redirectToScene(MouseEvent event) {
         try {
             // Get the source of the event (could be ImageView or Text)
             Object source = event.getSource();
-        
+
             // Get the current stage
             Stage stage = null;
             if (source instanceof ImageView) {
@@ -226,29 +305,29 @@ public class ProfileController implements Initializable {
             } else if (source instanceof Text) {
                 stage = (Stage) ((Text) source).getScene().getWindow();
             }
-        
+
             // Load the specific FXML file
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
-        
+
             // Get the controller and reset scroll position
             HelloController helloController = fxmlLoader.getController();
-        
+
             // Set up the stage
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
             stage.setScene(scene);
             stage.centerOnScreen();
-        
+
             // Reset scroll position to top after scene is set
             Platform.runLater(() -> {
                 helloController.scrollToTop();
-            
+
                 // Switch statement to handle different navigation targets
                 if (source instanceof Text) {
                     Text textSource = (Text) source;
                     String fxId = textSource.getId();
-                
+
                     switch (fxId) {
                         case "top1":
                             helloController.handleTop1Click();
@@ -262,18 +341,21 @@ public class ProfileController implements Initializable {
                         case "top4":
                             helloController.handleTop4Click();
                             break;
+                        case "contact":
+                            helloController.handleTop4Click();
+                            break;
                         default:
                             // No specific scroll action for other elements
                             break;
                     }
                 }
             });
-        
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
     // Fixed scrollToTop method - moved outside redirectToScene
     public void scrollToTop() {
         // Reset scroll position to top with a quick animation
@@ -281,11 +363,11 @@ public class ProfileController implements Initializable {
             smoothScrollTo(0.0, 0.0001); // 0.25 seconds duration
         });
     }
-    
+
     // Add the smoothScrollTo method
     private void smoothScrollTo(double targetValue, double time) {
         if (verticalScrollPane == null) return;
-        
+
         double startValue = verticalScrollPane.getVvalue();
         Duration duration = Duration.seconds(time);
         int frames = 240;
@@ -326,44 +408,99 @@ public class ProfileController implements Initializable {
         fadeIn.play();
     }
 
+
+// Fade out method with visibility checker
     @FXML
-    public void fadeawaylogin(MouseEvent event) {
-        System.out.println("fadeawaylogin method called!");
-        
-        // Consume event to prevent bubbling
-        event.consume();
-        
-        // Toggle fade for each element
-        toggleFade(usernameLabel1, Duration.seconds(0.2));
-        toggleFade(usernameLabel2, Duration.seconds(0.2));
-        toggleFade(usernameLabel3, Duration.seconds(0.2));
-        toggleFade(usernameLabel4, Duration.seconds(0.2));
-        toggleFade(emailLabel, Duration.seconds(0.2));
-        toggleFade(addressLabel, Duration.seconds(0.2));
-        toggleFade(usernameLabel, Duration.seconds(0.2));
+    public void bar2clicked(MouseEvent event)
+    {
+        fadeOutIfVisible(usernameLabel, Duration.seconds(0.25));
+        fadeOutIfVisible(emailLabel, Duration.seconds(0.25));
+        fadeOutIfVisible(addressLabel, Duration.seconds(0.25));
+        fadeOutIfVisible(usernameLabel1, Duration.seconds(0.25));
+        fadeOutIfVisible(usernameLabel2, Duration.seconds(0.25));
+        fadeOutIfVisible(usernameLabel3, Duration.seconds(0.25));
+        fadeOutIfVisible(usernameLabel4, Duration.seconds(0.25));
+        Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.25), e -> {
+            fadeInIfHidden(coffeeTableView, Duration.seconds(0.25));
+        }));
+        delay.play();
+
+    }
+    @FXML
+    public void bar1clicked(MouseEvent event)
+    {
+        fadeOutIfVisible(coffeeTableView, Duration.seconds(0.25));
+        Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.25), e -> {
+            fadeInIfHidden(usernameLabel, Duration.seconds(0.25));
+            fadeInIfHidden(emailLabel, Duration.seconds(0.25));
+            fadeInIfHidden(addressLabel, Duration.seconds(0.25));
+            fadeInIfHidden(usernameLabel1, Duration.seconds(0.25));
+            fadeInIfHidden(usernameLabel2, Duration.seconds(0.25));
+            fadeInIfHidden(usernameLabel3, Duration.seconds(0.25));
+            fadeInIfHidden(usernameLabel4, Duration.seconds(0.25));
+        }));
+        delay.play();
+    }
+private void fadeOutIfVisible(Node node, Duration duration) {
+    if (node == null) {
+        System.err.println("Cannot fade null node");
+        return;
     }
 
-    // Toggle method that fades out if visible, fades in if faded
-    public void toggleFade(Node node, Duration duration) {
-        if (node == null) {
-            System.err.println("Cannot fade null node");
-            return;
-        }
-        
+    // Only fade out if the node is currently visible (opacity > 0.2)
+    if (node.getOpacity() > 0.2) {
+        System.out.println("Fading out: " + node.getClass().getSimpleName());
         FadeTransition fade = new FadeTransition(duration, node);
-        
-        if (node.getOpacity() > 0.2) {
-            // Node is visible, fade it out
-            System.out.println("Fading out: " + node.getClass().getSimpleName());
-            fade.setFromValue(node.getOpacity());
-            fade.setToValue(0.0);
-        } else {
-            // Node is faded, fade it in
-            System.out.println("Fading in: " + node.getClass().getSimpleName());
-            fade.setFromValue(node.getOpacity());
-            fade.setToValue(1.0);
-        }
-        
+        fade.setFromValue(node.getOpacity());
+        fade.setToValue(0.0);
         fade.play();
+    } else {
+        System.out.println("Skipping fade out - already faded: " + node.getClass().getSimpleName());
     }
+}
+
+// Fade in method with visibility checker
+private void fadeInIfHidden(Node node, Duration duration) {
+    if (node == null) {
+        System.err.println("Cannot fade null node");
+        return;
+    }
+
+    // Only fade in if the node is currently faded out (opacity <= 0.2)
+    if (node.getOpacity() <= 0.2) {
+        System.out.println("Fading in: " + node.getClass().getSimpleName());
+        FadeTransition fade = new FadeTransition(duration, node);
+        fade.setFromValue(node.getOpacity());
+        fade.setToValue(1.0);
+        fade.play();
+    } else {
+        System.out.println("Skipping fade in - already visible: " + node.getClass().getSimpleName());
+    }
+}
+private void applyTableViewStyles() {
+    if (coffeeTableView != null) {
+        coffeeTableView.setStyle(
+            "-fx-font-family: 'euclid circular a';" +
+            "-fx-font-size: 14px;" +
+            "-fx-font-weight: bold;"
+        );
+
+        // Remove fixed row height to allow dynamic sizing based on content
+        coffeeTableView.setRowFactory(tv -> {
+            javafx.scene.control.TableRow<Coffee> row = new javafx.scene.control.TableRow<Coffee>() {
+                @Override
+                protected void updateItem(Coffee item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setPrefHeight(-1); // Use default height
+                    } else {
+                        setPrefHeight(-1); // Let it calculate height based on content
+                        setMinHeight(30); // Set minimum height
+                    }
+                }
+            };
+            return row;
+        });
+    }
+}
 }

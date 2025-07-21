@@ -331,15 +331,19 @@ public class coffeeController implements Initializable {
                 top4.setFont(retrokiaFont);
                 System.out.println("Applied font to top4");
             }
+        
+            // Apply RetrokiaCaps font to coffee name label
+            if (coffeeNameLabel != null) {
+                coffeeNameLabel.setFont(Font.font(retrokiaFont.getFamily(), 20)); // 20px size
+                System.out.println("Applied RetrokiaCaps font to coffeeNameLabel");
+            }
         } else {
             System.err.println("RetrokiaCaps font is null, cannot apply");
         }
-        
-        // Apply Euclid font to coffee labels
+    
+        // Apply Euclid font to other coffee labels
         if (euclidBoldFont != null) {
-            if (coffeeNameLabel != null) coffeeNameLabel.setFont(retrokiaFont);
-            if (coffeePriceLabel != null) coffeePriceLabel.setFont(retrokiaFont);
-
+            if (coffeePriceLabel != null) coffeePriceLabel.setFont(euclidBoldFont);
             // Add more labels as needed
         }
     }

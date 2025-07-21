@@ -56,17 +56,15 @@
              <ImageView fx:id="coffeeImageView" fitHeight="400.0" fitWidth="400.0" layoutX="50.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
 
              <!-- Basic Information -->
-             <Label fx:id="coffeeNameLabel" layoutX="488.0" layoutY="136.0" prefHeight="59.0" prefWidth="436.0" style="-fx-font-size: 20px; -fx-font-weight: bold; " text="{COFFEE NAME}" wrapText="true">
-               <font>
-                  <Font name="RetrokiaCaps-Rough" size="12.0" />
-               </font></Label>
+             <Label fx:id="coffeeNameLabel" layoutX="488.0" layoutY="136.0" prefHeight="59.0" prefWidth="436.0" style="-fx-font-weight: bold;" text="{COFFEE NAME}" wrapText="true" />
 
              <Label fx:id="coffeePriceLabel" layoutX="789.0" layoutY="526.0" style="-fx-font-size: 18px;" text="Price: $0.00" />
 
-             <Label fx:id="coffeeDescriptionLabel" layoutX="488.0" layoutY="189.0" prefHeight="109.0" prefWidth="402.0" style=" -fx-font: Courier New;-fx-font-weight: bold; -fx-font-size: 14px; " text="Description loading...frgffffffffffffffffffffrgrgsfgsfgsrygsdfbserhgbsdghdr" wrapText="true">
-               <font>
-                  <Font name="Courier New Italic" size="14.0" />
-               </font></Label>
+             <Label fx:id="coffeeDescriptionLabel" layoutX="487.0" layoutY="208.0" 
+       prefHeight="94.0" prefWidth="400.0" 
+       style="-fx-font-family: 'Courier New'; -fx-font-size: 14px; -fx-font-weight: bold"
+       text="Description loading...frgffffffffffffffffffffrgrgsfgsfgsrygsdfbserhgbsdghdr" 
+       wrapText="true" />
 
              <Label fx:id="coffeePacketSizeLabel" layoutX="488.0" layoutY="340.0" style="-fx-font-size: 14px;" text="Packet Size: -" />
 

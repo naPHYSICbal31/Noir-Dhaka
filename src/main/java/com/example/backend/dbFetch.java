@@ -93,8 +93,8 @@ public class dbFetch {
 
 
     /*
-    *  GET
-    * */
+     *  GET
+     * */
 
     private int getUserIdByToken(){
         MongoCollection<Document> d  = database.getCollection("sessions");
@@ -201,8 +201,8 @@ public class dbFetch {
     public List<Review> getCriticalReviews(Coffee coffee) {
         MongoCollection<Document> d = database.getCollection("reviews");
         List<Document> docs = d.find(Filters.and(
-                Filters.lte("stars", 2.0),
-                Filters.eq("coffeeid", coffee.getId())
+                        Filters.lte("stars", 2.0),
+                        Filters.eq("coffeeid", coffee.getId())
                 )
         ).into(new ArrayList<>());
         return parseReviews(docs);
@@ -251,8 +251,8 @@ public class dbFetch {
 
     }
     /*
-    *  PRIVATE PARSE FUNCTIONS
-    * */
+     *  PRIVATE PARSE FUNCTIONS
+     * */
 
     private List<Review> parseReviews(List<Document> d){
 
@@ -281,11 +281,31 @@ public class dbFetch {
         return coffees;
     }
 
-    private Coffee parseCoffee(Document d){
+    private Coffee parseCoffee(Document d) {
         List<Document> rev = d.getList("reviews", Document.class);
         List<Review> revs = parseReviews(rev);
-        List<List<Boolean>> tag = (List<List<Boolean>>) d.get("tag");
-        List<Boolean> tg = tag.get(0);
+        
+        // Simple fix - just get tag as List<Boolean> directly
+        List<Boolean> tg;
+        try {
+            Object tagObj = d.get("tag");
+            if (tagObj instanceof List<?>) {
+                tg = (List<Boolean>) tagObj;
+            } else {
+                // Create default list if tag is not a list
+                tg = new ArrayList<>();
+                for (int i = 0; i < 3; i++) {
+                    tg.add(false);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error parsing tag field, using defaults");
+            tg = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                tg.add(false);
+            }
+        }
+        
         boolean isRare = Boolean.TRUE.equals(d.getBoolean("isRare"));
         boolean isSmallBatch = Boolean.TRUE.equals(d.getBoolean("isSmallBatch"));
         boolean isFarmToCup = Boolean.TRUE.equals(d.getBoolean("isFarmToCup"));
@@ -355,8 +375,8 @@ public class dbFetch {
 
 
     /*
-    *  ADD
-    * */
+     *  ADD
+     * */
 
     public void addCoffee(Coffee coffee){
         this.collection = database.getCollection("coffees");
@@ -433,8 +453,8 @@ public class dbFetch {
     }
 
     /*
-    * REMOVE
-    * */
+     * REMOVE
+     * */
 
     public void removeCart(){
         this.collection = database.getCollection("carts");
@@ -463,8 +483,8 @@ public class dbFetch {
 
 
     /*
-    * UPDATE
-    * */
+     * UPDATE
+     * */
 
     public void updateUser(User user){
         int id = getUserIdByToken();

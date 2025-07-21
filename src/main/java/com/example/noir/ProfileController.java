@@ -141,38 +141,38 @@ public class ProfileController implements Initializable {
         }
     }
 
-private void loadCoffeeData() {
-    try {
-        if (coffeeTableView != null) {
-            List<Coffee> purchasedCoffees = new ArrayList<>();
-            User u = database.getUserinfo();
-            HashMap<Integer, Integer> bought = u.getBuyHistory();
+    private void loadCoffeeData() {
+        try {
+            if (coffeeTableView != null) {
+                List<Coffee> purchasedCoffees = new ArrayList<>();
+                User u = database.getUserinfo();
+                HashMap<Integer, Integer> bought = u.getBuyHistory();
 
-            if (u != null && bought != null) {
-                for (int coffeeId : bought.keySet()) {
+                if (u != null && bought != null) {
+                    for (int coffeeId : bought.keySet()) {
 
-                    Integer purchaseCount = bought.get(coffeeId);
-                    System.out.println(coffeeId);
-                    Coffee coffee = database.getCoffeeById(coffeeId);
+                        Integer purchaseCount = bought.get(coffeeId);
+                        System.out.println(coffeeId);
+                        Coffee coffee = database.getCoffeeById(coffeeId);
 
-                    System.out.println(coffee.getName());
-                    System.out.println(purchaseCount);
-                    if (purchaseCount != null && purchaseCount > 0) {
                         System.out.println(coffee.getName());
-                        purchasedCoffees.add(coffee);
+                        System.out.println(purchaseCount);
+                        if (purchaseCount != null && purchaseCount > 0) {
+                            System.out.println(coffee.getName());
+                            purchasedCoffees.add(coffee);
+                        }
                     }
                 }
-            }
-            
-            ObservableList<Coffee> filteredCoffeeData = FXCollections.observableArrayList(purchasedCoffees);
-            coffeeTableView.setItems(filteredCoffeeData);
-        }
 
-    } catch (Exception e) {
-        System.err.println("Error loading coffee data: " + e.getMessage());
-        e.printStackTrace();
+                ObservableList<Coffee> filteredCoffeeData = FXCollections.observableArrayList(purchasedCoffees);
+                coffeeTableView.setItems(filteredCoffeeData);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error loading coffee data: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
-}
 
     private void setupTableColumns() {
         if (nameColumn != null) {
@@ -232,7 +232,7 @@ private void loadCoffeeData() {
         if (coffeeCountColumn != null) {
             coffeeCountColumn.setCellValueFactory(cellData -> {
                 Coffee coffee = cellData.getValue();
-            
+
                 if (currentUser != null && currentUser.getBuyHistory() != null) {
                     // Get count from buy history using coffee ID
                     Integer count = currentUser.getBuyHistory().get(coffee.getId());
@@ -400,7 +400,7 @@ private void loadCoffeeData() {
     }
 
 
-// Fade out method with visibility checker
+    // Fade out method with visibility checker
     @FXML
     public void bar2clicked(MouseEvent event)
     {
@@ -432,91 +432,91 @@ private void loadCoffeeData() {
         }));
         delay.play();
     }
-private void fadeOutIfVisible(Node node, Duration duration) {
-    if (node == null) {
-        System.err.println("Cannot fade null node");
-        return;
+    private void fadeOutIfVisible(Node node, Duration duration) {
+        if (node == null) {
+            System.err.println("Cannot fade null node");
+            return;
+        }
+
+        // Only fade out if the node is currently visible (opacity > 0.2)
+        if (node.getOpacity() > 0.2) {
+            System.out.println("Fading out: " + node.getClass().getSimpleName());
+            FadeTransition fade = new FadeTransition(duration, node);
+            fade.setFromValue(node.getOpacity());
+            fade.setToValue(0.0);
+            fade.play();
+        } else {
+            System.out.println("Skipping fade out - already faded: " + node.getClass().getSimpleName());
+        }
     }
 
-    // Only fade out if the node is currently visible (opacity > 0.2)
-    if (node.getOpacity() > 0.2) {
-        System.out.println("Fading out: " + node.getClass().getSimpleName());
-        FadeTransition fade = new FadeTransition(duration, node);
-        fade.setFromValue(node.getOpacity());
-        fade.setToValue(0.0);
-        fade.play();
-    } else {
-        System.out.println("Skipping fade out - already faded: " + node.getClass().getSimpleName());
+    // Fade in method with visibility checker
+    private void fadeInIfHidden(Node node, Duration duration) {
+        if (node == null) {
+            System.err.println("Cannot fade null node");
+            return;
+        }
+
+        // Only fade in if the node is currently faded out (opacity <= 0.2)
+        if (node.getOpacity() <= 0.2) {
+            System.out.println("Fading in: " + node.getClass().getSimpleName());
+            FadeTransition fade = new FadeTransition(duration, node);
+            fade.setFromValue(node.getOpacity());
+            fade.setToValue(1.0);
+            fade.play();
+        } else {
+            System.out.println("Skipping fade in - already visible: " + node.getClass().getSimpleName());
+        }
     }
-}
+    @FXML
+    private void handleLogOut(){
+        database.logOut();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(loader.load(), 1440, 810);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-// Fade in method with visibility checker
-private void fadeInIfHidden(Node node, Duration duration) {
-    if (node == null) {
-        System.err.println("Cannot fade null node");
-        return;
+        scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
+
+        // Get the current stage and set the new scene
+        Stage stage = (Stage) logoutbutton.getScene().getWindow();
+        stage.setScene(scene);
+
+        // Reset scroll position to top
+        HelloController controller = loader.getController();
+        if (controller != null) {
+            controller.scrollToTop();
+        }
+
+        stage.show();
     }
+    private void applyTableViewStyles() {
+        if (coffeeTableView != null) {
+            coffeeTableView.setStyle(
+                    "-fx-font-family: 'euclid circular a';" +
+                            "-fx-font-size: 14px;" +
+                            "-fx-font-weight: bold;"
+            );
 
-    // Only fade in if the node is currently faded out (opacity <= 0.2)
-    if (node.getOpacity() <= 0.2) {
-        System.out.println("Fading in: " + node.getClass().getSimpleName());
-        FadeTransition fade = new FadeTransition(duration, node);
-        fade.setFromValue(node.getOpacity());
-        fade.setToValue(1.0);
-        fade.play();
-    } else {
-        System.out.println("Skipping fade in - already visible: " + node.getClass().getSimpleName());
-    }
-}
-@FXML
-private void handleLogOut(){
-    database.logOut();
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
-    Scene scene = null;
-    try {
-        scene = new Scene(loader.load(), 1440, 810);
-    } catch (IOException e) {
-        throw new RuntimeException(e);
-    }
-
-    scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
-
-    // Get the current stage and set the new scene
-    Stage stage = (Stage) logoutbutton.getScene().getWindow();
-    stage.setScene(scene);
-
-    // Reset scroll position to top
-    HelloController controller = loader.getController();
-    if (controller != null) {
-        controller.scrollToTop();
-    }
-
-    stage.show();
-}
-private void applyTableViewStyles() {
-    if (coffeeTableView != null) {
-        coffeeTableView.setStyle(
-            "-fx-font-family: 'euclid circular a';" +
-            "-fx-font-size: 14px;" +
-            "-fx-font-weight: bold;"
-        );
-
-        // Remove fixed row height to allow dynamic sizing based on content
-        coffeeTableView.setRowFactory(tv -> {
-            javafx.scene.control.TableRow<Coffee> row = new javafx.scene.control.TableRow<Coffee>() {
-                @Override
-                protected void updateItem(Coffee item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty || item == null) {
-                        setPrefHeight(-1); // Use default height
-                    } else {
-                        setPrefHeight(-1); // Let it calculate height based on content
-                        setMinHeight(30); // Set minimum height
+            // Remove fixed row height to allow dynamic sizing based on content
+            coffeeTableView.setRowFactory(tv -> {
+                javafx.scene.control.TableRow<Coffee> row = new javafx.scene.control.TableRow<Coffee>() {
+                    @Override
+                    protected void updateItem(Coffee item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setPrefHeight(-1); // Use default height
+                        } else {
+                            setPrefHeight(-1); // Let it calculate height based on content
+                            setMinHeight(30); // Set minimum height
+                        }
                     }
-                }
-            };
-            return row;
-        });
+                };
+                return row;
+            });
+        }
     }
-}
 }

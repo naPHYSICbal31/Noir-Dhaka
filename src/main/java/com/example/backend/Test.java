@@ -70,7 +70,7 @@ public class Test {
                 if (fetched != null) {
                     System.out.println("[FETCHED CART] " + username + ": " + fetched.getBuyHistory());
                 }
-                db.removeCart();
+                db.buyCart(fetched);
             } catch (Exception e) {
                 System.out.println("[CART FAIL] for " + username + ": " + e.getMessage());
             }

@@ -10,6 +10,22 @@ public class Cart {
     private HashMap<Integer,Integer> buyHistory;
     private String timestamp;// coffeeId, count
 
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public Cart(){
         token = currentToken;
         buyHistory = new HashMap<>();

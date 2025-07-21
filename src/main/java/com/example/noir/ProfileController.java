@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.List;
 
@@ -79,14 +80,14 @@ public class ProfileController implements Initializable {
     private dbFetch database;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        database = new dbFetch();
         loadFonts();
-
         loadUserData();
         loadCoffeeData();
         setupTableColumns();
         applyCustomFonts();
         applyTableViewStyles();
-        database = new dbFetch();
+
     }
 
     private void loadFonts() {
@@ -142,35 +143,22 @@ public class ProfileController implements Initializable {
 
 private void loadCoffeeData() {
     try {
-        List<Coffee> allCoffees = database.getAllCoffees();
-
-        // For ListView - display only purchased coffee names
-        if (coffeeListView != null) {
-            ObservableList<String> purchasedCoffeeNames = FXCollections.observableArrayList();
-            
-            if (currentUser != null && currentUser.getBuyHistory() != null) {
-                for (Coffee coffee : allCoffees) {
-                    Integer purchaseCount = currentUser.getBuyHistory().get(coffee.getId());
-                    if (purchaseCount != null && purchaseCount > 0) {
-                        purchasedCoffeeNames.add(coffee.getName());
-                    }
-                }
-            }
-            
-            coffeeListView.setItems(purchasedCoffeeNames);
-        }
-
-        // For TableView - display only coffees with non-zero purchase count
         if (coffeeTableView != null) {
             List<Coffee> purchasedCoffees = new ArrayList<>();
-            
-            if (currentUser != null && currentUser.getBuyHistory() != null) {
-                for (Coffee coffee : allCoffees) {
-                    Integer purchaseCount = currentUser.getBuyHistory().get(coffee.getId());
+            User u = database.getUserinfo();
+            HashMap<Integer, Integer> bought = u.getBuyHistory();
 
+            if (u != null && bought != null) {
+                for (int coffeeId : bought.keySet()) {
 
+                    Integer purchaseCount = bought.get(coffeeId);
+                    System.out.println(coffeeId);
+                    Coffee coffee = database.getCoffeeById(coffeeId);
 
+                    System.out.println(coffee.getName());
+                    System.out.println(purchaseCount);
                     if (purchaseCount != null && purchaseCount > 0) {
+                        System.out.println(coffee.getName());
                         purchasedCoffees.add(coffee);
                     }
                 }
@@ -182,11 +170,13 @@ private void loadCoffeeData() {
 
     } catch (Exception e) {
         System.err.println("Error loading coffee data: " + e.getMessage());
+        e.printStackTrace();
     }
 }
 
     private void setupTableColumns() {
         if (nameColumn != null) {
+            System.out.println("khela");
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
             nameColumn.setCellFactory(column -> {
                 return new javafx.scene.control.TableCell<Coffee, String>() {

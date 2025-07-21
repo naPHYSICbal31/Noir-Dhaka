@@ -857,8 +857,6 @@ public class logincontroller implements Initializable {
              * Navigate back to the HelloApplication
              */
 
-
-
         }catch(Exception e){
             usernameField.clear();
             passwordField.clear();
@@ -893,7 +891,23 @@ public class logincontroller implements Initializable {
             User user = new User(username, password, email, address, true);
             try{
                 auth.register(user);
-                handleLogoClick();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+                Scene scene = new Scene(loader.load(), 1440, 810);
+
+                // Add the stylesheet if needed
+                scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
+
+                // Get the current stage and set the new scene
+                Stage stage = (Stage) regContinueButton.getScene().getWindow();
+                stage.setScene(scene);
+
+                // Reset scroll position to top
+                HelloController controller = loader.getController();
+                if (controller != null) {
+                    controller.scrollToTop();
+                }
+
+                stage.show();
             }catch(Exception e){
                 /* TODO
                     Error message ... maybe same username alr registered

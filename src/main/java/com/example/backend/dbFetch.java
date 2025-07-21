@@ -61,6 +61,8 @@ public class dbFetch {
             }}finally {
 
             }
+        }else{
+            throw new RuntimeException("Invalid username or password");
         }
 
     }

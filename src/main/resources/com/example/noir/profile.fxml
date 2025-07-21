@@ -116,7 +116,7 @@
             <Font name="RetrokiaCaps-Rough" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="1121.0" layoutY="240.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="151.0" text="LOG OUT" />
+      <Button layoutX="1121.0" layoutY="240.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="151.0" text="LOG OUT" onMouseClicked="#handleLogOut" fx:id="logoutbutton"/>
       <Label fx:id="usernameLabel41" layoutX="1121.0" layoutY="292.0" prefHeight="86.0" prefWidth="205.0" text="Can't find what you're&#10;looking for?&#10;">
          <font>
             <Font name="EuclidCircularA-Bold" size="18.0" />

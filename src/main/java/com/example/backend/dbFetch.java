@@ -4,6 +4,7 @@ import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
 import javax.print.Doc;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.time.Instant;
 
@@ -352,8 +353,9 @@ public class dbFetch {
             // buyHistory is assumed to be stored in a serializable way
             // You might need to parse it from Document list form
             List<Document> historyList = m.getList("buyHistory", Document.class);
+            List<Document> timeList = m.getList("timeList", Document.class);
             HashMap<Integer, Integer> buyHistory = new HashMap<>();
-
+            HashMap<Integer, LocalDateTime> timeHistory = new HashMap<>();
             if (historyList != null) {
                 for (Document entry : historyList) {
                     int coffee = entry.getInteger("coffeeid");
@@ -362,7 +364,15 @@ public class dbFetch {
                 }
             }
 
-            users.add(new User(username, userid, email, address, isAds, buyHistory));
+            if (timeList != null) {
+                for (Document entry : timeList) {
+                    int coffee = entry.getInteger("coffeeid");
+                    LocalDateTime count = LocalDateTime.parse("time");
+                    timeHistory.put(coffee , count);
+                }
+            }
+
+            users.add(new User(username, userid, email, address, isAds, buyHistory, timeHistory));
         }
 
         return users;
@@ -448,6 +458,7 @@ public class dbFetch {
         }
         User u = getUserinfo();
         u.addBuyHistoryFromCart(c);
+        u.addTimeHistoryFromCart(c);
         updateUser(u);
         removeCart();
     }
@@ -504,8 +515,21 @@ public class dbFetch {
             history.add(res);
         }
 
+        List<Document> timehistory= new ArrayList<>();
 
-        Document newUser = new Document("id", user.getUserid()).append("username", user.getUsername()).append("email", user.getEmail()).append("address", user.getAddress()).append("isAds", user.isAds()).append("buyHistory", history);
+        for(Map.Entry<Integer, LocalDateTime> entry : user.getBuyTime().entrySet()){
+            Integer coffee = entry.getKey();
+            LocalDateTime count = entry.getValue();
+
+            //    new Document("id", coffee.getId()).append( "name", coffee.getName()).append("imageurl", coffee.getImageurl()).append("description", coffee.getDescription()).append("packetSize", coffee.getPacketSize()).append("weight", coffee.getWeight()).append("tag", Arrays.asList(coffee.getTag())).append("price", coffee.getPrice()).append("strength", coffee.getStrength()).append("flavour",  coffee.getFlavour()).append("acidity", coffee.getAcidity()).append("aroma", coffee.getAroma()).append("currentStock", coffee.getCurrentStock()).append("numberOfSales", coffee.getNumberOfSales()).append("isSoldOut", coffee.isSoldOut()).append("isNearSoldOUt", coffee.isNearSoldOut()).append("isRare", coffee.isRare()).append("isSmallBatch", coffee.isSmallBatch()).append("isFarmToCup", coffee.isFarmToCup()));
+            //
+            Document res = new Document("coffeeid", coffee).append("time", count.toString());
+
+            timehistory.add(res);
+        }
+
+
+        Document newUser = new Document("id", user.getUserid()).append("username", user.getUsername()).append("email", user.getEmail()).append("address", user.getAddress()).append("isAds", user.isAds()).append("buyHistory", history).append("timehistory", timehistory);
 
 
         this.collection.findOneAndReplace(

@@ -1,11 +1,13 @@
 package com.example.backend;
 import java.security.Timestamp;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Vector;
 import java.util.Map;
 import org.mindrot.jbcrypt.BCrypt;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
 
 public class User {
     private String username;
@@ -16,14 +18,25 @@ public class User {
 
     private String passhash;  //sha256
     private String address;
+
+    public HashMap<Integer, LocalDateTime> getBuyTime() {
+        return buyTime;
+    }
+
+    public void setBuyTime(HashMap<Integer, LocalDateTime> buyTime) {
+        this.buyTime = buyTime;
+    }
+
     static int usercount = 0;
     //settings
     private boolean isAds;
     //history
     private HashMap<Integer,Integer> buyHistory;
+    private HashMap<Integer, LocalDateTime> buyTime;
 
     public User(String username,String pass, String email,  String address, boolean isAds) {
         this.buyHistory = new HashMap<Integer,Integer>();
+        this.buyTime = new HashMap<Integer, LocalDateTime>();
         this.isAds = isAds;
         this.address = address;
         this.setPass(pass);
@@ -32,7 +45,7 @@ public class User {
         this.username = username;
     }
 
-    public User(String username, int userid, String email, String address, boolean isAds, HashMap<Integer, Integer> buyHistory) {
+    public User(String username, int userid, String email, String address, boolean isAds, HashMap<Integer, Integer> buyHistory, HashMap<Integer, LocalDateTime> buyTime) {
         this.username = username;
         this.userid = userid;
         this.email = email;
@@ -40,6 +53,7 @@ public class User {
         this.address = address;
         this.isAds = isAds;
         this.buyHistory = buyHistory;
+        this.buyTime = buyTime;
     }
 
 
@@ -154,6 +168,17 @@ public class User {
             }else{
                 this.buyHistory.put(entry.getKey(), entry.getValue());
             }
+        }
+    }
+
+    public void addTimeHistoryFromCart(Cart c){
+
+        HashMap<Integer, Integer> j = c.getBuyHistory();
+
+        for(Map.Entry<Integer, Integer> entry : j.entrySet()){
+
+            this.buyTime.put(entry.getKey(), LocalDateTime.now());
+
         }
     }
 

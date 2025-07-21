@@ -13,7 +13,7 @@ public class Test {
         // Create multiple users and stress test registration/login
         for (int i = 0; i < 50; i++) {
             String username = "user" + i;
-            User user = new User(username, 1000 + i, username + "@test.com", "Address " + i, i % 2 == 0, new HashMap<>());
+            User user = new User(username, 1000 + i, username + "@test.com", "Address " + i, i % 2 == 0, new HashMap<>(), new HashMap<>());
             user.setPass("pass" + i);
 
             try {

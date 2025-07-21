@@ -61,6 +61,8 @@ public class dbFetch {
             }}finally {
 
             }
+        }else{
+            throw new RuntimeException("Invalid username or password");
         }
 
     }
@@ -236,7 +238,7 @@ public class dbFetch {
 
         Document match = this.collection.find(new Document("userid", userid)).first();
 
-        if(match != null){
+        if(match == null){
             return null;
         }
         HashMap<Integer,Integer> buyHistory = new HashMap<>();
@@ -273,15 +275,7 @@ public class dbFetch {
     private List<Coffee> parseCoffees(List<Document> d){
         List<Coffee> coffees = new ArrayList<>(d.size());
         for(Document m : d){
-            boolean isRare = Boolean.TRUE.equals(m.getBoolean("isRare"));
-            boolean isSmallBatch = Boolean.TRUE.equals(m.getBoolean("isSmallBatch"));
-            boolean isFarmToCup = Boolean.TRUE.equals(m.getBoolean("isFarmToCup"));
-            boolean isSoldOut = Boolean.TRUE.equals(m.getBoolean("isSoldOut"));
-            boolean isNearSoldOut = Boolean.TRUE.equals(m.getBoolean("isNearSoldOut"));
-            List<Document> rev = m.getList("reviews", Document.class);
-            List<Review> revs = parseReviews(rev);
-            List<Boolean> tg = m.getList("tag", Boolean.class);
-            coffees.add(new Coffee(m.getInteger("id"), m.getString("name"),m.getString("imageurl"),m.getString("description"),m.getString("packetSize"),m.getDouble("weight"),m.getDouble("price"),m.getInteger("strength"),m.getInteger("flavour"),m.getInteger("acidity"),m.getInteger("aroma"),isRare,isSmallBatch,isFarmToCup,m.getInteger("currentStock"),m.getInteger("numberOfSales"),isSoldOut,isNearSoldOut,revs,tg));
+            coffees.add(parseCoffee(m));
         }
 
         return coffees;
@@ -290,7 +284,8 @@ public class dbFetch {
     private Coffee parseCoffee(Document d){
         List<Document> rev = d.getList("reviews", Document.class);
         List<Review> revs = parseReviews(rev);
-        List<Boolean> tg = d.getList("tag", Boolean.class);
+        List<List<Boolean>> tag = (List<List<Boolean>>) d.get("tag");
+        List<Boolean> tg = tag.get(0);
         boolean isRare = Boolean.TRUE.equals(d.getBoolean("isRare"));
         boolean isSmallBatch = Boolean.TRUE.equals(d.getBoolean("isSmallBatch"));
         boolean isFarmToCup = Boolean.TRUE.equals(d.getBoolean("isFarmToCup"));
@@ -403,6 +398,10 @@ public class dbFetch {
                 .append("userid", review.getUserid());
 
         this.collection.insertOne(doc);
+
+        Coffee c = getCoffeeById(review.getCoffeeid());
+        c.addReview(review);
+        updateCoffee(c);
     }
 
     public void addCart(Cart c){
@@ -420,6 +419,17 @@ public class dbFetch {
         Document docx = new Document("userid", userid).append("timestamp", Instant.now().toString()).append("coffees", coffees);
 
         this.collection.insertOne(docx);
+    }
+
+    public void buyCart(Cart c){
+        if(!c.getToken().equals(currentToken)){
+            System.out.println("token error");
+            return;
+        }
+        User u = getUserinfo();
+        u.addBuyHistoryFromCart(c);
+        updateUser(u);
+        removeCart();
     }
 
     /*
@@ -505,7 +515,7 @@ public class dbFetch {
 
         Document j = new Document("id", coffee.getId()).append( "name", coffee.getName()).append("imageurl", coffee.getImageurl()).append("description", coffee.getDescription()).append("packetSize", coffee.getPacketSize()).append("weight", coffee.getWeight()).append("tag", Arrays.asList(coffee.getTag())).append("price", coffee.getPrice()).append("strength", coffee.getStrength()).append("flavour",  coffee.getFlavour()).append("acidity", coffee.getAcidity()).append("aroma", coffee.getAroma()).append("currentStock", coffee.getCurrentStock()).append("numberOfSales", coffee.getNumberOfSales()).append("isSoldOut", coffee.isSoldOut()).append("isNearSoldOUt", coffee.isNearSoldOut()).append("isRare", coffee.isRare()).append("isSmallBatch", coffee.isSmallBatch()).append("isFarmToCup", coffee.isFarmToCup()).append("reviews", reviews);
 
-        this.collection.findOneAndReplace(new Document("coffeeid", coffee.getId()), j);
+        this.collection.findOneAndReplace(new Document("id", coffee.getId()), j);
     }
 
     // public void update review???

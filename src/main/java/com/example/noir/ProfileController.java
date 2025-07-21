@@ -8,14 +8,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -23,9 +20,9 @@ import javafx.fxml.Initializable;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.List;
-import javafx.scene.control.ScrollPane;
 
 import com.example.backend.dbFetch;
 import com.example.backend.User;
@@ -75,19 +72,22 @@ public class ProfileController implements Initializable {
     @FXML
     private TableColumn<Coffee, Integer> coffeeCountColumn;
 
-    private dbFetch database;
-    private Font euclidBoldFont;
-    private User currentUser; // Add this as a class field
+    @FXML
+    private Button logoutbutton;
 
+    private Font euclidBoldFont;
+    private User currentUser;
+    private dbFetch database;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadFonts();
         database = new dbFetch();
+        loadFonts();
         loadUserData();
         loadCoffeeData();
         setupTableColumns();
         applyCustomFonts();
         applyTableViewStyles();
+
     }
 
     private void loadFonts() {
@@ -143,33 +143,22 @@ public class ProfileController implements Initializable {
 
 private void loadCoffeeData() {
     try {
-        List<Coffee> allCoffees = database.getAllCoffees();
-
-        // For ListView - display only purchased coffee names
-        if (coffeeListView != null) {
-            ObservableList<String> purchasedCoffeeNames = FXCollections.observableArrayList();
-            
-            if (currentUser != null && currentUser.getBuyHistory() != null) {
-                for (Coffee coffee : allCoffees) {
-                    Integer purchaseCount = currentUser.getBuyHistory().get(coffee.getId());
-                    if (purchaseCount != null && purchaseCount > 0) {
-                        purchasedCoffeeNames.add(coffee.getName());
-                    }
-                }
-            }
-            
-            coffeeListView.setItems(purchasedCoffeeNames);
-        }
-
-        // For TableView - display only coffees with non-zero purchase count
         if (coffeeTableView != null) {
             List<Coffee> purchasedCoffees = new ArrayList<>();
-            
-            if (currentUser != null && currentUser.getBuyHistory() != null) {
-                for (Coffee coffee : allCoffees) {
-                    Integer purchaseCount = currentUser.getBuyHistory().get(coffee.getId());
-                    // Only add coffees that have been purchased (count > 0)
+            User u = database.getUserinfo();
+            HashMap<Integer, Integer> bought = u.getBuyHistory();
+
+            if (u != null && bought != null) {
+                for (int coffeeId : bought.keySet()) {
+
+                    Integer purchaseCount = bought.get(coffeeId);
+                    System.out.println(coffeeId);
+                    Coffee coffee = database.getCoffeeById(coffeeId);
+
+                    System.out.println(coffee.getName());
+                    System.out.println(purchaseCount);
                     if (purchaseCount != null && purchaseCount > 0) {
+                        System.out.println(coffee.getName());
                         purchasedCoffees.add(coffee);
                     }
                 }
@@ -181,11 +170,13 @@ private void loadCoffeeData() {
 
     } catch (Exception e) {
         System.err.println("Error loading coffee data: " + e.getMessage());
+        e.printStackTrace();
     }
 }
 
     private void setupTableColumns() {
         if (nameColumn != null) {
+            System.out.println("khela");
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
             nameColumn.setCellFactory(column -> {
                 return new javafx.scene.control.TableCell<Coffee, String>() {
@@ -255,7 +246,7 @@ private void loadCoffeeData() {
     // Method to refresh data
     @FXML
     private void refreshData() {
-        loadUserData(); // This will update currentUser
+        loadUserData();
         loadCoffeeData();
     }
 
@@ -476,6 +467,31 @@ private void fadeInIfHidden(Node node, Duration duration) {
     } else {
         System.out.println("Skipping fade in - already visible: " + node.getClass().getSimpleName());
     }
+}
+@FXML
+private void handleLogOut(){
+    database.logOut();
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+    Scene scene = null;
+    try {
+        scene = new Scene(loader.load(), 1440, 810);
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+
+    scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
+
+    // Get the current stage and set the new scene
+    Stage stage = (Stage) logoutbutton.getScene().getWindow();
+    stage.setScene(scene);
+
+    // Reset scroll position to top
+    HelloController controller = loader.getController();
+    if (controller != null) {
+        controller.scrollToTop();
+    }
+
+    stage.show();
 }
 private void applyTableViewStyles() {
     if (coffeeTableView != null) {

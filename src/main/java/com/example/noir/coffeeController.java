@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -19,9 +21,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.text.NumberFormat;
+
 public class coffeeController implements Initializable {
     private Font euclidBoldFont;
     private Font retrokiaFont;
+
+    // Add quantity tracking variable
+    private int currentQuantity = 1;
+
     @FXML
     private Text top1;
     @FXML
@@ -42,6 +49,34 @@ public class coffeeController implements Initializable {
     private Text top3;
     @FXML
     private Text top4;
+    @FXML
+    private Rectangle grind1;
+    @FXML
+    private Rectangle grind2;
+    @FXML
+    private Rectangle grind3;
+    @FXML
+    private Rectangle grind4;
+    @FXML
+    private Rectangle grind5;
+    @FXML
+    private Rectangle grind6;
+    @FXML
+    private Rectangle grind7;
+    @FXML
+    private Text grindtext1;
+    @FXML
+    private Text grindtext2;
+    @FXML
+    private Text grindtext3;
+    @FXML
+    private Text grindtext4;
+    @FXML
+    private Text grindtext5;
+    @FXML
+    private Text grindtext6;
+    @FXML
+    private Text grindtext7;
     @FXML
     private ImageView str1;
     @FXML
@@ -99,6 +134,11 @@ public class coffeeController implements Initializable {
     private Label coffeeTagsLabel;
     @FXML
     private ImageView coffeeImageView;
+
+    // Add quantity Text element
+    @FXML
+    private Text quantity;
+
     private dbFetch database;
     private com.example.backend.Coffee currentCoffee;
 
@@ -107,11 +147,47 @@ public class coffeeController implements Initializable {
         loadFonts();
         database = new dbFetch();
         loadCoffeeData(201);
-        
+
+        // Initialize quantity display
+        if (quantity != null) {
+            quantity.setText(String.valueOf(currentQuantity));
+        }
+
         // Apply fonts after FXML processing is complete
         Platform.runLater(() -> {
             applyCustomFonts();
         });
+    }
+
+    // Method to handle plus button click
+    @FXML
+    private void handlePlusClick(MouseEvent event) {
+        currentQuantity++;
+        updateQuantityAndPrice();
+    }
+
+    // Method to handle minus button click
+    @FXML
+    private void handleMinusClick(MouseEvent event) {
+        if (currentQuantity > 1) {
+            currentQuantity--;
+            updateQuantityAndPrice();
+        }
+    }
+
+    // Method to update both quantity display and total price
+    private void updateQuantityAndPrice() {
+        // Update quantity display
+        if (quantity != null) {
+            quantity.setText(String.valueOf(currentQuantity));
+        }
+
+        // Update total price
+        if (currentCoffee != null && coffeePriceLabel != null) {
+            double totalPrice = currentCoffee.getPrice() * currentQuantity;
+            String formattedPrice = NumberFormat.getNumberInstance().format(totalPrice);
+            coffeePriceLabel.setText("TK " + formattedPrice + " BDT");
+        }
     }
 
     private void loadCoffeeData(int coffeeId) {
@@ -138,7 +214,9 @@ public class coffeeController implements Initializable {
             coffeeNameLabel.setText(currentCoffee.getName());
         }
         if (coffeePriceLabel != null) {
-            String formattedPrice = NumberFormat.getNumberInstance().format(currentCoffee.getPrice());
+            // Display price based on current quantity
+            double totalPrice = currentCoffee.getPrice() * currentQuantity;
+            String formattedPrice = NumberFormat.getNumberInstance().format(totalPrice);
             coffeePriceLabel.setText("TK " + formattedPrice + " BDT");
         }
         if (coffeeDescriptionLabel != null) {
@@ -294,7 +372,7 @@ public class coffeeController implements Initializable {
 
         // Re-apply fonts after setting text content
         applyCustomFonts();
-        
+
         System.out.println("Coffee data loaded successfully: " + currentCoffee.getName());
     }
 
@@ -315,6 +393,7 @@ public class coffeeController implements Initializable {
             coffeeDescriptionLabel.setText("An error occurred while loading the coffee data.");
         }
     }
+
     private void loadFonts() {
         try {
             // Load EuclidCircularA-Bold font
@@ -325,7 +404,7 @@ public class coffeeController implements Initializable {
             } else {
                 System.out.println("EuclidCircularA-Bold font loaded successfully");
             }
-            
+
             // Load RetrokiaCaps font with proper error checking
             retrokiaFont = Font.loadFont(getClass().getResourceAsStream("/fonts/RetrokiaCaps-Rough.otf"), 24);
             if (retrokiaFont == null) {
@@ -334,7 +413,7 @@ public class coffeeController implements Initializable {
             } else {
                 System.out.println("RetrokiaCaps font loaded successfully: " + retrokiaFont.getName());
             }
-            
+
         } catch (Exception e) {
             System.err.println("Error loading fonts: " + e.getMessage());
             euclidBoldFont = Font.font("Arial", 18);
@@ -342,6 +421,7 @@ public class coffeeController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void addunderline(MouseEvent event) {
         // Get the Text object that triggered the event
@@ -416,6 +496,7 @@ public class coffeeController implements Initializable {
             e.printStackTrace();
         }
     }
+
     private void applyCustomFonts() {
     // Apply RetrokiaCaps font to navigation text elements
     if (retrokiaFont != null) {
@@ -487,13 +568,196 @@ public class coffeeController implements Initializable {
             Font coffeePriceFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
             coffeePriceLabel.setFont(coffeePriceFont);
         }
-        // Create a font instance for size 16
-
-        // Apply to all labels with null checks
-        /*if (coffeePacketSizeLabel != null) {
-            coffeePacketSizeLabel.setFont(size16Font);
-            System.out.println("Applied RetrokiaCaps font to coffeePacketSizeLabel");
-        }*/
+        // Apply font to quantity text
+        if (quantity != null) {
+            Font quantityFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 20);
+            quantity.setFont(quantityFont);
+        }
     }
 }
-}
+
+    @FXML
+    private void handleclick(MouseEvent event) {
+        String fxId = null;
+        if(event.getSource() instanceof Text)
+        {
+            fxId = ((Text)event.getSource()).getId();
+        }
+        else
+        {
+            fxId = ((Rectangle)event.getSource()).getId();
+        }
+        grind1.setFill(Paint.valueOf("#e9e9e9"));
+        grindtext1.setFill(Paint.valueOf("#000000"));
+        grind2.setFill(Paint.valueOf("#e9e9e9"));
+        grindtext2.setFill(Paint.valueOf("#000000"));
+        grind3.setFill(Paint.valueOf("#e9e9e9"));
+        grindtext3.setFill(Paint.valueOf("#000000"));
+        grind4.setFill(Paint.valueOf("#e9e9e9"));
+        grindtext4.setFill(Paint.valueOf("#000000"));
+        grind5.setFill(Paint.valueOf("#e9e9e9"));
+        grindtext5.setFill(Paint.valueOf("#000000"));
+        grind6.setFill(Paint.valueOf("#e9e9e9"));
+        grindtext6.setFill(Paint.valueOf("#000000"));
+        grind7.setFill(Paint.valueOf("#e9e9e9"));
+        grindtext7.setFill(Paint.valueOf("#000000"));
+        // Handle different grind types
+        switch (fxId) {
+            case "grind1":
+            case "grindtext1":
+                grind1.setFill(Paint.valueOf("#000000"));
+                grindtext1.setFill(Paint.valueOf("#ffffff"));
+
+                break;
+            case "grind2":
+                case "grindtext2":
+                grind2.setFill(Paint.valueOf("#000000"));
+                grindtext2.setFill(Paint.valueOf("#ffffff"));
+
+                break;
+            case "grind3":
+                case "grindtext3":
+                grind3.setFill(Paint.valueOf("#000000"));
+                grindtext3.setFill(Paint.valueOf("#ffffff"));
+                break;
+            case "grind4":
+                case "grindtext4":
+                    grind4.setFill(Paint.valueOf("#000000"));
+                    grindtext4.setFill(Paint.valueOf("#ffffff"));
+                break;
+            case "grind5":
+                case "grindtext5":
+                grind5.setFill(Paint.valueOf("#000000"));
+                grindtext5.setFill(Paint.valueOf("#ffffff"));
+                break;
+            case "grind6":
+            case "grindtext6":
+                grind6.setFill(Paint.valueOf("#000000"));
+                grindtext6.setFill(Paint.valueOf("#ffffff"));
+                break;
+            case "grind7":
+                case "grindtext7":
+                    grind7.setFill(Paint.valueOf("#000000"));
+                    grindtext7.setFill(Paint.valueOf("#ffffff"));
+                break;
+            default:
+                System.out.println("Unknown grind type: " + fxId);
+                break;
+        }
+    }
+    @FXML
+    private void zoomout(MouseEvent event) {
+        // Get the Text object that triggered the event
+        if(event.getSource() instanceof Text) {
+            Text textElement = (Text) event.getSource();
+            textElement.setScaleX(1.1);
+            textElement.setScaleY(1.1);
+
+            // Add mouse exited handler to return to normal size when mouse leaves
+            textElement.setOnMouseExited(exitEvent -> {
+                textElement.setScaleX(1.0);
+                textElement.setScaleY(1.0);
+            });
+        }
+        else if(event.getSource() instanceof ImageView)
+        {
+            ImageView imageElement = (ImageView) event.getSource();
+            imageElement.setScaleX(1.1);
+            imageElement.setScaleY(1.1);
+
+            // Add mouse exited handler to return to normal size when mouse leaves
+            imageElement.setOnMouseExited(exitEvent -> {
+                imageElement.setScaleX(1.0);
+                imageElement.setScaleY(1.0);
+            });
+        }
+        // Scale down the text (zoom out effect)
+    }
+    @FXML
+    private void redirect(MouseEvent event) {
+        if (dbFetch.currentToken == null) {
+            try {
+                // Get the current stage
+                Stage stage;
+                if(event.getSource() instanceof Rectangle) {
+                    stage = (Stage) ((Rectangle) event.getSource()).getScene().getWindow();
+                }
+                else
+                {
+                    stage = (Stage) ((Text) event.getSource()).getScene().getWindow();
+                }
+
+                // Load the login FXML file
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+
+                // Set up the stage
+                stage.setTitle("Noir Dhaka - Login");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                // Get the current stage
+                Stage stage;
+                if(event.getSource() instanceof Rectangle) {
+                    stage = (Stage) ((Rectangle) event.getSource()).getScene().getWindow();
+                }
+                else
+                {
+                    stage = (Stage) ((Text) event.getSource()).getScene().getWindow();
+                }
+
+                // Load the cart FXML file
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cart.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+
+                // Set up the stage
+                stage.setTitle("Noir Dhaka - Cart");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+    @FXML
+        private void redirecttoprofile(MouseEvent event) {
+        if (dbFetch.currentToken == null) {
+            try {
+                   Stage stage = (Stage) ((ImageView) event.getSource()).getScene().getWindow();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka - Login");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+
+
+                Stage stage = (Stage) ((ImageView) event.getSource()).getScene().getWindow();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka - Cart");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    }

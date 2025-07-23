@@ -11,24 +11,62 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.text.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import java.text.NumberFormat;
 public class coffeeController implements Initializable {
     private Font euclidBoldFont;
     private Font retrokiaFont;
     @FXML
     private Text top1;
     @FXML
+    private ImageView star1;
+    @FXML
+    private ImageView star2;
+    @FXML
+    private ImageView star3;
+    @FXML
+    private ImageView star4;
+    @FXML
+    private ImageView star5;
+    @FXML
+    private Text totalreview;
+    @FXML
     private Text top2;
     @FXML
     private Text top3;
     @FXML
     private Text top4;
+    @FXML
+    private ImageView str1;
+    @FXML
+    private ImageView str2;
+    @FXML
+    private ImageView str3;
+    @FXML
+    private ImageView fl1;
+    @FXML
+    private ImageView fl2;
+    @FXML
+    private ImageView fl3;
+    @FXML
+    private ImageView ac1;
+    @FXML
+    private ImageView ac2;
+    @FXML
+    private ImageView ac3;
+    @FXML
+    private ImageView ar1;
+    @FXML
+    private ImageView ar2;
+    @FXML
+    private ImageView ar3;
+
     @FXML
     private Label coffeeNameLabel;
     @FXML
@@ -67,9 +105,13 @@ public class coffeeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadFonts();
-        applyCustomFonts();
         database = new dbFetch();
         loadCoffeeData(201);
+        
+        // Apply fonts after FXML processing is complete
+        Platform.runLater(() -> {
+            applyCustomFonts();
+        });
     }
 
     private void loadCoffeeData(int coffeeId) {
@@ -96,7 +138,8 @@ public class coffeeController implements Initializable {
             coffeeNameLabel.setText(currentCoffee.getName());
         }
         if (coffeePriceLabel != null) {
-            coffeePriceLabel.setText("$" + String.format("%.2f", currentCoffee.getPrice()));
+            String formattedPrice = NumberFormat.getNumberInstance().format(currentCoffee.getPrice());
+            coffeePriceLabel.setText("TK " + formattedPrice + " BDT");
         }
         if (coffeeDescriptionLabel != null) {
             coffeeDescriptionLabel.setText(currentCoffee.getDescription());
@@ -111,8 +154,67 @@ public class coffeeController implements Initializable {
         }
 
         // Coffee quality ratings
-        if (coffeeStrengthLabel != null) {
-            coffeeStrengthLabel.setText("Strength: " + currentCoffee.getStrength() + "/10");
+        if(currentCoffee.getStrength() >= 1)
+        {
+            str1.setOpacity(1);
+            if(currentCoffee.getStrength() >= 2)
+            {
+                str2.setOpacity(1);
+                if(currentCoffee.getStrength() >= 3) str3.setOpacity(1);
+            }
+        }
+        if(currentCoffee.getFlavour() >= 1)
+        {
+            fl1.setOpacity(1);
+            if(currentCoffee.getFlavour() >= 2)
+            {
+                fl2.setOpacity(1);
+                if(currentCoffee.getFlavour() >= 3) fl3.setOpacity(1);
+            }
+        }
+        if(currentCoffee.getAcidity() >= 1)
+        {
+            ac1.setOpacity(1);
+            if(currentCoffee.getAcidity() >= 2)
+            {
+                ac2.setOpacity(1);
+                if(currentCoffee.getAcidity() >= 3) ac3.setOpacity(1);
+            }
+        }
+        if(currentCoffee.getAroma() >= 1)
+        {
+            ar1.setOpacity(1);
+            if(currentCoffee.getAroma() >= 2)
+            {
+                ar2.setOpacity(1);
+                if(currentCoffee.getAroma() >= 3) ar3.setOpacity(1);
+            }
+        }
+        int x = (int)currentCoffee.getAverageRating();
+        switch(x)
+        {
+            case 5:
+                star5.setOpacity(1);
+            case 4:
+                star4.setOpacity(1);
+            case 3:
+                star3.setOpacity(1);
+            case 2:
+                star2.setOpacity(1);
+            case 1:
+                star1.setOpacity(1);
+                break;
+            default:
+                star5.setOpacity(1);
+                star4.setOpacity(1);
+                star3.setOpacity(1);
+                star2.setOpacity(1);
+                star1.setOpacity(1);
+                break;
+        }
+        if(totalreview != null)
+        {
+            totalreview.setText(currentCoffee.getReviews().size() + " Reviews");
         }
         if (coffeeFlavourLabel != null) {
             coffeeFlavourLabel.setText("Flavour: " + currentCoffee.getFlavour() + "/10");
@@ -190,6 +292,9 @@ public class coffeeController implements Initializable {
             }
         }
 
+        // Re-apply fonts after setting text content
+        applyCustomFonts();
+        
         System.out.println("Coffee data loaded successfully: " + currentCoffee.getName());
     }
 
@@ -312,39 +417,83 @@ public class coffeeController implements Initializable {
         }
     }
     private void applyCustomFonts() {
-        // Apply RetrokiaCaps font to navigation text elements
-        if (retrokiaFont != null) {
-            System.out.println("Applying RetrokiaCaps font to navigation elements");
-            if (top1 != null) {
-                top1.setFont(retrokiaFont);
-                System.out.println("Applied font to top1");
-            }
-            if (top2 != null) {
-                top2.setFont(retrokiaFont);
-                System.out.println("Applied font to top2");
-            }
-            if (top3 != null) {
-                top3.setFont(retrokiaFont);
-                System.out.println("Applied font to top3");
-            }
-            if (top4 != null) {
-                top4.setFont(retrokiaFont);
-                System.out.println("Applied font to top4");
-            }
-        
-            // Apply RetrokiaCaps font to coffee name label
-            if (coffeeNameLabel != null) {
-                coffeeNameLabel.setFont(Font.font(retrokiaFont.getFamily(), 20)); // 20px size
-                System.out.println("Applied RetrokiaCaps font to coffeeNameLabel");
-            }
-        } else {
-            System.err.println("RetrokiaCaps font is null, cannot apply");
+    // Apply RetrokiaCaps font to navigation text elements
+    if (retrokiaFont != null) {
+        System.out.println("Applying RetrokiaCaps font to navigation elements");
+        if (top1 != null) {
+            top1.setFont(retrokiaFont);
+            System.out.println("Applied font to top1");
         }
-    
-        // Apply Euclid font to other coffee labels
-        if (euclidBoldFont != null) {
-            if (coffeePriceLabel != null) coffeePriceLabel.setFont(euclidBoldFont);
-            // Add more labels as needed
+        if (top2 != null) {
+            top2.setFont(retrokiaFont);
+            System.out.println("Applied font to top2");
         }
+        if (top3 != null) {
+            top3.setFont(retrokiaFont);
+            System.out.println("Applied font to top3");
+        }
+        if (top4 != null) {
+            top4.setFont(retrokiaFont);
+            System.out.println("Applied font to top4");
+        }
+        // Apply RetrokiaCaps font to coffee name label
+        if (coffeeNameLabel != null) {
+            // Create a new font instance with the desired size
+            Font coffeeNameFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 30);
+            coffeeNameLabel.setFont(coffeeNameFont);
+            System.out.println("Applied RetrokiaCaps font to coffeeNameLabel");
+        }
+        if (coffeeWeightLabel != null) {
+            // Create a new font instance with the desired size
+            Font coffeeNameFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
+            coffeeWeightLabel.setFont(coffeeNameFont);
+        }
+        if (coffeeFlavourLabel != null) {
+            Font coffeeFlavourFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
+            coffeeFlavourLabel.setFont(coffeeFlavourFont);
+        }
+        if (coffeeAcidityLabel != null) {
+            Font coffeeAcidityFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
+            coffeeAcidityLabel.setFont(coffeeAcidityFont);
+        }
+        if (coffeeAromaLabel != null) {
+            Font coffeeAromaFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
+            coffeeAromaLabel.setFont(coffeeAromaFont);
+        }
+        if (coffeeStockLabel != null) {
+            Font coffeeStockFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
+            coffeeStockLabel.setFont(coffeeStockFont);
+        }
+        if (coffeeSalesLabel != null) {
+            Font coffeeSalesFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
+            coffeeSalesLabel.setFont(coffeeSalesFont);
+        }
+        if (coffeeAverageRatingLabel != null) {
+            Font coffeeAverageRatingFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
+        }
+        if (coffeeStatusLabel != null) {
+            Font coffeeStatusFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
+            coffeeStatusLabel.setFont(coffeeStatusFont);
+        }
+        if (coffeeSpecialFeaturesLabel != null) {
+            Font coffeeSpecialFeaturesFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
+            coffeeSpecialFeaturesLabel.setFont(coffeeSpecialFeaturesFont);
+        }
+        if (coffeeTagsLabel != null) {
+            Font coffeeTagsFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
+            coffeeTagsLabel.setFont(coffeeTagsFont);
+        }
+        if (coffeePriceLabel != null) {
+            Font coffeePriceFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
+            coffeePriceLabel.setFont(coffeePriceFont);
+        }
+        // Create a font instance for size 16
+
+        // Apply to all labels with null checks
+        /*if (coffeePacketSizeLabel != null) {
+            coffeePacketSizeLabel.setFont(size16Font);
+            System.out.println("Applied RetrokiaCaps font to coffeePacketSizeLabel");
+        }*/
     }
+}
 }

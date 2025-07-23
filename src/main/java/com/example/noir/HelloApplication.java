@@ -106,7 +106,6 @@ public class HelloApplication extends Application {
                 System.err.println("Failed to load application icon: " + iconException.getMessage());
                 iconException.printStackTrace();
             }
-            
             scene.getRoot().requestFocus(); // Add this line to prevent automatic focus on TextField
             stage.centerOnScreen();
             stage.show();

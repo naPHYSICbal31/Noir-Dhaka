@@ -31,6 +31,12 @@ public class Cart {
         buyHistory = new HashMap<>();
         timestamp = Instant.now().toString();
     }
+    public Cart(int coffeeid, int count){
+        token = currentToken;
+        buyHistory = new HashMap<>();
+        timestamp = Instant.now().toString();
+        buyHistory.put(coffeeid, count);
+    }
 
     public Cart(HashMap<Integer,Integer> buyHistory){
         token = currentToken;
@@ -46,12 +52,12 @@ public class Cart {
         this.buyHistory = buyHistory;
     }
 
-    public void addToCart(Integer coffeeid){
+    public void addToCart(Integer coffeeid, int count){
         if(this.buyHistory.containsKey(coffeeid)){
-            this.buyHistory.put(coffeeid,this.buyHistory.get(coffeeid)+1);
+            this.buyHistory.put(coffeeid,this.buyHistory.get(coffeeid)+count);
             return;
         }
-        this.buyHistory.put(coffeeid,1);
+        this.buyHistory.put(coffeeid,count);
     }
 
     public void removeFromCart(Integer coffeeid){
@@ -63,6 +69,11 @@ public class Cart {
             this.buyHistory.put(coffeeid,this.buyHistory.get(coffeeid)-1);
         }
     }
+
+    public void removeFromCartEntirely(Integer coffeeid){
+        this.buyHistory.remove(coffeeid);
+    }
+
 
     public double getTotalPrice(){
         double sum =0;

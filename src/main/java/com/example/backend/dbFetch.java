@@ -251,6 +251,38 @@ public class dbFetch {
         return new Cart(buyHistory);
 
     }
+
+    public void addToCart(int coffeeid, int count){
+        Cart c = getCart();
+        if(getCart() == null){
+            addCart(new Cart(coffeeid, count));
+            return;
+        }
+
+        c.addToCart(coffeeid, count);
+        addCart(c);
+    }
+
+    public void removeFromCart(int coffeeid){
+        Cart c = getCart();
+        if(getCart() == null){
+            return;
+        }
+
+        c.removeFromCart(coffeeid);
+        addCart(c);
+    }
+
+    public void removeFromCartEntirely(int coffeeid){
+        Cart c = getCart();
+        if(getCart() == null){
+            return;
+        }
+        c.removeFromCartEntirely(coffeeid);
+        addCart(c);
+    }
+
+
     /*
      *  PRIVATE PARSE FUNCTIONS
      * */
@@ -437,6 +469,9 @@ public class dbFetch {
     public void addCart(Cart c){
         this.collection = database.getCollection("carts");
         int userid = getUserIdByToken();
+        if(getCart() != null){
+            removeCart();
+        }
         List<Document> coffees = new ArrayList<>();
 
         for(Map.Entry<Integer, Integer> entry: c.getBuyHistory().entrySet()){
@@ -538,6 +573,8 @@ public class dbFetch {
 
         //this.collection.updateOne(, parseUsers())
     }
+
+
 
     public void updateCoffee(Coffee coffee){
         this.collection = database.getCollection("coffees");

@@ -647,13 +647,13 @@ public class coffeeController implements Initializable {
     }
     @FXML
     private void zoomout(MouseEvent event) {
-        // Get the Text object that triggered the event
+
         if(event.getSource() instanceof Text) {
             Text textElement = (Text) event.getSource();
             textElement.setScaleX(1.1);
             textElement.setScaleY(1.1);
 
-            // Add mouse exited handler to return to normal size when mouse leaves
+
             textElement.setOnMouseExited(exitEvent -> {
                 textElement.setScaleX(1.0);
                 textElement.setScaleY(1.0);
@@ -665,7 +665,7 @@ public class coffeeController implements Initializable {
             imageElement.setScaleX(1.1);
             imageElement.setScaleY(1.1);
 
-            // Add mouse exited handler to return to normal size when mouse leaves
+
             imageElement.setOnMouseExited(exitEvent -> {
                 imageElement.setScaleX(1.0);
                 imageElement.setScaleY(1.0);
@@ -702,7 +702,7 @@ public class coffeeController implements Initializable {
             }
         } else {
             try {
-                // Get the current stage
+
                 Stage stage;
                 if(event.getSource() instanceof Rectangle) {
                     stage = (Stage) ((Rectangle) event.getSource()).getScene().getWindow();
@@ -712,11 +712,11 @@ public class coffeeController implements Initializable {
                     stage = (Stage) ((Text) event.getSource()).getScene().getWindow();
                 }
 
-                // Load the cart FXML file
+                database.addToCart(this.currentCoffee.getId(), currentQuantity);
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cart.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
 
-                // Set up the stage
+
                 stage.setTitle("Noir Dhaka - Cart");
                 stage.setResizable(false);
                 stage.setScene(scene);
@@ -745,7 +745,6 @@ public class coffeeController implements Initializable {
             }
         } else {
             try {
-
 
                 Stage stage = (Stage) ((ImageView) event.getSource()).getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile.fxml"));

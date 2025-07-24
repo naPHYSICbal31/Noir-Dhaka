@@ -1,119 +1,289 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.noir.coffeeController">
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2500.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.noir.coffeeController">
   <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="2000.0" prefWidth="1425.0" style="-fx-background-color: #e9e9e9;">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="2500.0" prefWidth="1425.0" style="-fx-background-color: #e9e9e9;">
          <children>
             <ImageView fitHeight="331.0" fitWidth="1425.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/code.png" />
                </image>
             </ImageView>
-            <Text fx:id="top1" layoutX="133.0" layoutY="106.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" text="Products" wrappingWidth="158.81198120117188">
-               <font>
-                  <Font name="RetrokiaCaps-Rough" size="24.0" />
-               </font>
-            </Text>
+            <Text fx:id="top1" layoutX="133.0" layoutY="106.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" text="Products" wrappingWidth="158.81198120117188" />
             <ImageView fitHeight="102.0" fitWidth="109.0" layoutX="13.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" scaleX="0.75" scaleY="0.75">
                <image>
                   <Image url="@images/noir_logo.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="1223.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" scaleX="0.75" scaleY="0.75">
+            <ImageView fitHeight="62.0" fitWidth="58.0" layoutX="1260.0" layoutY="73.0" onMouseClicked="#redirecttoprofile" onMouseEntered="#zoomout" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@images/profile.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="1313.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" scaleX="0.75" scaleY="0.75">
+            <ImageView fitHeight="70.0" fitWidth="58.0" layoutX="1331.0" layoutY="73.0" onMouseClicked="#redirect" onMouseEntered="#zoomout" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@images/cart.png" />
                </image>
             </ImageView>
-            <Text fx:id="top4" layoutX="710.0" layoutY="106.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" text="About us" wrappingWidth="158.81198120117188">
-               <font>
-                  <Font name="RetrokiaCaps-Rough" size="24.0" />
-               </font>
-            </Text>
-            <Text fx:id="top3" layoutX="560.0" layoutY="106.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" text="Reviews" wrappingWidth="126.81198120117188">
-               <font>
-                  <Font name="RetrokiaCaps-Rough" size="24.0" />
-               </font>
-            </Text>
-            <Text fx:id="top2" layoutX="310.0" layoutY="106.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriptions" wrappingWidth="242.01205444335938">
-               <font>
-                  <Font name="RetrokiaCaps-Rough" size="24.0" />
-               </font>
-            </Text>
+            <Text fx:id="top4" layoutX="710.0" layoutY="106.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" text="About us" wrappingWidth="158.81198120117188" />
+            <Text fx:id="top3" layoutX="560.0" layoutY="106.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" text="Reviews" wrappingWidth="126.81198120117188" />
+            <Text fx:id="top2" layoutX="310.0" layoutY="106.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriptions" wrappingWidth="242.01205444335938" />
              <ImageView fx:id="coffeeImageView" fitHeight="400.0" fitWidth="400.0" layoutX="50.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
 
              <!-- Basic Information -->
-             <Label fx:id="coffeeNameLabel" layoutX="488.0" layoutY="136.0" prefHeight="59.0" prefWidth="436.0" style="-fx-font-size: 20px; -fx-font-weight: bold; " text="{COFFEE NAME}" wrapText="true">
+             <Label fx:id="coffeeNameLabel" alignment="TOP_LEFT" layoutX="488.0" layoutY="154.0" prefHeight="55.0" prefWidth="675.0" text="{COFFEE NAME}" wrapText="true" />
+
+             <Label fx:id="coffeeDescriptionLabel" alignment="TOP_LEFT" layoutX="487.0" layoutY="212.0" prefHeight="138.0" prefWidth="630.0" style="-fx-font-family: 'Courier New'; -fx-font-size: 18px; -fx-font-weight: bold;" text="Description loading...frgffffffffffffffffffffrgrgsfgsfgsrygsdfbserhgbsdghdr" translateY="30.0" wrapText="true">
                <font>
-                  <Font name="RetrokiaCaps-Rough" size="12.0" />
+                  <Font size="18.0" />
                </font></Label>
-
-             <Label fx:id="coffeePriceLabel" layoutX="789.0" layoutY="526.0" style="-fx-font-size: 18px;" text="Price: $0.00" />
-
-             <Label fx:id="coffeeDescriptionLabel" layoutX="488.0" layoutY="189.0" prefHeight="109.0" prefWidth="402.0" style=" -fx-font: Courier New;-fx-font-weight: bold; -fx-font-size: 14px; " text="Description loading...frgffffffffffffffffffffrgrgsfgsfgsrygsdfbserhgbsdghdr" wrapText="true">
-               <font>
-                  <Font name="Courier New Italic" size="14.0" />
-               </font></Label>
-
-             <Label fx:id="coffeePacketSizeLabel" layoutX="488.0" layoutY="340.0" style="-fx-font-size: 14px;" text="Packet Size: -" />
-
-             <Label fx:id="coffeeWeightLabel" layoutX="594.0" layoutY="340.0" style="-fx-font-size: 14px;" text="Weight: -" />
-
-             <!-- Coffee Quality Ratings -->
-             <Label layoutX="500.0" layoutY="370.0" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="QUALITY RATINGS" />
-
-             <Label fx:id="coffeeStrengthLabel" layoutX="500.0" layoutY="400.0" style="-fx-font-size: 14px;" text="Strength: -/10" />
-
-             <Label fx:id="coffeeFlavourLabel" layoutX="650.0" layoutY="400.0" style="-fx-font-size: 14px;" text="Flavour: -/10" />
-
-             <Label fx:id="coffeeAcidityLabel" layoutX="500.0" layoutY="430.0" style="-fx-font-size: 14px;" text="Acidity: -/10" />
-
-             <Label fx:id="coffeeAromaLabel" layoutX="650.0" layoutY="430.0" style="-fx-font-size: 14px;" text="Aroma: -/10" />
-
-             <!-- Stock and Sales Information -->
-             <Label layoutX="500.0" layoutY="470.0" style="-fx-font-weight: bold; -fx-font-size: 16px; " text="AVAILABILITY" />
-
-             <Label fx:id="coffeeStockLabel" layoutX="500.0" layoutY="500.0" style="-fx-font-size: 14px;" text="Stock: -" />
-
-             <Label fx:id="coffeeSalesLabel" layoutX="650.0" layoutY="500.0" style="-fx-font-size: 14px;" text="Sales: -" />
-
-             <Label fx:id="coffeeAverageRatingLabel" layoutX="500.0" layoutY="530.0" style="-fx-font-size: 14px; " text="Rating: -/5.0" />
-
-             <!-- Status and Special Features -->
-             <Label fx:id="coffeeStatusLabel" layoutX="500.0" layoutY="560.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Status: Loading..." />
-
-             <Label fx:id="coffeeSpecialFeaturesLabel" layoutX="500.0" layoutY="590.0" style="-fx-font-size: 14px;" text="Special Features: -" />
-
-             <Label fx:id="coffeeTagsLabel" layoutX="500.0" layoutY="620.0" style="-fx-font-size: 14px;" text="Tags: -" />
-
-             <!-- Add to Cart Button (optional) -->
-             <Button layoutX="500.0" layoutY="660.0" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #27ae60; -fx-font-weight: bold;" text="Add to Cart" />
-            <Label layoutX="264.0" layoutY="250.0" prefHeight="42.0" prefWidth="61.0" text="ahis" />
-            <ImageView fitHeight="703.0" fitWidth="1425.0" layoutY="916.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="703.0" fitWidth="1425.0" layoutY="916.0" pickOnBounds="true" preserveRatio="true" translateY="500.0">
                <image>
                   <Image url="@images/coffeebg.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="422.0" fitWidth="1190.0" layoutX="117.0" layoutY="1588.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="422.0" fitWidth="1190.0" layoutX="117.0" layoutY="1588.0" pickOnBounds="true" preserveRatio="true" translateY="500.0">
                <image>
                   <Image url="@images/bottom_banner.png" />
                </image>
             </ImageView>
-            <Label fx:id="coffeeNameLabel1" layoutX="488.0" layoutY="290.0" prefHeight="59.0" prefWidth="436.0" style="-fx-font-size: 20px; -fx-font-weight: bold; " text="PRODUCT DETAILS" wrapText="true" />
+            <ImageView fitHeight="56.0" fitWidth="98.0" layoutX="490.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true" translateY="80.0">
+               <image>
+                  <Image url="@images/black_icon.png" />
+               </image>
+            </ImageView>
 
+             <Label fx:id="coffeePacketSizeLabel" alignment="CENTER" layoutX="490.0" layoutY="339.0" prefHeight="58.0" prefWidth="96.0" style="-fx-text-fill: white;" text="250g" textFill="WHITE" translateY="80.0">
+               <font>
+                  <Font name="Courier New Bold" size="18.0" />
+               </font></Label>
+            <Text layoutX="488.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Packet Size" translateY="80.0" wrappingWidth="161.87602996826172">
+               <font>
+                  <Font name="RetrokiaCaps-Rough" size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="486.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TASTE INFO" translateY="80.0" wrappingWidth="223.47606658935547">
+               <font>
+                  <Font name="RetrokiaCaps-Rough" size="18.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="str1" fitHeight="62.0" fitWidth="67.0" layoutX="650.0" layoutY="439.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateY="80.0">
+               <image>
+                  <Image url="@images/coffee_cup.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="488.0" layoutY="470.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Strength :" translateY="80.0" wrappingWidth="159.2034912109375">
+               <font>
+                  <Font name="Courier New Bold" size="24.0" />
+               </font>
+            </Text>
+            <Line endX="49.0" endY="3.0517578125E-5" fill="WHITE" layoutX="587.0" layoutY="339.0" startX="-100.0" stroke="#91b08f" strokeWidth="2.0" translateY="80.0" />
+            <Line endX="31.4000244140625" endY="3.0517578125E-5" layoutX="587.0" layoutY="430.0" startX="-100.0" stroke="#91b08f" strokeWidth="2.0" translateY="80.0" />
+            <ImageView fx:id="str3" fitHeight="62.0" fitWidth="67.0" layoutX="810.0" layoutY="439.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateY="80.0">
+               <image>
+                  <Image url="@images/coffee_cup.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="str2" fitHeight="62.0" fitWidth="67.0" layoutX="730.0" layoutY="439.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateY="80.0">
+               <image>
+                  <Image url="@images/coffee_cup.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="489.0" layoutY="674.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aroma    :" translateY="30.0" wrappingWidth="159.2034912109375">
+               <font>
+                  <Font name="Courier New Bold" size="24.0" />
+               </font>
+            </Text>
+            <Text layoutX="488.0" layoutY="620.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Acidity  :" translateY="30.0" wrappingWidth="159.2034912109375">
+               <font>
+                  <Font name="Courier New Bold" size="24.0" />
+               </font>
+            </Text>
+            <Text layoutX="488.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flavour  :" translateY="30.0" wrappingWidth="159.2034912109375">
+               <font>
+                  <Font name="Courier New Bold" size="24.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="fl1" fitHeight="62.0" fitWidth="67.0" layoutX="650.0" layoutY="539.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateY="30.0">
+               <image>
+                  <Image url="@images/coffee_cup.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="fl3" fitHeight="62.0" fitWidth="67.0" layoutX="810.0" layoutY="539.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateY="30.0">
+               <image>
+                  <Image url="@images/coffee_cup.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="fl2" fitHeight="62.0" fitWidth="67.0" layoutX="730.0" layoutY="539.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateY="30.0">
+               <image>
+                  <Image url="@images/coffee_cup.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ar1" fitHeight="62.0" fitWidth="67.0" layoutX="650.0" layoutY="644.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateY="30.0">
+               <image>
+                  <Image url="@images/coffee_cup.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ar3" fitHeight="62.0" fitWidth="67.0" layoutX="810.0" layoutY="644.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateY="30.0">
+               <image>
+                  <Image url="@images/coffee_cup.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ar2" fitHeight="62.0" fitWidth="67.0" layoutX="730.0" layoutY="644.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateY="30.0">
+               <image>
+                  <Image url="@images/coffee_cup.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ac1" fitHeight="62.0" fitWidth="67.0" layoutX="650.0" layoutY="589.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateY="30.0">
+               <image>
+                  <Image url="@images/coffee_cup.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ac3" fitHeight="62.0" fitWidth="67.0" layoutX="810.0" layoutY="589.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateY="30.0">
+               <image>
+                  <Image url="@images/coffee_cup.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ac2" fitHeight="62.0" fitWidth="67.0" layoutX="730.0" layoutY="589.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" translateY="30.0">
+               <image>
+                  <Image url="@images/coffee_cup.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="star1" fitHeight="30.0" fitWidth="25.0" layoutX="488.0" layoutY="210.0" opacity="0.25" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="star5" fitHeight="30.0" fitWidth="25.0" layoutX="608.0" layoutY="210.0" opacity="0.25" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="star4" fitHeight="30.0" fitWidth="25.0" layoutX="578.0" layoutY="210.0" opacity="0.25" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="star3" fitHeight="30.0" fitWidth="25.0" layoutX="548.0" layoutY="210.0" opacity="0.25" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/star.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="star2" fitHeight="30.0" fitWidth="25.0" layoutX="518.0" layoutY="210.0" opacity="0.25" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/star.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="totalreview" layoutX="650.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="234 Reviews" wrappingWidth="159.2034912109375">
+               <font>
+                  <Font name="Courier New" size="14.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="548.0" fitWidth="394.0" layoutX="54.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/bucaramanga.png" />
+               </image>
+            </ImageView>
+            <Rectangle fx:id="grind5" arcHeight="40.0" arcWidth="50.0" fill="#e9e9e9" height="38.0" layoutX="647.0" layoutY="831.0" onMouseClicked="#handleclick" stroke="BLACK" strokeType="INSIDE" style="-fx-cursor: hand;" width="132.0" />
+            <Text layoutX="488.0" layoutY="752.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grind type" wrappingWidth="133.87609100341797">
+               <font>
+                  <Font name="RetrokiaCaps-Rough" size="18.0" />
+               </font>
+            </Text>
+            <Line endX="38.60003662109375" layoutX="591.0" layoutY="758.0" startX="-105.20709228515625" stroke="#91b08f" strokeWidth="2.0" />
+            <Rectangle fx:id="grind4" arcHeight="40.0" arcWidth="50.0" fill="#e9e9e9" height="38.0" layoutX="494.0" layoutY="831.0" onMouseClicked="#handleclick" stroke="BLACK" strokeType="INSIDE" style="-fx-cursor: hand;" width="132.0" />
+            <Text fx:id="grindtext4" layoutX="502.0" layoutY="853.0" onMouseClicked="#handleclick" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="Espresso" textAlignment="CENTER" wrappingWidth="116.80352783203125">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </Text>
+            <Rectangle fx:id="grind2" arcHeight="40.0" arcWidth="50.0" fill="#e9e9e9" height="38.0" layoutX="651.0" layoutY="771.0" onMouseClicked="#handleclick" stroke="BLACK" strokeType="INSIDE" style="-fx-cursor: hand;" width="132.0" />
+            <Text fx:id="grindtext2" layoutX="659.0" layoutY="792.0" onMouseClicked="#handleclick" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="Cafetière" textAlignment="CENTER" wrappingWidth="116.80352783203125">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </Text>
+            <Rectangle fx:id="grind1" arcHeight="40.0" arcWidth="50.0" fill="#e9e9e9" height="38.0" layoutX="494.0" layoutY="771.0" onMouseClicked="#handleclick" stroke="BLACK" strokeType="INSIDE" style="-fx-cursor: hand;" width="132.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e9e9e9" height="56.0" layoutX="488.0" layoutY="924.0" stroke="BLACK" strokeType="INSIDE" width="156.0" />
+            <Text fx:id="grindtext1" layoutX="502.0" layoutY="793.0" onMouseClicked="#handleclick" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="Whole Bean" textAlignment="CENTER" wrappingWidth="116.80352783203125">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </Text>
+            <Rectangle fx:id="grind6" arcHeight="40.0" arcWidth="50.0" fill="#e9e9e9" height="38.0" layoutX="811.0" layoutY="831.0" onMouseClicked="#handleclick" stroke="BLACK" strokeType="INSIDE" style="-fx-cursor: hand;" width="132.0" />
+            <Text fx:id="grindtext6" layoutX="819.0" layoutY="852.0" onMouseClicked="#handleclick" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="Turkish" textAlignment="CENTER" wrappingWidth="116.80352783203125">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="grindtext5" layoutX="654.0" layoutY="852.0" onMouseClicked="#handleclick" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="AeroPress" textAlignment="CENTER" wrappingWidth="116.80352783203125">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </Text>
+            <Rectangle fx:id="grind7" arcHeight="40.0" arcWidth="50.0" fill="#e9e9e9" height="38.0" layoutX="985.0" layoutY="769.0" onMouseClicked="#handleclick" stroke="BLACK" strokeType="INSIDE" style="-fx-cursor: hand;" width="132.0" />
+            <Text fx:id="grindtext7" layoutX="992.0" layoutY="791.0" onMouseClicked="#handleclick" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="Paper Filter" textAlignment="CENTER" wrappingWidth="116.80352783203125">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </Text>
+            <Rectangle fx:id="grind3" arcHeight="40.0" arcWidth="50.0" fill="#e9e9e9" height="38.0" layoutX="811.0" layoutY="771.0" onMouseClicked="#handleclick" stroke="BLACK" strokeType="INSIDE" style="-fx-cursor: hand;" width="132.0" />
+            <Text fx:id="grindtext3" layoutX="819.0" layoutY="793.0" onMouseClicked="#handleclick" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="Metal Filter" textAlignment="CENTER" wrappingWidth="116.80352783203125">
+               <font>
+                  <Font name="Courier New Bold" size="14.0" />
+               </font>
+            </Text>
+<!-- Quantity Controls -->
+<Text layoutX="488.0" layoutY="912.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTITY" wrappingWidth="133.87609100341797">
+   <font>
+      <Font name="RetrokiaCaps-Rough" size="18.0" />
+   </font>
+</Text>
+
+<!-- Quantity Display -->
+<Text fx:id="quantity" layoutX="560.0" layoutY="958.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="CENTER">
+   <font>
+      <Font name="RetrokiaCaps-Rough" size="20.0" />
+   </font>
+</Text>
+            <ImageView fitHeight="330.0" fitWidth="638.0" layoutX="488.0" layoutY="1204.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/random6.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="coffeePriceLabel" layoutX="488.0" layoutY="1044.0" prefHeight="18.0" prefWidth="222.0" text="TK 2020" />
+            <Text fx:id="quantity1" layoutX="612.0" layoutY="958.0" onMouseClicked="#handlePlusClick" onMouseEntered="#zoomout" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="+" textAlignment="CENTER" wrappingWidth="27.420024871826172">
+               <font>
+                  <Font name="RetrokiaCaps-Rough" size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="quantity2" layoutX="489.0" layoutY="958.0" onMouseClicked="#handleMinusClick" onMouseEntered="#zoomout" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="-" textAlignment="CENTER" wrappingWidth="24.620006561279297">
+               <font>
+                  <Font name="RetrokiaCaps-Rough" size="20.0" />
+               </font>
+            </Text>
+            <Text layoutX="488.0" layoutY="1012.0" strokeType="OUTSIDE" strokeWidth="0.0" text="total" wrappingWidth="133.87609100341797">
+               <font>
+                  <Font name="RetrokiaCaps-Rough" size="18.0" />
+               </font>
+            </Text>
+            <Line endX="-21.93328857421875" layoutX="591.0" layoutY="1028.0" startX="-105.20709228515625" stroke="#91b08f" strokeWidth="2.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#91b08f" height="62.0" layoutX="488.0" layoutY="1100.0" onMouseClicked="#redirect" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" style="-fx-cursor: hand;" width="301.0" />
+            <Text layoutX="489.0" layoutY="1137.0" onMouseClicked="#redirect" onMouseEntered="#zoomout" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="ADD TO CART" textAlignment="CENTER" wrappingWidth="300.7079772949219">
+               <font>
+                  <Font name="RetrokiaCaps-Rough" size="18.0" />
+               </font>
+            </Text>
          </children></AnchorPane>
   </content>
 </ScrollPane>

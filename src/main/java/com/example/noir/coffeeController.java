@@ -17,8 +17,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.text.*;
+
+import javax.crypto.spec.PSource;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.text.NumberFormat;
 
@@ -331,47 +334,20 @@ public class coffeeController implements Initializable {
             coffeeStatusLabel.setText(status.toString());
         }
 
-        // Special features
-        if (coffeeSpecialFeaturesLabel != null) {
-            StringBuilder features = new StringBuilder();
-            if (currentCoffee.isRare()) {
-                features.append("RARE ");
-            }
-            if (currentCoffee.isSmallBatch()) {
-                features.append("SMALL BATCH ");
-            }
-            if (currentCoffee.isFarmToCup()) {
-                features.append("FARM TO CUP ");
-            }
-            coffeeSpecialFeaturesLabel.setText(features.toString());
+        try {
+            // Load from resources (src/main/resources/)
+            System.out.println("1");
+            assert currentCoffee != null;
+            System.out.println("2");
+            String s = currentCoffee.getImageurl();
+            System.out.println("3");
+            System.out.println("Loading image from: " + s);
+            //TODO works when same url is inserted manually,problem is in getimageurl method
+            Image imageObj = new Image(getClass().getResourceAsStream(s));
+            coffeeImageView.setImage(imageObj);
+        } catch (Exception e) {
+            System.err.println("Error loading image: " + e.getMessage());
         }
-
-        // Tags
-        if (coffeeTagsLabel != null) {
-            StringBuilder tags = new StringBuilder("Tags: ");
-            if (currentCoffee.getTag() != null) {
-                for (int i = 0; i < currentCoffee.getTag().size() && i < 3; i++) {
-                    if (currentCoffee.getTag().get(i)) {
-                        String[] tagNames = {"Organic", "Fair Trade", "Single Origin"}; // Example tag names
-                        tags.append(tagNames[i]).append(" ");
-                    }
-                }
-            }
-            coffeeTagsLabel.setText(tags.toString());
-        }
-
-        // Load coffee image if available
-        if (coffeeImageView != null && currentCoffee.getImageurl() != null && !currentCoffee.getImageurl().isEmpty()) {
-            try {
-                Image coffeeImage = new Image(currentCoffee.getImageurl(), true);
-                coffeeImageView.setImage(coffeeImage);
-            } catch (Exception e) {
-                System.err.println("Error loading coffee image: " + e.getMessage());
-            }
-        }
-
-        // Re-apply fonts after setting text content
-        applyCustomFonts();
 
         System.out.println("Coffee data loaded successfully: " + currentCoffee.getName());
     }

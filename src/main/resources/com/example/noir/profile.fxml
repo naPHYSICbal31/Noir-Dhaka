@@ -130,7 +130,7 @@
       </Label>
 
 <!-- Coffee TableView with Columns -->
-<TableView fx:id="coffeeTableView" layoutX="358.0" layoutY="244.0" prefHeight="295.0" prefWidth="600.0">
+<TableView fx:id="coffeeTableView" layoutX="358.0" layoutY="244.0" opacity="0.0" prefHeight="295.0" prefWidth="600.0">
     <columns>
         <TableColumn fx:id="nameColumn" editable="false" maxWidth="200.0" prefWidth="200.0" resizable="false" sortable="false" text="Coffee Name" />
         <TableColumn fx:id="priceColumn" editable="false" maxWidth="100.0" prefWidth="120.0" resizable="false" text="Price" />

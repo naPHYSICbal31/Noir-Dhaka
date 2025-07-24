@@ -189,11 +189,6 @@
                   <Font name="Courier New" size="14.0" />
                </font>
             </Text>
-            <ImageView fitHeight="548.0" fitWidth="394.0" layoutX="54.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/bucaramanga.png" />
-               </image>
-            </ImageView>
             <Rectangle fx:id="grind5" arcHeight="40.0" arcWidth="50.0" fill="#e9e9e9" height="38.0" layoutX="647.0" layoutY="831.0" onMouseClicked="#handleclick" stroke="BLACK" strokeType="INSIDE" style="-fx-cursor: hand;" width="132.0" />
             <Text layoutX="488.0" layoutY="752.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grind type" wrappingWidth="133.87609100341797">
                <font>

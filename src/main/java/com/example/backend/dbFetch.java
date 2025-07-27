@@ -521,6 +521,16 @@ public class dbFetch {
         this.collection.deleteOne(new Document("id", id));
 
     }
+    public void updateCart(Cart current)
+    {
+        this.collection = database.getCollection("carts");
+        int userid = getUserIdByToken();
+        if(getCart() != null){
+            removeCart();
+        }
+        List<Document> coffees = new ArrayList<>();
+
+    }
 
     public void removeCoffee(int id){
 

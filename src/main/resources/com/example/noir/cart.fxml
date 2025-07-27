@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
 
 <AnchorPane prefHeight="810.0" prefWidth="1440.0" style="-fx-background-color: #e9e9e9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.noir.cartcontroller">
    <children>
@@ -58,20 +60,36 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#92b08600" height="363.0" layoutX="783.0" layoutY="219.0" stroke="#91b08f" strokeType="INSIDE" strokeWidth="5.0" width="560.0" />
-      <ScrollPane hbarPolicy="NEVER" layoutX="788.0" layoutY="223.0" prefHeight="353.0" prefWidth="550.0" vbarPolicy="NEVER">
+
+      <!-- Main Cart ScrollPane -->
+      <ScrollPane fx:id="cartScrollPane" hbarPolicy="NEVER" layoutX="788.0" layoutY="223.0" prefHeight="353.0" prefWidth="550.0" vbarPolicy="NEVER">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="990.0" prefWidth="554.0" style="-fx-background-color: e9e9e9;">
+          <AnchorPane fx:id="cartContentPane" minHeight="0.0" minWidth="0.0" prefHeight="354.0" prefWidth="550.0" style="-fx-background-color: #e9e9e9;">
                <children>
-                  <Text layoutX="169.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <!-- Cart Items Container - This will be populated programmatically -->
+                  <VBox fx:id="cartItemsContainer" layoutX="10.0" layoutY="20.0" prefWidth="520.0" spacing="15.0" />
+
+                  <!-- Empty Cart Elements - Initially hidden -->
+                  <Label fx:id="emptyCartLabel" layoutX="170.0" layoutY="120.0" style="-fx-font-family: 'Courier New'; -fx-font-size: 24px; -fx-text-fill: #666;" text="Your cart is empty" visible="false" />
+                  <Button fx:id="startShoppingButton" layoutX="170.0" layoutY="170.0" onAction="#navigateToProducts" style="-fx-background-color: #748e72; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 20;" text="Start Shopping" visible="false" />
+
+                  <!-- Cart Summary Elements -->
+                  <Label fx:id="totalPriceLabel" layoutX="10.0" layoutY="280.0" style="-fx-font-family: 'Courier New'; -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Total: $0.00" visible="false" />
+                  <Button fx:id="checkoutButton" layoutX="400.0" layoutY="270.0" onAction="#handleCheckout" style="-fx-background-color: #748e72; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 20;" text="Checkout" visible="false" />
                </children>
             </AnchorPane>
         </content>
       </ScrollPane>
-      <Text layoutX="786.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your cart ☕️" wrappingWidth="299.19476318359375">
+
+      <Text layoutX="786.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your cart ☕" wrappingWidth="299.19476318359375">
          <font>
             <Font name="RetrokiaCaps-Rough" size="36.0" />
          </font>
       </Text>
-      <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" layoutX="449.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" />
+      <Text layoutX="65.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Receipt 📃" wrappingWidth="358.394775390625">
+         <font>
+            <Font name="RetrokiaCaps-Rough" size="36.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

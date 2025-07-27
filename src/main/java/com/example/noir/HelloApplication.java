@@ -91,7 +91,7 @@ public class HelloApplication extends Application {
             // Load fonts first
             loadGlobalFonts();
             (new dbFetch()).validateLogin("user0", "pass0");
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("coffee.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("cart.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
             scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
             stage.setTitle("Noir Dhaka");
@@ -114,7 +114,6 @@ public class HelloApplication extends Application {
             System.exit(1);
         }
     }
-    
     public static void main(String[] args) {
         launch();
     }

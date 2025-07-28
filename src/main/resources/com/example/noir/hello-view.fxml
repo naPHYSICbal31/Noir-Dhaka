@@ -218,6 +218,41 @@
                   <Image url="@images/random2.png" />
                </image>
             </ImageView>
+ <ImageView fx:id="blog3" fitHeight="297.0" fitWidth="446.0" layoutX="940.0" layoutY="4118.0" onMouseClicked="#redirectToWebsite" pickOnBounds="true" style="-fx-cursor: hand;" translateY="-50.0">
+     <image>
+         <Image url="@images/blog-03.jpg" />
+     </image>
+ </ImageView>
+ <ImageView fx:id="blog2" fitHeight="300.0" fitWidth="398.0" layoutX="496.0" layoutY="4118.0" onMouseClicked="#redirectToWebsite" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" translateY="-50.0">
+     <image>
+         <Image url="@images/blog-02.jpg" />
+     </image>
+ </ImageView>
+ <ImageView fx:id="blog1" fitHeight="299.0" fitWidth="418.0" layoutX="29.0" layoutY="4118.0" onMouseClicked="#redirectToWebsite" pickOnBounds="true" style="-fx-cursor: hand;" translateY="-50.0">
+     <image>
+         <Image url="@images/blog-1.jpg" />
+     </image>
+ </ImageView>
+            <Text fx:id="blogtxt3" layoutX="962.0" layoutY="4408.0" onMouseClicked="#redirectToWebsite" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="Water Chemistry for Tea" wrappingWidth="397.53184509277344">
+               <font>
+                  <Font name="RetrokiaCaps-Rough" size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="blogtxt2" layoutX="490.0" layoutY="4402.0" onMouseClicked="#redirectToWebsite" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="The Sprudge Guide To Coffee In Okinawa, Japan" textAlignment="CENTER" wrappingWidth="397.53184509277344">
+               <font>
+                  <Font name="RetrokiaCaps-Rough" size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="blogtxt1" layoutX="59.0" layoutY="4402.0" onMouseClicked="#redirectToWebsite" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="The Truth About Travel Coffee Mugs" textAlignment="CENTER" wrappingWidth="378.33189392089844">
+               <font>
+                  <Font name="RetrokiaCaps-Rough" size="24.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="67.0" fitWidth="587.0" layoutX="418.0" layoutY="3992.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/blogtxt.png" />
+               </image>
+            </ImageView>
          </children></AnchorPane>
   </content>
 </ScrollPane>

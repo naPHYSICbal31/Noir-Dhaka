@@ -23,11 +23,10 @@ public class HelloApplication extends Application {
     public void loadReviews() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("C://Users//nafis//Desktop//codes//Project//Noir//src//main//resources//files//reviews.txt"));
         String line;
-        System.out.println("here");
         while((line = reader.readLine()) != null)
         {
             try {
-                System.out.println("works");
+
                 String[] parts = line.split(",");
                 String title = parts[0].replace("\"", "");
                 String description = parts[1].replace("\"", "");
@@ -38,7 +37,7 @@ public class HelloApplication extends Application {
                 reviews[reviewCount++] = new Review(title,description,users[userCount-1],stars,isVerified);
                 System.out.println(reviews[0].getTitle());
                 displayReview(reviews[reviewCount-1]);
-                // Store or process review object as needed
+
             } catch (Exception e) {
                 System.err.println("Error parsing review line: " + line);
                 e.printStackTrace();

@@ -57,7 +57,8 @@ public class ProfileController implements Initializable {
     private Label emailLabel;
     @FXML
     private Label addressLabel;
-
+    @FXML
+    private ImageView cart;
     @FXML
     private ListView<String> coffeeListView;
 
@@ -537,6 +538,30 @@ public class ProfileController implements Initializable {
         }
 
         stage.show();
+    }
+    @FXML
+    private void handleCartClick() {
+        try {
+            if (dbFetch.currentToken != null) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cart.fxml"));
+                Stage stage = (Stage) cart.getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            } else {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+                Stage stage = (Stage) cart.getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     private void applyTableViewStyles() {
         if (coffeeTableView != null) {

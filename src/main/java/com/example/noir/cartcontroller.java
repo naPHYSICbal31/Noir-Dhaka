@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -15,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -76,7 +78,8 @@ public class cartcontroller implements Initializable{
     private ScrollPane verticalScrollPane;
     @FXML
     private Text coupontxt;
-
+    @FXML
+    private ImageView profile;
     private dbFetch database;
     private Cart currentCart;
 
@@ -196,7 +199,39 @@ public class cartcontroller implements Initializable{
         } catch (Exception e) {
             // Use placeholder image if coffee image not found
             try {
-                coffeeImage.setImage(new Image(getClass().getResourceAsStream("/com/example/noir/images/bucaramanga.png")));
+                switch(coffee.getId()) {
+                    case 200:
+                        coffeeImage.setImage(new Image(getClass().getResourceAsStream("images/5set.png")));
+                        break;
+                    case 201:
+                        coffeeImage.setImage(new Image(getClass().getResourceAsStream("images/bucaramanga.png")));
+                        break;
+                    case 202:
+                        coffeeImage.setImage(new Image(getClass().getResourceAsStream("images/kona.png")));
+                        break;
+                    case 203:
+                        coffeeImage.setImage(new Image(getClass().getResourceAsStream("images/nepalese.png")));
+                        break;
+                    case 204:
+                        coffeeImage.setImage(new Image(getClass().getResourceAsStream("images/ethiopia.png")));
+                        break;
+                    case 205:
+                        coffeeImage.setImage(new Image(getClass().getResourceAsStream("images/indian.png")));
+                        break;
+                    case 206:
+                        coffeeImage.setImage(new Image(getClass().getResourceAsStream("images/guatemala.png")));
+                        break;
+                    case 207:
+                        coffeeImage.setImage(new Image(getClass().getResourceAsStream("images/jamaica.png")));
+                        break;
+                    case 208:
+                        coffeeImage.setImage(new Image(getClass().getResourceAsStream("images/kopi.png")));
+                        break;
+                    default:
+                        coffeeImage.setImage(new Image(getClass().getResourceAsStream("images/bucaramanga.png")));
+                        break;
+
+                }
             } catch (Exception ex) {
                 // If placeholder also fails, create a simple rectangle placeholder
                 coffeeImage.setImage(null);
@@ -234,13 +269,26 @@ public class cartcontroller implements Initializable{
 
         // Decrease quantity button
         Button decreaseBtn = new Button("-");
-        decreaseBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 30; -fx-min-height: 30; -fx-background-color: #91B08F; -fx-cursor: hand");
+        decreaseBtn.setText("-");
+        decreaseBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 30; -fx-min-height: 30; -fx-background-color: #91B08F; -fx-cursor: hand; -fx-text-fill: black");
         decreaseBtn.setOnAction(e -> updateQuantity(coffee.getId(), -1));
 
         // Increase quantity button
         Button increaseBtn = new Button("+");
-        increaseBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 30; -fx-min-height: 30; -fx-cursor: hand; -fx-background-color: #91B08F");
+        increaseBtn.setText("+");
+        increaseBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 30; -fx-min-height: 30; -fx-cursor: hand; -fx-background-color: #91B08F; -fx-text-fill: black");
         increaseBtn.setOnAction(e -> updateQuantity(coffee.getId(), 1));
+        Button testBtn = new Button("+");
+        testBtn.setPrefSize(50, 50);
+        Parent parent = increaseBtn.getParent();
+        if (parent != null) {
+            System.out.println("Parent type: " + parent.getClass().getSimpleName());
+            if (parent instanceof Region) {
+                Region region = (Region) parent;
+                System.out.println("Parent bounds: " + region.getBoundsInLocal());
+            }
+        }
+
 
         // Remove item button with trash can icon only
         Button removeBtn = new Button();
@@ -759,5 +807,29 @@ public class cartcontroller implements Initializable{
         }
         updateTotalPriceDisplay();
         couponfield.clear();
+    }
+    @FXML
+    private void handleProfileClick() {
+        try {
+            if (dbFetch.currentToken != null) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
+                Stage stage = (Stage) profile.getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            } else {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+                Stage stage = (Stage) profile.getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -30,7 +30,7 @@
                   <Image url="@images/profile.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="70.0" fitWidth="58.0" layoutX="1331.0" layoutY="73.0" onMouseClicked="#redirect" onMouseEntered="#zoomout" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+            <ImageView fx:id="cart" fitHeight="70.0" fitWidth="58.0" layoutX="1331.0" layoutY="73.0" onMouseClicked="#handleCartClick" onMouseEntered="#zoomout" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@images/cart.png" />
                </image>
@@ -57,13 +57,13 @@
                   <Image url="@images/bottom_banner.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="56.0" fitWidth="98.0" layoutX="490.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true" translateY="80.0">
+            <ImageView fitHeight="54.0" fitWidth="115.0" layoutX="490.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true" translateY="80.0">
                <image>
                   <Image url="@images/black_icon.png" />
                </image>
             </ImageView>
 
-             <Label fx:id="coffeePacketSizeLabel" alignment="CENTER" layoutX="490.0" layoutY="339.0" prefHeight="58.0" prefWidth="96.0" style="-fx-text-fill: white;" text="250g" textFill="WHITE" translateY="80.0">
+             <Label fx:id="coffeePacketSizeLabel" alignment="CENTER" layoutX="500.0" layoutY="361.0" prefHeight="23.0" prefWidth="92.0" style="-fx-text-fill: white;" text="5 x 250g" textFill="WHITE" translateY="80.0">
                <font>
                   <Font name="Courier New Bold" size="18.0" />
                </font></Label>
@@ -256,7 +256,7 @@
                   <Image url="@images/random6.png" />
                </image>
             </ImageView>
-            <Label fx:id="coffeePriceLabel" layoutX="488.0" layoutY="1044.0" prefHeight="18.0" prefWidth="222.0" text="TK 2020" />
+            <Label fx:id="coffeePriceLabel" layoutX="488.0" layoutY="1044.0" prefHeight="18.0" prefWidth="792.0" text="TK 2020" />
             <Text fx:id="quantity1" layoutX="612.0" layoutY="958.0" onMouseClicked="#handlePlusClick" onMouseEntered="#zoomout" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="+" textAlignment="CENTER" wrappingWidth="27.420024871826172">
                <font>
                   <Font name="RetrokiaCaps-Rough" size="20.0" />

@@ -60,7 +60,8 @@ public class HelloController {
     private ImageView blog3;
     private List<ImageView> animatedImages;
     private boolean[] animationPlayed;
-
+    @FXML
+    private ImageView cart;
     @FXML
     private Text top1Text;
     @FXML
@@ -71,6 +72,113 @@ public class HelloController {
     private Text top4Text;
     @FXML
     private ImageView profile;
+    // Add these @FXML fields to your HelloController class:
+
+    // ScrollPane elements
+    @FXML
+    private ScrollPane horizontalScrollPane;
+
+    // Product ImageViews (coffee products)
+    @FXML
+    private ImageView bucaramanga;
+    @FXML
+    private ImageView fiveset;
+    @FXML
+    private ImageView kona;
+    @FXML
+    private ImageView nepalese;
+    @FXML
+    private ImageView ethiopia;
+    @FXML
+    private ImageView indian;
+    @FXML
+    private ImageView guatemala;
+    @FXML
+    private ImageView costa;
+    @FXML
+    private ImageView jamaica;
+    @FXML
+    private ImageView kopi;
+    @FXML
+    private ImageView kona1;
+    @FXML
+    private ImageView nepalese1;
+    @FXML
+    private ImageView ethiopia1;
+    @FXML
+    private ImageView indian1;
+    @FXML
+    private ImageView guatemala1;
+    @FXML
+    private ImageView costa1;
+
+    // Product Text elements (names)
+    @FXML
+    private Text prtxt1;
+    @FXML
+    private Text prtxt2;
+    @FXML
+    private Text prtxt3;
+    @FXML
+    private Text prtxt4;
+    @FXML
+    private Text prtxt5;
+    @FXML
+    private Text prtxt6;
+    @FXML
+    private Text prtxt7;
+    @FXML
+    private Text prtxt8;
+    @FXML
+    private Text prtxt21;
+    @FXML
+    private Text prtxt22;
+    @FXML
+    private Text prtxt31;
+    @FXML
+    private Text prtxt41;
+    @FXML
+    private Text prtxt51;
+    @FXML
+    private Text prtxt61;
+    @FXML
+    private Text prtxt71;
+    @FXML
+    private Text prtxt81;
+
+    // Product Text elements (prices)
+    @FXML
+    private Text prtk1;
+    @FXML
+    private Text prtk2;
+    @FXML
+    private Text prtk3;
+    @FXML
+    private Text prtk4;
+    @FXML
+    private Text prtk5;
+    @FXML
+    private Text prtk6;
+    @FXML
+    private Text prtk7;
+    @FXML
+    private Text prtk8;
+    @FXML
+    private Text prtk21;
+    @FXML
+    private Text prtk22;
+    @FXML
+    private Text prtk31;
+    @FXML
+    private Text prtk41;
+    @FXML
+    private Text prtk51;
+    @FXML
+    private Text prtk61;
+    @FXML
+    private Text prtk71;
+    @FXML
+    private Text prtk81;
     public static String url = "";
     @FXML
     public void handleTop1Click() {
@@ -96,6 +204,30 @@ public class HelloController {
         smoothScrollTo(0.465, 0.5); // Adjust this value to match About Us section position
     }
 
+    @FXML
+    private void handleCartClick() {
+        try {
+            if (dbFetch.currentToken != null) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cart.fxml"));
+                Stage stage = (Stage) cart.getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            } else {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+                Stage stage = (Stage) cart.getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void handleProfileClick() {
         try {
@@ -279,22 +411,23 @@ public class HelloController {
         try {
             // Get the source of the event (could be ImageView or Text)
             Object source = event.getSource();
-
+            String sourceFxId = null;
             // Get the current stage
             Stage stage = null;
             if (source instanceof ImageView) {
                 stage = (Stage) ((ImageView) source).getScene().getWindow();
+                sourceFxId = ((ImageView) source).getId();
             } else if (source instanceof Text) {
                 stage = (Stage) ((Text) source).getScene().getWindow();
+                sourceFxId = ((Text) source).getId();
             }
-
             // Load the specific FXML file
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("coffee.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
 
             // Get the controller and reset scroll position
             coffeeController coffeeController = fxmlLoader.getController();
-
+            coffeeController.setSourceFxId(sourceFxId);
             // Set up the stage
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);

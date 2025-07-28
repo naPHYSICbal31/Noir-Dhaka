@@ -673,7 +673,7 @@
         <Image url="@images/profile.png" />
     </image>
 </ImageView>
-            <ImageView id="cart" fitHeight="77.0" fitWidth="50.0" layoutX="1333.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="cart" fx:id="cart" fitHeight="77.0" fitWidth="50.0" layoutX="1333.0" layoutY="60.0" onMouseClicked="#handleCartClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/cart.png" />
                </image>

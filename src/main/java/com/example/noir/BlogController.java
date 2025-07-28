@@ -1,5 +1,6 @@
 package com.example.noir;
 
+import com.example.backend.dbFetch;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,7 +48,10 @@ public class BlogController {
 
     @FXML
     private ProgressBar loadingBar;
-
+    @FXML
+    private ImageView profile;
+    @FXML
+    private ImageView cart;
     public void initialize() {
         WebEngine engine = webView.getEngine();
 
@@ -64,7 +68,71 @@ public class BlogController {
 
         engine.load(url);
     }
+    @FXML
+    private void handlehoverzoom(MouseEvent event) {
+        ImageView imageView = (ImageView) event.getSource();
 
+        // Create a scale transition for zoom effect
+        javafx.animation.ScaleTransition scaleTransition = new javafx.animation.ScaleTransition(Duration.millis(300), imageView);
+        scaleTransition.setToX(1.1); // Scale to 110% of original size
+        scaleTransition.setToY(1.1);
+        scaleTransition.play();
+        // Add mouse exited handler to zoom back out
+        imageView.setOnMouseExited(exitEvent -> {
+            javafx.animation.ScaleTransition scaleBack = new javafx.animation.ScaleTransition(Duration.millis(300), imageView);
+            scaleBack.setToX(1.0); // Scale back to original size
+            scaleBack.setToY(1.0);
+            scaleBack.play();
+        });
+    }
+    @FXML
+    private void handleCartClick() {
+        try {
+            if (dbFetch.currentToken != null) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cart.fxml"));
+                Stage stage = (Stage) cart.getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            } else {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+                Stage stage = (Stage) cart.getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleProfileClick() {
+        try {
+            if (dbFetch.currentToken != null) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
+                Stage stage = (Stage) profile.getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            } else {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+                Stage stage = (Stage) profile.getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     public void redirectToCoffee(MouseEvent event) {
         try {

@@ -137,7 +137,8 @@ public class coffeeController implements Initializable {
     private Label coffeeTagsLabel;
     @FXML
     private ImageView coffeeImageView;
-
+    @FXML
+    private ImageView cart;
     // Add quantity Text element
     @FXML
     private Text quantity;
@@ -149,17 +150,117 @@ public class coffeeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         loadFonts();
         database = new dbFetch();
-        loadCoffeeData(201);
 
         // Initialize quantity display
         if (quantity != null) {
             quantity.setText(String.valueOf(currentQuantity));
         }
-
         // Apply fonts after FXML processing is complete
         Platform.runLater(() -> {
             applyCustomFonts();
         });
+    }
+    private String sourceFxId;
+    public void setSourceFxId(String fxId) {
+        this.sourceFxId = fxId;
+        Image image = null;
+        switch(sourceFxId) {
+
+            case "bucaramanga":
+            case "prtxt2":
+            case "prtk2":
+                loadCoffeeData(201);
+                image = new Image(getClass().getResourceAsStream("images/bucaramanga.png"));
+                coffeeImageView.setImage(image);
+                break;
+            case "fiveset":
+            case "prtxt1":
+            case "prtk1":
+                loadCoffeeData(200);
+                image = new Image(getClass().getResourceAsStream("images/5set.png"));
+                coffeeImageView.setImage(image);
+                break;
+            case "kona":
+            case "kona1":
+            case "prtxt3":
+            case "prtk3":
+            case "prtxt31":
+            case "prtk31":
+                loadCoffeeData(202);
+                image = new Image(getClass().getResourceAsStream("images/kona.png"));
+                coffeeImageView.setImage(image);
+                break;
+            case "nepalese":
+            case "nepalese1":
+            case "prtxt4":
+            case "prtk4":
+            case "prtxt41":
+            case "prtk41":
+                loadCoffeeData(203);
+                image = new Image(getClass().getResourceAsStream("images/nepalese.png"));
+                coffeeImageView.setImage(image);
+                break;
+            case "ethiopia":
+            case "ethiopia1":
+            case "prtxt5":
+            case "prtk5":
+            case "prtxt51":
+            case "prtk51":
+                loadCoffeeData(204);
+                image = new Image(getClass().getResourceAsStream("images/ethiopia.png"));
+                coffeeImageView.setImage(image);
+                break;
+            case "indian":
+            case "indian1":
+            case "prtxt6":
+            case "prtk6":
+            case "prtxt61":
+            case "prtk61":
+                loadCoffeeData(205);
+                image = new Image(getClass().getResourceAsStream("images/indian.png"));
+                coffeeImageView.setImage(image);
+                break;
+            case "guatemala":
+            case "prtxt7":
+            case "prtk7":
+            case "guatemala1":
+            case "prtxt71":
+            case "prtk71":
+                loadCoffeeData(206);
+                image = new Image(getClass().getResourceAsStream("images/guatemala.png"));
+                coffeeImageView.setImage(image);
+                break;
+            case "costa":
+            case "prtxt8":
+            case "prtk8":
+            case "costa1":
+            case "prtxt81":
+            case "prtk81":
+                loadCoffeeData(207);
+                image = new Image(getClass().getResourceAsStream("images/costa.png"));
+                coffeeImageView.setImage(image);
+                break;
+            case "jamaica":
+            case "prtxt21":
+            case "prtk21":
+                loadCoffeeData(208);
+                image = new Image(getClass().getResourceAsStream("images/jamaica.png"));
+                coffeeImageView.setImage(image);
+                break;
+            case "kopi":
+            case "prtxt22":
+            case "prtk22":
+                loadCoffeeData(209);
+                image = new Image(getClass().getResourceAsStream("images/kopi.png"));
+                coffeeImageView.setImage(image);
+                break;
+            default:
+                loadCoffeeData(201);
+                image = new Image(getClass().getResourceAsStream("images/bucaramanga.png"));
+                coffeeImageView.setImage(image);
+                break;
+        }
+        // Now you can use the FXID to determine what actions to take
     }
 
     // Method to handle plus button click
@@ -335,16 +436,7 @@ public class coffeeController implements Initializable {
         }
 
         try {
-            // Load from resources (src/main/resources/)
-            System.out.println("1");
-            assert currentCoffee != null;
-            System.out.println("2");
-            String s = currentCoffee.getImageurl();
-            System.out.println("3");
-            System.out.println("Loading image from: " + s);
-            //TODO works when same url is inserted manually,problem is in getimageurl method
-            Image imageObj = new Image(getClass().getResourceAsStream(s));
-            coffeeImageView.setImage(imageObj);
+
         } catch (Exception e) {
             System.err.println("Error loading image: " + e.getMessage());
         }
@@ -733,6 +825,31 @@ public class coffeeController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+    }
+    @FXML
+    private void handleCartClick() {
+        try {
+            if (dbFetch.currentToken != null) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cart.fxml"));
+                Stage stage = (Stage) cart.getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            } else {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+                Stage stage = (Stage) cart.getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+                stage.setTitle("Noir Dhaka");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     }

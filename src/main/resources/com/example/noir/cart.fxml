@@ -15,7 +15,7 @@
 
 <AnchorPane prefHeight="810.0" prefWidth="1440.0" style="-fx-background-color: #e9e9e9;" stylesheets="@loginfont.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.noir.cartcontroller">
    <children>
-      <ImageView fitHeight="134.0" fitWidth="1451.0" pickOnBounds="true" onMouseClicked="#redirectToScene">
+      <ImageView fitHeight="134.0" fitWidth="1451.0" onMouseClicked="#redirectToScene" pickOnBounds="true">
          <image>
             <Image url="@images/blankgbg.png" />
          </image>
@@ -46,12 +46,12 @@
          </font>
       </Text>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#748e72" height="133.0" layoutX="1126.0" stroke="TRANSPARENT" strokeType="INSIDE" width="325.0" />
-      <Text layoutX="1207.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FIND YOUR COFFEE" translateX="-10.0" translateY="-10.0">
+      <Text layoutX="1207.0" layoutY="77.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" text="FIND YOUR COFFEE" translateX="-10.0" translateY="-10.0">
          <font>
             <Font name="RetrokiaCaps-Rough" size="18.0" />
          </font>
       </Text>
-      <ImageView fitHeight="74.0" fitWidth="81.0" layoutX="1035.0" layoutY="27.0" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+      <ImageView fx:id="profile" fitHeight="74.0" fitWidth="81.0" layoutX="1035.0" layoutY="27.0" onMouseClicked="#handleProfileClick" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
          <image>
             <Image url="@images/profile-removebg-preview.png" />
          </image>
@@ -61,27 +61,27 @@
             <Image url="@images/random5.png" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#92b08600" height="363.0" layoutX="783.0" layoutY="219.0" stroke="#91b08f" strokeType="INSIDE" strokeWidth="5.0" width="560.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#92b08600" height="363.0" layoutX="783.0" layoutY="219.0" stroke="#91b08f" strokeType="INSIDE" strokeWidth="5.0" width="561.0" />
 
       <!-- Main Cart ScrollPane - reduced height to make room for total and checkout -->
       <ScrollPane fx:id="cartScrollPane" hbarPolicy="NEVER" layoutX="788.0" layoutY="223.0" prefHeight="290.0" prefWidth="550.0" style="-fx-background-color: #e9e9e9;" vbarPolicy="NEVER">
         <content>
-          <AnchorPane fx:id="cartContentPane" minHeight="0.0" minWidth="0.0" prefHeight="290.0" prefWidth="550.0" style="-fx-background-color: #e9e9e9;">
+          <AnchorPane fx:id="cartContentPane" minHeight="0.0" minWidth="0.0" prefHeight="290.0" prefWidth="549.0" style="-fx-background-color: #e9e9e9;">
                <children>
                   <!-- Cart Items Container - This will be populated programmatically -->
                   <VBox fx:id="cartItemsContainer" layoutX="10.0" layoutY="20.0" prefWidth="520.0" spacing="15.0" />
 
                   <!-- Empty Cart Elements - Initially hidden -->
-                  <Label fx:id="emptyCartLabel" layoutX="170.0" layoutY="120.0" style="-fx-font-family: 'Courier New'; -fx-font-size: 24px; -fx-text-fill: #666;" text="Your cart is empty" visible="false" />
-                  <Button fx:id="startShoppingButton" layoutX="170.0" layoutY="170.0" onAction="#navigateToProducts" style="-fx-background-color: #748e72; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 20;" text="Start Shopping" visible="false" />
+                  <Label fx:id="emptyCartLabel" layoutX="145.0" layoutY="117.0" style="-fx-font-family: 'Courier New'; -fx-font-weight: bold; -fx-font-size: 24px;" text="Your cart is empty" />
+                  <Button fx:id="startShoppingButton" layoutX="198.0" layoutY="153.0" onAction="#navigateToProducts" style="-fx-text-fill: black; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 20;" text="Start Shopping" />
                </children>
             </AnchorPane>
         </content>
       </ScrollPane>
 
       <!-- Cart Summary Elements - Now outside the ScrollPane -->
-      <Label fx:id="totalPriceLabel" layoutX="798.0" layoutY="530.0" style="-fx-font-family: 'Courier New'; -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Total: $0.00" visible="false" />
-      <Button fx:id="checkoutButton" layoutX="1188.0" layoutY="520.0" onAction="#handleCheckout" style="-fx-background-color: #748e72; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 20;" text="Checkout" visible="false" onMouseClicked="#redirectToScene"  />
+      <Label fx:id="totalPriceLabel" layoutX="798.0" layoutY="525.0" prefHeight="24.0" prefWidth="318.0" style="-fx-font-family: 'Courier New'; -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Cart Total: $0.00" />
+      <Button fx:id="checkoutButton" layoutX="1200.0" layoutY="515.0" onAction="#handleCheckout" onMouseClicked="#redirectToScene" style="-fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 10 20;" text="Checkout" />
 
       <Text layoutX="786.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your cart ☕" wrappingWidth="299.19476318359375">
          <font>
@@ -99,7 +99,7 @@
          </font>
       </Text>
       <TextField fx:id="couponfield" layoutX="64.0" layoutY="508.0" prefHeight="36.0" prefWidth="327.0" promptText="Discount code or Gift Card" />
-      <Button fx:id="apply" layoutX="415.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleCoupon" text="Apply" />
+      <Button fx:id="apply" layoutX="415.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleCoupon" prefHeight="51.0" prefWidth="111.0" text="Apply" />
       <Text layoutX="64.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtotal " wrappingWidth="181.82401275634766">
          <font>
             <Font name="Courier New" size="28.0" />

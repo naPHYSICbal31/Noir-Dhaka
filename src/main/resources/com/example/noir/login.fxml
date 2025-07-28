@@ -22,11 +22,11 @@
             <Image url="@images/noir_logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="loginButton" layoutX="1068.0" layoutY="111.0" mnemonicParsing="false" text="LOGIN" textFill="#713636" translateX="-17.0">
+      <Button fx:id="loginButton" layoutX="1068.0" layoutY="111.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="106.0" text="LOGIN" textFill="#713636" translateX="-17.0">
          <font>
             <Font name="RetrokiaCaps-Rough" size="12.0" />
          </font></Button>
-      <Button fx:id="regbutton" layoutX="1233.0" layoutY="111.0" mnemonicParsing="false" text="REGISTER" translateX="-17.0" />
+      <Button fx:id="regbutton" layoutX="1233.0" layoutY="111.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="134.0" text="REGISTER" translateX="-17.0" />
       <Line fx:id="line" endX="19.199951171875" endY="60.19999694824219" layoutX="1180.0" layoutY="110.0" startX="19.199951171875" startY="-10.199996948242188" translateX="-17.0" />
       
       <!-- Login Form -->
@@ -34,7 +34,7 @@
          <children>
             <TextField fx:id="usernameField" layoutY="0.0" prefHeight="36.0" prefWidth="327.0" promptText="username" />
             <PasswordField fx:id="passwordField" layoutY="74.0" prefHeight="36.0" prefWidth="327.0" promptText="password" />
-            <Button fx:id="continuebutton" layoutY="166.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="327.0" text="CONTINUE" onMouseClicked="#handleLogin" />
+            <Button fx:id="continuebutton" layoutY="166.0" mnemonicParsing="false" onMouseClicked="#handleLogin" prefHeight="48.0" prefWidth="327.0" text="CONTINUE" />
          </children>
       </AnchorPane>
       
@@ -46,7 +46,7 @@
             <TextField fx:id="regAddressField" layoutY="148.0" prefHeight="36.0" prefWidth="327.0" promptText="address" />
             <PasswordField fx:id="regPasswordField" layoutY="222.0" prefHeight="36.0" prefWidth="327.0" promptText="password" />
             <PasswordField fx:id="regConfirmPasswordField" layoutY="296.0" prefHeight="36.0" prefWidth="327.0" promptText="confirm password" />
-            <Button fx:id="regContinueButton" layoutX="-3.0" layoutY="368.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="327.0" text="REGISTER" onMouseClicked="#handleRegister" />
+            <Button fx:id="regContinueButton" layoutX="-3.0" layoutY="368.0" mnemonicParsing="false" onMouseClicked="#handleRegister" prefHeight="48.0" prefWidth="327.0" text="REGISTER" />
          </children>
       </AnchorPane>
 

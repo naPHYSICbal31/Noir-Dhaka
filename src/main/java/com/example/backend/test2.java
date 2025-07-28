@@ -44,7 +44,7 @@ public class test2 {
         for (int i = 0; i < 5; i++) {
             List<Boolean> tags = Arrays.asList(i % 2 == 0, i % 3 == 0, i % 5 == 0);
             Coffee coffee = new Coffee(
-                    500 + i,                                
+                    500 + i,
                     coffeeNames[i],
                     "http://image.url/" + i,
                     descriptions[i],

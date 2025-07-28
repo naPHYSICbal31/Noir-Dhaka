@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+
+<ScrollPane fx:id="verticalScrollPane" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="5000.0" prefWidth="1440.0" style="-fx-background-color: #e9e9e9;" stylesheets="@../../../font.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.noir.BlogController">
+
+<AnchorPane minHeight="659.0" minWidth="3757.0" prefHeight="671.5" prefWidth="3850.0" style="-fx-background-color: #e9e9e9;">
+
+    <VBox layoutY="132.0" prefHeight="578.0" prefWidth="1440.0" spacing="0" xmlns:fx="http://javafx.com/fxml">
+        <children>
+            <!-- WebView -->
+            <WebView fx:id="webView" layoutY="100.0" prefHeight="978.0" prefWidth="1437.0"> </WebView>
+
+
+            <ProgressBar fx:id="loadingBar" prefWidth="1440.0" progress="0" visible="false" />
+        </children>
+    </VBox>
+    <ImageView fitHeight="46.0" fitWidth="1425.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/code.png" />
+        </image>
+    </ImageView>
+    <ImageView fitHeight="78.0" fitWidth="86.0" layoutX="22.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/noir_logo.png" />
+        </image>
+    </ImageView>
+    <Text layoutX="268.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="100.5367431640625" />
+    <Text id="top1" fx:id="top1Text" layoutX="128.0" layoutY="92.0" onMouseClicked="#redirectToScene" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-text" text="Products" wrappingWidth="158.936767578125">
+        <font>
+            <Font name="RetrokiaCaps-Rough" size="18.0" />
+        </font>
+    </Text>
+    <Text id="top3" fx:id="top3Text" layoutX="448.0" layoutY="92.0" onMouseClicked="#redirectToScene" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-text" text="Reviews" wrappingWidth="124.5465087890625">
+        <font>
+            <Font name="RetrokiaCaps-Rough" size="18.0" />
+        </font>
+    </Text>
+    <Text id="top2" fx:id="top2Text" layoutX="258.0" layoutY="92.0" onMouseClicked="#redirectToScene" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-text" text="Subscriptions">
+        <font>
+            <Font name="RetrokiaCaps-Rough" size="18.0" />
+        </font>
+    </Text>
+    <Text id="top4" fx:id="top4Text" layoutX="558.0" layoutY="92.0" onMouseClicked="#redirectToScene" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-text" text="about us">
+        <font>
+            <Font name="RetrokiaCaps-Rough" size="18.0" />
+        </font>
+    </Text>
+</AnchorPane>
+
+</ScrollPane>

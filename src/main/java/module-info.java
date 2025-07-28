@@ -6,6 +6,7 @@ module com.example.noir {
     requires org.mongodb.bson;
     requires org.mongodb.driver.core;
     requires org.mongodb.driver.sync.client;
+    requires javafx.web;
 
 
     opens com.example.noir to javafx.fxml;

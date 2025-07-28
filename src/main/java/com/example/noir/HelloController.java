@@ -71,7 +71,7 @@ public class HelloController {
     private Text top4Text;
     @FXML
     private ImageView profile;
-    String url = "";
+    public static String url = "";
     @FXML
     public void handleTop1Click() {
         // Scroll to Products section
@@ -502,18 +502,50 @@ public class HelloController {
             e.printStackTrace();
             System.err.println("Failed to open website: " + e.getMessage());
         }
-        if (java.awt.Desktop.isDesktopSupported()) {
-            java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+//        if (java.awt.Desktop.isDesktopSupported()) {
+//            java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+//
+//            // Check if browse action is supported
+//            if (desktop.isSupported(java.awt.Desktop.Action.BROWSE)) {
+//                desktop.browse(java.net.URI.create(url));
+//            } else {
+//                System.err.println("Browse action not supported");
+//            }
+//        } else {
+//            System.err.println("Desktop not supported");
+//        }
 
-            // Check if browse action is supported
-            if (desktop.isSupported(java.awt.Desktop.Action.BROWSE)) {
-                desktop.browse(java.net.URI.create(url));
-            } else {
-                System.err.println("Browse action not supported");
+
+        try {
+            // Get the source of the event (could be ImageView or Text)
+            Object source = event.getSource();
+
+            // Get the current stage
+            Stage stage = null;
+            if (source instanceof ImageView) {
+                stage = (Stage) ((ImageView) source).getScene().getWindow();
+            } else if (source instanceof Text) {
+                stage = (Stage) ((Text) source).getScene().getWindow();
             }
-        } else {
-            System.err.println("Desktop not supported");
+
+            // Load the specific FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("blog.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+
+            // Get the controller and reset scroll position
+            BlogController blogController = fxmlLoader.getController();
+
+            // Set up the stage
+            stage.setTitle("Noir Dhaka");
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+
     }
 
 

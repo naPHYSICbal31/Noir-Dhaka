@@ -90,7 +90,7 @@ public class HelloApplication extends Application {
         try {
             // Load fonts first
             loadGlobalFonts();
-            (new dbFetch()).validateLogin("user0", "pass0");
+            (new dbFetch()).validateLogin("user1", "pass1");
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("cart.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
             scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());

@@ -117,9 +117,9 @@ public class dbFetch {
             return null;
         }
         int userid = getUserIdByToken();
-        List<Document> matches = this.collection.find(new Document("id",userid)).into(new ArrayList<>());
+        Document matches = this.collection.find(new Document("id",userid)).first();
         if(matches != null){
-            return parseUsers(matches).getFirst();
+            return parseUser(matches);
         }
         return null;
     }
@@ -369,7 +369,37 @@ public class dbFetch {
         );
     }
 
+    private User parseUser(Document m){
+        String username = m.getString("username");
+        int userid = m.getInteger("id");
+        String email = m.getString("email");
 
+        String address = m.getString("address");
+        boolean isAds = m.getBoolean("isAds");
+
+
+        List<Document> historyList = m.getList("buyHistory", Document.class);
+        List<Document> timeList = m.getList("timehistory", Document.class);
+        HashMap<Integer, Integer> buyHistory = new HashMap<>();
+        HashMap<Integer, LocalDateTime> timeHistory = new HashMap<>();
+        if (historyList != null) {
+            for (Document entry : historyList) {
+                int coffee = entry.getInteger("coffeeid");
+                int count = entry.getInteger("count");
+                buyHistory.put(coffee , count);
+            }
+        }
+
+        if (timeList != null) {
+            for (Document entry : timeList) {
+                int coffee = entry.getInteger("coffeeid");
+                LocalDateTime count = LocalDateTime.parse(entry.getString("time"));
+                timeHistory.put(coffee , count);
+            }
+        }
+
+        return new User(username, userid, email, address, isAds, buyHistory, timeHistory);
+    }
 
     private List<User> parseUsers(List<Document> d) {
         List<User> users = new ArrayList<>(d.size());
@@ -382,10 +412,9 @@ public class dbFetch {
             String address = m.getString("address");
             boolean isAds = m.getBoolean("isAds");
 
-            // buyHistory is assumed to be stored in a serializable way
-            // You might need to parse it from Document list form
+
             List<Document> historyList = m.getList("buyHistory", Document.class);
-            List<Document> timeList = m.getList("timeList", Document.class);
+            List<Document> timeList = m.getList("timehistory", Document.class);
             HashMap<Integer, Integer> buyHistory = new HashMap<>();
             HashMap<Integer, LocalDateTime> timeHistory = new HashMap<>();
             if (historyList != null) {

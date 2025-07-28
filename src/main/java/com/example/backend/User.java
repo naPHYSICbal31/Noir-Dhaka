@@ -163,8 +163,8 @@ public class User {
         HashMap<Integer, Integer> j = c.getBuyHistory();
 
         for(Map.Entry<Integer, Integer> entry : j.entrySet()){
-            if(j.containsKey(entry.getKey())){
-                this.buyHistory.put(entry.getKey(), j.get(entry.getKey())+entry.getValue());
+            if(this.buyHistory.containsKey(entry.getKey())){
+                this.buyHistory.replace(entry.getKey(), this.buyHistory.get(entry.getKey())+entry.getValue());
             }else{
                 this.buyHistory.put(entry.getKey(), entry.getValue());
             }

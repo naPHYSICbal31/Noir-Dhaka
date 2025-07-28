@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="810.0" prefWidth="1440.0" style="-fx-background-color: #e9e9e9;" stylesheets="@loginfont.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.noir.ProfileController">
    <children>
-      <ImageView fitHeight="126.0" fitWidth="1440.0" pickOnBounds="true">
+      <ImageView fitHeight="126.0" fitWidth="1440.0" pickOnBounds="true" >
          <image>
             <Image url="@images/blankgbg.png" />
          </image>
@@ -135,7 +135,7 @@
         <TableColumn fx:id="nameColumn" editable="false" maxWidth="200.0" prefWidth="200.0" resizable="false" sortable="false" text="Coffee Name" />
         <TableColumn fx:id="priceColumn" editable="false" maxWidth="100.0" prefWidth="120.0" resizable="false" text="Price" />
         <TableColumn fx:id="coffeeCountColumn" prefWidth="140.0" resizable="false" text="Purchase Count" />
-            <TableColumn prefWidth="140.0" resizable="false" text="Buying Date" />
+            <TableColumn fx:id="buyDateColumn" prefWidth="140.0" resizable="false" text="Buying Date" />
     </columns>
 </TableView>
    </children>

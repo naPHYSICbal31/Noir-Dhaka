@@ -545,7 +545,9 @@ public class cartcontroller implements Initializable{
             receiptContent.append(String.format("%" + deliveryPadding + "s%s\n\n", "", delivery));
 
             receiptContent.append("═══════════════════════════════════════");
-
+            User u = database.getUserinfo();
+            u.addToRecipts(receiptContent.toString());
+            database.updateUser(u);
             // Create custom alert with scrollable content
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Order Confirmation");

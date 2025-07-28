@@ -380,8 +380,10 @@ public class dbFetch {
 
         List<Document> historyList = m.getList("buyHistory", Document.class);
         List<Document> timeList = m.getList("timehistory", Document.class);
+        List<Document> reciptsList = m.getList("recipts", Document.class);
         HashMap<Integer, Integer> buyHistory = new HashMap<>();
         HashMap<Integer, LocalDateTime> timeHistory = new HashMap<>();
+        HashMap<String, LocalDateTime> recipts = new HashMap<>();
         if (historyList != null) {
             for (Document entry : historyList) {
                 int coffee = entry.getInteger("coffeeid");
@@ -398,46 +400,54 @@ public class dbFetch {
             }
         }
 
-        return new User(username, userid, email, address, isAds, buyHistory, timeHistory);
-    }
-
-    private List<User> parseUsers(List<Document> d) {
-        List<User> users = new ArrayList<>(d.size());
-
-        for (Document m : d) {
-            String username = m.getString("username");
-            int userid = m.getInteger("id");
-            String email = m.getString("email");
-
-            String address = m.getString("address");
-            boolean isAds = m.getBoolean("isAds");
-
-
-            List<Document> historyList = m.getList("buyHistory", Document.class);
-            List<Document> timeList = m.getList("timehistory", Document.class);
-            HashMap<Integer, Integer> buyHistory = new HashMap<>();
-            HashMap<Integer, LocalDateTime> timeHistory = new HashMap<>();
-            if (historyList != null) {
-                for (Document entry : historyList) {
-                    int coffee = entry.getInteger("coffeeid");
-                    int count = entry.getInteger("count");
-                    buyHistory.put(coffee , count);
-                }
+        if(reciptsList != null){
+            for (Document entry : reciptsList) {
+                String recipt = entry.getString("data");
+                LocalDateTime count = LocalDateTime.parse(entry.getString("time"));
+                recipts.put(recipt, count);
             }
-
-            if (timeList != null) {
-                for (Document entry : timeList) {
-                    int coffee = entry.getInteger("coffeeid");
-                    LocalDateTime count = LocalDateTime.parse("time");
-                    timeHistory.put(coffee , count);
-                }
-            }
-
-            users.add(new User(username, userid, email, address, isAds, buyHistory, timeHistory));
         }
 
-        return users;
+        return new User(username, userid, email, address, isAds, buyHistory, timeHistory, recipts);
     }
+
+//    private List<User> parseUsers(List<Document> d) {
+//        List<User> users = new ArrayList<>(d.size());
+//
+//        for (Document m : d) {
+//            String username = m.getString("username");
+//            int userid = m.getInteger("id");
+//            String email = m.getString("email");
+//
+//            String address = m.getString("address");
+//            boolean isAds = m.getBoolean("isAds");
+//
+//
+//            List<Document> historyList = m.getList("buyHistory", Document.class);
+//            List<Document> timeList = m.getList("timehistory", Document.class);
+//            HashMap<Integer, Integer> buyHistory = new HashMap<>();
+//            HashMap<Integer, LocalDateTime> timeHistory = new HashMap<>();
+//            if (historyList != null) {
+//                for (Document entry : historyList) {
+//                    int coffee = entry.getInteger("coffeeid");
+//                    int count = entry.getInteger("count");
+//                    buyHistory.put(coffee , count);
+//                }
+//            }
+//
+//            if (timeList != null) {
+//                for (Document entry : timeList) {
+//                    int coffee = entry.getInteger("coffeeid");
+//                    LocalDateTime count = LocalDateTime.parse("time");
+//                    timeHistory.put(coffee , count);
+//                }
+//            }
+//
+//            users.add(new User(username, userid, email, address, isAds, buyHistory, timeHistory));
+//        }
+//
+//        return users;
+//    }
 
 
 
@@ -602,8 +612,19 @@ public class dbFetch {
             timehistory.add(res);
         }
 
+        List<Document> cartrecipt = new ArrayList<>();
 
-        Document newUser = new Document("id", user.getUserid()).append("username", user.getUsername()).append("email", user.getEmail()).append("address", user.getAddress()).append("isAds", user.isAds()).append("buyHistory", history).append("timehistory", timehistory);
+        for(Map.Entry<String, LocalDateTime> entry : user.getRecipts().entrySet()){
+            String recipt = entry.getKey();
+            LocalDateTime count = entry.getValue();
+
+            Document res = new Document("data", recipt).append("time", count.toString());
+
+            cartrecipt.add(res);
+        }
+
+
+        Document newUser = new Document("id", user.getUserid()).append("username", user.getUsername()).append("email", user.getEmail()).append("address", user.getAddress()).append("isAds", user.isAds()).append("buyHistory", history).append("timehistory", timehistory).append("recipts", cartrecipt);
 
 
         this.collection.findOneAndReplace(

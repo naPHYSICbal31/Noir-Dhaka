@@ -26,10 +26,7 @@ import javafx.fxml.Initializable;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.List;
+import java.util.*;
 
 import com.example.backend.dbFetch;
 import com.example.backend.User;
@@ -38,7 +35,6 @@ import com.example.backend.Cart;
 import com.example.backend.Review;
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
-import java.util.ArrayList;
 
 public class cartcontroller implements Initializable{
     // FXML Elements from Scene Builder
@@ -58,7 +54,21 @@ public class cartcontroller implements Initializable{
     private Button checkoutButton;
     @FXML
     private ImageView image;
-
+    @FXML
+    private Text pricetxt;
+    @FXML
+    private Text shiptxt;
+    @FXML
+    private Text totaltxt;
+    @FXML
+    private Text plattxt;
+    @FXML
+    private Text discounttxt;
+    @FXML
+    private Button apply;
+    @FXML
+    private TextField couponfield;
+    private boolean discounted = false;
     // Legacy elements (keep for compatibility)
     @FXML
     private ScrollPane verticalScrollPane;
@@ -136,8 +146,7 @@ public class cartcontroller implements Initializable{
         // Calculate required height based on number of items
         int itemCount = buyHistory.size();
         double itemHeight = 120; // Height per cart item
-        double summaryHeight = 100; // Space for total and checkout button
-        double totalHeight = Math.max(353, itemCount * itemHeight + summaryHeight);
+        double totalHeight = Math.max(290, itemCount * itemHeight + 40); // 40 for padding
 
         // Set the AnchorPane size dynamically
         cartContentPane.setPrefHeight(totalHeight);
@@ -160,14 +169,12 @@ public class cartcontroller implements Initializable{
             }
         }
 
-        // Update total price label
+        // Update total price label and show it (no need to position since it's fixed in FXML)
         updateTotalPriceDisplay();
         totalPriceLabel.setVisible(true);
-        totalPriceLabel.setLayoutY(totalHeight - 60);
 
-        // Update checkout button position and show it
+        // Show checkout button (no need to position since it's fixed in FXML)
         checkoutButton.setVisible(true);
-        checkoutButton.setLayoutY(totalHeight - 70);
     }
 
     private HBox createCartItemUI(Coffee coffee, int quantity) {
@@ -285,6 +292,11 @@ public class cartcontroller implements Initializable{
         // Hide cart summary elements
         totalPriceLabel.setVisible(false);
         checkoutButton.setVisible(false);
+        pricetxt.setText(String.format("$%.2f", 0.00));
+        shiptxt.setText(String.format("$%.2f", 0.00));
+        plattxt.setText(String.format("$%.2f", 0.00));
+        totaltxt.setText(String.format("$%.2f", 0.00));
+        discounttxt.setText(String.format("-$%.2f", 0.00));
 
         // Show empty cart elements
         emptyCartLabel.setVisible(true);
@@ -352,6 +364,12 @@ public class cartcontroller implements Initializable{
         if (currentCart != null) {
             double totalPrice = currentCart.getTotalPrice();
             totalPriceLabel.setText(String.format("Total: $%.2f", totalPrice));
+            pricetxt.setText(String.format("$%.2f", totalPrice));
+            shiptxt.setText(String.format("$%.2f", 0.05*totalPrice));
+            plattxt.setText(String.format("$%.2f", 0.003*totalPrice));
+            totaltxt.setText(String.format("$%.2f", 0.803*totalPrice));
+            if(discounted){discounttxt.setText(String.format("-$%.2f", 0.25*totalPrice));}
+            else discounttxt.setText(String.format("-$%.2f", 0.00));
         }
     }
 
@@ -404,7 +422,6 @@ public class cartcontroller implements Initializable{
                     double itemPrice = coffee.getPrice();
                     double itemTotal = itemPrice * quantity;
                     grandTotal += itemTotal;
-
                     // Center coffee name
                     String coffeeName = coffee.getName();
                     int nameLength = coffeeName.length();
@@ -438,6 +455,9 @@ public class cartcontroller implements Initializable{
             receiptContent.append(String.format("%" + totalItemsPadding + "s%s\n", "", totalItems));
 
             // Center total amount
+
+            if(discounted) grandTotal = 0.803*grandTotal;
+            else grandTotal = 1.053*grandTotal;
             String totalAmount = String.format("TOTAL AMOUNT: $%.2f", grandTotal);
             int totalAmountLength = totalAmount.length();
             int totalAmountPadding = Math.max(1, (39 - totalAmountLength) / 2); // Ensure padding is at least 1
@@ -665,5 +685,17 @@ public class cartcontroller implements Initializable{
             System.err.println("Error loading image: " + e.getMessage());
         }
     }
-
+    @FXML
+    private void handleCoupon() {
+        String couponCode = couponfield.getText();
+        if(couponCode.equalsIgnoreCase("noir-dhk")) {
+            discounted = true;
+        }
+        else
+        {
+            discounted = false;
+        }
+        updateTotalPriceDisplay();
+        couponfield.clear();
+    }
 }

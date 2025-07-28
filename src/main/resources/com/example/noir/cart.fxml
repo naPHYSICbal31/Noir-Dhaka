@@ -3,15 +3,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="810.0" prefWidth="1440.0" style="-fx-background-color: #e9e9e9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.noir.cartcontroller">
+<AnchorPane prefHeight="810.0" prefWidth="1440.0" style="-fx-background-color: #e9e9e9;" stylesheets="@loginfont.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.noir.cartcontroller">
    <children>
       <ImageView fitHeight="134.0" fitWidth="1451.0" pickOnBounds="true">
          <image>
@@ -43,7 +45,7 @@
             <Font name="RetrokiaCaps-Rough" size="24.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#748e72" height="134.0" layoutX="1126.0" stroke="TRANSPARENT" strokeType="INSIDE" width="325.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#748e72" height="133.0" layoutX="1126.0" stroke="TRANSPARENT" strokeType="INSIDE" width="325.0" />
       <Text layoutX="1207.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FIND YOUR COFFEE" translateX="-10.0" translateY="-10.0">
          <font>
             <Font name="RetrokiaCaps-Rough" size="18.0" />
@@ -61,10 +63,10 @@
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#92b08600" height="363.0" layoutX="783.0" layoutY="219.0" stroke="#91b08f" strokeType="INSIDE" strokeWidth="5.0" width="560.0" />
 
-      <!-- Main Cart ScrollPane -->
-      <ScrollPane fx:id="cartScrollPane" hbarPolicy="NEVER" layoutX="788.0" layoutY="223.0" prefHeight="353.0" prefWidth="550.0" vbarPolicy="NEVER">
+      <!-- Main Cart ScrollPane - reduced height to make room for total and checkout -->
+      <ScrollPane fx:id="cartScrollPane" hbarPolicy="NEVER" layoutX="788.0" layoutY="223.0" prefHeight="290.0" prefWidth="550.0" style="-fx-background-color: #e9e9e9;" vbarPolicy="NEVER">
         <content>
-          <AnchorPane fx:id="cartContentPane" minHeight="0.0" minWidth="0.0" prefHeight="354.0" prefWidth="550.0" style="-fx-background-color: #e9e9e9;">
+          <AnchorPane fx:id="cartContentPane" minHeight="0.0" minWidth="0.0" prefHeight="290.0" prefWidth="550.0" style="-fx-background-color: #e9e9e9;">
                <children>
                   <!-- Cart Items Container - This will be populated programmatically -->
                   <VBox fx:id="cartItemsContainer" layoutX="10.0" layoutY="20.0" prefWidth="520.0" spacing="15.0" />
@@ -72,14 +74,14 @@
                   <!-- Empty Cart Elements - Initially hidden -->
                   <Label fx:id="emptyCartLabel" layoutX="170.0" layoutY="120.0" style="-fx-font-family: 'Courier New'; -fx-font-size: 24px; -fx-text-fill: #666;" text="Your cart is empty" visible="false" />
                   <Button fx:id="startShoppingButton" layoutX="170.0" layoutY="170.0" onAction="#navigateToProducts" style="-fx-background-color: #748e72; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 20;" text="Start Shopping" visible="false" />
-
-                  <!-- Cart Summary Elements -->
-                  <Label fx:id="totalPriceLabel" layoutX="10.0" layoutY="280.0" style="-fx-font-family: 'Courier New'; -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Total: $0.00" visible="false" />
-                  <Button fx:id="checkoutButton" layoutX="400.0" layoutY="270.0" onAction="#handleCheckout" style="-fx-background-color: #748e72; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 20;" text="Checkout" visible="false" />
                </children>
             </AnchorPane>
         </content>
       </ScrollPane>
+
+      <!-- Cart Summary Elements - Now outside the ScrollPane -->
+      <Label fx:id="totalPriceLabel" layoutX="798.0" layoutY="530.0" style="-fx-font-family: 'Courier New'; -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Total: $0.00" visible="false" />
+      <Button fx:id="checkoutButton" layoutX="1188.0" layoutY="520.0" onAction="#handleCheckout" style="-fx-background-color: #748e72; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 20;" text="Checkout" visible="false" />
 
       <Text layoutX="786.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your cart ☕" wrappingWidth="299.19476318359375">
          <font>
@@ -91,5 +93,63 @@
             <Font name="RetrokiaCaps-Rough" size="36.0" />
          </font>
       </Text>
+      <TextField fx:id="couponfield" layoutX="67.0" layoutY="508.0" prefHeight="36.0" prefWidth="327.0" promptText="Discount code or Gift Card" />
+      <Button fx:id="apply" layoutX="415.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleCoupon" text="Apply" />
+      <Text layoutX="64.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtotal " wrappingWidth="181.82401275634766">
+         <font>
+            <Font name="Courier New" size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="pricetxt" layoutX="324.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="price" textAlignment="RIGHT" wrappingWidth="181.82401275634766">
+         <font>
+            <Font name="Courier New" size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="shiptxt" layoutX="324.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="shipping" textAlignment="RIGHT" wrappingWidth="181.82401275634766">
+         <font>
+            <Font name="Courier New" size="28.0" />
+         </font>
+      </Text>
+      <Text layoutX="64.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shipping cost " wrappingWidth="256.22403717041016">
+         <font>
+            <Font name="Courier New" size="28.0" />
+         </font>
+      </Text>
+      <Text layoutX="64.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Platform Fee " wrappingWidth="256.22403717041016">
+         <font>
+            <Font name="Courier New" size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="plattxt" layoutX="324.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="platform" textAlignment="RIGHT" wrappingWidth="181.82401275634766">
+         <font>
+            <Font name="Courier New" size="28.0" />
+         </font>
+      </Text>
+      <Line endX="100.0" layoutX="407.0" layoutY="423.0" startX="-343.8000183105469" stroke="#91b08f" strokeWidth="2.0" />
+      <Text layoutX="65.0" layoutY="460.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Net Total" wrappingWidth="157.8240737915039">
+         <font>
+            <Font name="Courier New Bold" size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="totaltxt" layoutX="297.0" layoutY="460.0" strokeType="OUTSIDE" strokeWidth="0.0" text="total" textAlignment="RIGHT" wrappingWidth="207.99998779296857">
+         <font>
+            <Font name="Courier New Bold" size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="discounttxt" layoutX="267.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="discount" textAlignment="RIGHT" wrappingWidth="237.02411651611328">
+         <font>
+            <Font name="Courier New" size="28.0" />
+         </font>
+      </Text>
+      <Text layoutX="64.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount " wrappingWidth="256.22403717041016">
+         <font>
+            <Font name="Courier New" size="28.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="197.0" fitWidth="1451.0" layoutX="11.0" layoutY="627.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/random5.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

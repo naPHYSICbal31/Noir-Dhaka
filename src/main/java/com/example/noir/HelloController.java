@@ -248,8 +248,8 @@ public class HelloController {
 
         // Create a scale transition for zoom effect
         javafx.animation.ScaleTransition scaleTransition = new javafx.animation.ScaleTransition(Duration.millis(300), imageView);
-        scaleTransition.setToX(1.1); // Scale to 110% of original size
-        scaleTransition.setToY(1.1);
+        scaleTransition.setToX(1.05); // Scale to 110% of original size
+        scaleTransition.setToY(1.05);
         scaleTransition.play();
         // Add mouse exited handler to zoom back out
         imageView.setOnMouseExited(exitEvent -> {
@@ -493,7 +493,6 @@ public class HelloController {
                                 url = "https://www.baristahustle.com/water-chemistry-for-tea/";
                                 break;
                     default:
-
                         url = "https://google.com"; // Default website
                         break;
                 }

@@ -48,21 +48,246 @@
                               <Image url="@images/blankwbg.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="prtxt2" layoutX="542.0" layoutY="551.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="COLOMBIAN BUCARAMANGA" wrappingWidth="397.53184509277344">
+                        <Text fx:id="prtxt2" layoutX="542.0" layoutY="562.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="COLOMBIAN BUCARAMANGA" wrappingWidth="397.53184509277344">
                            <font>
                               <Font name="RetrokiaCaps-Rough" size="24.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="641.0" layoutY="571.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="34.0" fitWidth="210.0" layoutX="641.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/strength_2.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="prtk2" layoutX="649.0" layoutY="624.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="1,732.83 BDT">
+                        <Text fx:id="prtk2" layoutX="650.0" layoutY="647.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="1,732.83 BDT">
                            <font>
                               <Font name="RetrokiaCaps-Rough" size="24.0" />
                            </font>
                         </Text>
+                        <ImageView fitHeight="442.0" fitWidth="440.0" layoutX="43.0" layoutY="58.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="fiveset" fitHeight="403.0" fitWidth="403.0" layoutX="67.0" layoutY="75.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/5set.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="56.0" layoutY="516.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt1" layoutX="58.0" layoutY="540.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="Seasonal 5 Bag promotion pack" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="169.0" layoutY="593.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtk1" layoutX="172.0" layoutY="648.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="7,094.90 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="442.0" fitWidth="446.0" layoutX="986.0" layoutY="58.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="kona" fitHeight="387.0" fitWidth="421.0" layoutX="998.0" layoutY="89.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/kona.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="996.0" layoutY="517.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt3" layoutX="1011.0" layoutY="561.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="Hawaiian kona tango" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1122.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtk3" layoutX="1126.0" layoutY="644.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="5,007.67 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="442.0" fitWidth="446.0" layoutX="1458.0" layoutY="59.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="nepalese" fitHeight="394.0" fitWidth="426.0" layoutX="1468.0" layoutY="78.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/nepalese.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="1468.0" layoutY="518.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt4" layoutX="1483.0" layoutY="562.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="nepalese mount everest" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1594.0" layoutY="587.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtk4" layoutX="1598.0" layoutY="645.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="2,803.56 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="442.0" fitWidth="446.0" layoutX="1929.0" layoutY="59.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="ethiopia" fitHeight="407.0" fitWidth="432.0" layoutX="1943.0" layoutY="82.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/ethiopia.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="1939.0" layoutY="518.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt5" layoutX="1954.0" layoutY="562.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="ethiopian yirgacheffe" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="2056.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtk5" layoutX="2068.0" layoutY="644.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="1,761.62 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="442.0" fitWidth="446.0" layoutX="2400.0" layoutY="59.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="indian" fitHeight="407.0" fitWidth="432.0" layoutX="2414.0" layoutY="82.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/indian.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="2410.0" layoutY="518.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt6" layoutX="2412.0" layoutY="561.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="indian tiger stripes blend" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="2527.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtk6" layoutX="2539.0" layoutY="644.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="1,577.94 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="442.0" fitWidth="446.0" layoutX="2868.0" layoutY="59.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="guatemala" fitHeight="407.0" fitWidth="432.0" layoutX="2892.0" layoutY="82.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/guatemala.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="2878.0" layoutY="518.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt7" layoutX="2893.0" layoutY="562.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="guatemala el fogon" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="2995.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtk7" layoutX="3007.0" layoutY="644.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="1,577.94 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="442.0" fitWidth="446.0" layoutX="3340.0" layoutY="62.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="costa" fitHeight="407.0" fitWidth="432.0" layoutX="3353.0" layoutY="64.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/costa.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="3350.0" layoutY="521.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt8" layoutX="3358.0" layoutY="540.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="costa rican tarrazu valley" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="3467.0" layoutY="589.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtk8" layoutX="3479.0" layoutY="647.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="1,492.78 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="185.0" layoutX="180.0" layoutY="595.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength3.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="185.0" layoutX="2537.0" layoutY="590.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength3.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="185.0" layoutX="1129.0" layoutY="590.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength3.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
               </content>
@@ -151,6 +376,256 @@
                         <ImageView fitHeight="619.0" fitWidth="1050.0" layoutX="2860.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/products-3.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="445.0" fitWidth="445.0" layoutX="44.0" layoutY="55.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="jamaica" fitHeight="405.0" fitWidth="424.0" layoutX="51.0" layoutY="69.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/jamaica.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="57.0" layoutY="515.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt21" layoutX="59.0" layoutY="539.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="jamaican blue mountain coffee" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="prtk21" layoutX="173.0" layoutY="647.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="6,260.01 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="164.0" layoutY="591.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="445.0" fitWidth="445.0" layoutX="985.0" layoutY="58.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="kopi" fitHeight="412.0" fitWidth="415.0" layoutX="998.0" layoutY="71.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/kopi.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="998.0" layoutY="518.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt22" layoutX="992.0" layoutY="543.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="kopi luwak" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="prtk22" layoutX="1112.0" layoutY="629.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="6,595.63 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1103.0" layoutY="570.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="445.0" fitWidth="445.0" layoutX="512.0" layoutY="58.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="kona1" fitHeight="383.0" fitWidth="410.0" layoutX="529.0" layoutY="71.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/kona.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="525.0" layoutY="518.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt31" layoutX="519.0" layoutY="543.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="hawaiian kona tango" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="prtk31" layoutX="639.0" layoutY="629.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="5,007.67 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="630.0" layoutY="570.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="445.0" fitWidth="445.0" layoutX="1456.0" layoutY="58.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="nepalese1" fitHeight="390.0" fitWidth="411.0" layoutX="1472.0" layoutY="71.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/nepalese.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="1469.0" layoutY="518.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt41" layoutX="1463.0" layoutY="543.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="nepalese mount everest" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="prtk41" layoutX="1583.0" layoutY="629.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="2,803.56 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1574.0" layoutY="570.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="442.0" fitWidth="446.0" layoutX="1924.0" layoutY="55.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="ethiopia1" fitHeight="407.0" fitWidth="432.0" layoutX="1938.0" layoutY="78.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/ethiopia.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="1934.0" layoutY="514.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt51" layoutX="1949.0" layoutY="558.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="ethiopian yirgacheffe" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="2051.0" layoutY="582.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtk51" layoutX="2063.0" layoutY="640.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="1,761.62 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="442.0" fitWidth="446.0" layoutX="2397.0" layoutY="55.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="indian1" fitHeight="418.0" fitWidth="430.0" layoutX="2411.0" layoutY="67.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/indian.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="2407.0" layoutY="514.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt61" layoutX="2412.0" layoutY="559.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="indian tiger stripes blend" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="2524.0" layoutY="582.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtk61" layoutX="2536.0" layoutY="640.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="1,577.94 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="442.0" fitWidth="446.0" layoutX="2870.0" layoutY="58.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="guatemala1" fitHeight="407.0" fitWidth="415.0" layoutX="2884.0" layoutY="87.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/guatemala.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="137.0" fitWidth="414.0" layoutX="2880.0" layoutY="517.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt71" layoutX="2895.0" layoutY="561.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="guatemala el fogon" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="2997.0" layoutY="585.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtk71" layoutX="3009.0" layoutY="643.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="1,577.94 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="442.0" fitWidth="446.0" layoutX="3341.0" layoutY="59.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankbg.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="costa1" fitHeight="407.0" fitWidth="432.0" layoutX="3354.0" layoutY="87.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#handlehoverzoom" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@images/costa.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="145.0" fitWidth="414.0" layoutX="3364.0" layoutY="512.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@images/blankwbg.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtxt81" layoutX="3359.0" layoutY="537.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="costa rican tarrazu valley" textAlignment="CENTER" wrappingWidth="422.3318214416504">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="3468.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength_2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="prtk81" layoutX="3480.0" layoutY="644.0" onMouseClicked="#redirectToCoffee" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="1,492.78 BDT">
+                           <font>
+                              <Font name="RetrokiaCaps-Rough" size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="185.0" layoutX="647.0" layoutY="568.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength3.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="185.0" layoutX="2522.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/strength3.png" />
                            </image>
                         </ImageView>
                      </children>

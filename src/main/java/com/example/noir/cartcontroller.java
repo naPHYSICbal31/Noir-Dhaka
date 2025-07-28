@@ -68,10 +68,14 @@ public class cartcontroller implements Initializable{
     private Button apply;
     @FXML
     private TextField couponfield;
+    @FXML
+    private Text errortxt;
     private boolean discounted = false;
     // Legacy elements (keep for compatibility)
     @FXML
     private ScrollPane verticalScrollPane;
+    @FXML
+    private Text coupontxt;
 
     private dbFetch database;
     private Cart currentCart;
@@ -297,7 +301,14 @@ public class cartcontroller implements Initializable{
         plattxt.setText(String.format("$%.2f", 0.00));
         totaltxt.setText(String.format("$%.2f", 0.00));
         discounttxt.setText(String.format("-$%.2f", 0.00));
-
+        discounted = false;
+        couponfield.setDisable(false);
+        couponfield.setOpacity(1);
+        apply.setDisable(false);
+        apply.setOpacity(1);
+        coupontxt.setOpacity(0);
+        coupontxt.setDisable(true);
+        errortxt.setOpacity(0);
         // Show empty cart elements
         emptyCartLabel.setVisible(true);
         startShoppingButton.setVisible(true);
@@ -367,9 +378,24 @@ public class cartcontroller implements Initializable{
             pricetxt.setText(String.format("$%.2f", totalPrice));
             shiptxt.setText(String.format("$%.2f", 0.05*totalPrice));
             plattxt.setText(String.format("$%.2f", 0.003*totalPrice));
-            totaltxt.setText(String.format("$%.2f", 0.803*totalPrice));
-            if(discounted){discounttxt.setText(String.format("-$%.2f", 0.25*totalPrice));}
-            else discounttxt.setText(String.format("-$%.2f", 0.00));
+
+            if(discounted){
+                discounttxt.setText(String.format("-$%.2f", 0.25*totalPrice));
+                totaltxt.setText(String.format("$%.2f", 0.803*totalPrice));
+                coupontxt.setOpacity(1);
+                coupontxt.setDisable(false);
+                couponfield.setDisable(true);
+                couponfield.setOpacity(0);
+                apply.setDisable(true);
+                apply.setOpacity(0);
+                errortxt.setOpacity(0);
+
+            }
+            else
+            {
+                discounttxt.setText(String.format("-$%.2f", 0.00));
+                totaltxt.setText(String.format("$%.2f", 1.053*totalPrice));
+            }
         }
     }
 
@@ -447,6 +473,38 @@ public class cartcontroller implements Initializable{
 
             receiptContent.append("───────────────────────────────────────\n");
 
+            // Add price breakdown section
+            double subtotal = grandTotal;
+            double shipping = 0.05 * grandTotal;
+            double platformFee = 0.003 * grandTotal;
+            double discount = discounted ? 0.25 * grandTotal : 0.0;
+            double finalTotal = discounted ? 0.803 * grandTotal : 1.053 * grandTotal;
+
+            // Center price breakdown
+            String subtotalText = String.format("Subtotal: $%.2f", subtotal);
+            int subtotalLength = subtotalText.length();
+            int subtotalPadding = Math.max(1, (39 - subtotalLength) / 2);
+            receiptContent.append(String.format("%" + subtotalPadding + "s%s\n", "", subtotalText));
+
+            String shippingText = String.format("Shipping (5%%): $%.2f", shipping);
+            int shippingLength = shippingText.length();
+            int shippingPadding = Math.max(1, (39 - shippingLength) / 2);
+            receiptContent.append(String.format("%" + shippingPadding + "s%s\n", "", shippingText));
+
+            String platformText = String.format("Platform Fee (0.3%%): $%.2f", platformFee);
+            int platformLength = platformText.length();
+            int platformPadding = Math.max(1, (39 - platformLength) / 2);
+            receiptContent.append(String.format("%" + platformPadding + "s%s\n", "", platformText));
+
+            if (discounted) {
+                String discountText = String.format("Discount (25%%): -$%.2f", discount);
+                int discountLength = discountText.length();
+                int discountPadding = Math.max(1, (39 - discountLength) / 2);
+                receiptContent.append(String.format("%" + discountPadding + "s%s\n", "", discountText));
+            }
+
+            receiptContent.append("───────────────────────────────────────\n");
+
             // Center total items
             String totalItems = String.format("TOTAL ITEMS: %d",
                 buyHistory.values().stream().mapToInt(Integer::intValue).sum());
@@ -455,10 +513,7 @@ public class cartcontroller implements Initializable{
             receiptContent.append(String.format("%" + totalItemsPadding + "s%s\n", "", totalItems));
 
             // Center total amount
-
-            if(discounted) grandTotal = 0.803*grandTotal;
-            else grandTotal = 1.053*grandTotal;
-            String totalAmount = String.format("TOTAL AMOUNT: $%.2f", grandTotal);
+            String totalAmount = String.format("TOTAL AMOUNT: $%.2f", finalTotal);
             int totalAmountLength = totalAmount.length();
             int totalAmountPadding = Math.max(1, (39 - totalAmountLength) / 2); // Ensure padding is at least 1
             receiptContent.append(String.format("%" + totalAmountPadding + "s%s\n", "", totalAmount));
@@ -693,6 +748,7 @@ public class cartcontroller implements Initializable{
         }
         else
         {
+            errortxt.setOpacity(1);
             discounted = false;
         }
         updateTotalPriceDisplay();

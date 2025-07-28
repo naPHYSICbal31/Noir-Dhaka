@@ -93,7 +93,12 @@
             <Font name="RetrokiaCaps-Rough" size="36.0" />
          </font>
       </Text>
-      <TextField fx:id="couponfield" layoutX="67.0" layoutY="508.0" prefHeight="36.0" prefWidth="327.0" promptText="Discount code or Gift Card" />
+      <Text fx:id="coupontxt" layoutX="65.0" layoutY="540.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coupon &quot;noir-dhk&quot; applied  ✔" wrappingWidth="411.9947509765625">
+         <font>
+            <Font name="RetrokiaCaps-Rough" size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="couponfield" layoutX="64.0" layoutY="508.0" prefHeight="36.0" prefWidth="327.0" promptText="Discount code or Gift Card" />
       <Button fx:id="apply" layoutX="415.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleCoupon" text="Apply" />
       <Text layoutX="64.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtotal " wrappingWidth="181.82401275634766">
          <font>
@@ -126,7 +131,7 @@
          </font>
       </Text>
       <Line endX="100.0" layoutX="407.0" layoutY="423.0" startX="-343.8000183105469" stroke="#91b08f" strokeWidth="2.0" />
-      <Text layoutX="65.0" layoutY="460.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Net Total" wrappingWidth="157.8240737915039">
+      <Text layoutX="64.0" layoutY="460.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Net Total" wrappingWidth="157.8240737915039">
          <font>
             <Font name="Courier New Bold" size="28.0" />
          </font>
@@ -151,5 +156,10 @@
             <Image url="@images/random5.png" />
          </image>
       </ImageView>
+      <Text fx:id="errortxt" fill="RED" layoutX="64.0" layoutY="496.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coupon code doesn't exist" wrappingWidth="215.19476318359375">
+         <font>
+            <Font name="RetrokiaCaps-Rough" size="12.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

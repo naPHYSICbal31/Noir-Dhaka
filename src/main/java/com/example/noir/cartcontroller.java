@@ -319,12 +319,13 @@ public class cartcontroller implements Initializable{
 
     private void updateQuantity(int coffeeId, int change) {
         if (currentCart != null) {
-            // Get current quantity before update
+
             Integer currentQuantity = currentCart.getBuyHistory().get(coffeeId);
             if (currentQuantity == null) return;
 
-            // Update the cart model
+
             if (change > 0) {
+                database.addToCart(coffeeId, change);
                 currentCart.addToCart(coffeeId, change);
             } else {
                 if(currentQuantity <= 1)
@@ -333,6 +334,7 @@ public class cartcontroller implements Initializable{
 
                 }
                 else{
+                    database.removeFromCart(coffeeId);
                     currentCart.removeFromCart(coffeeId);
                 }
 
@@ -531,7 +533,7 @@ public class cartcontroller implements Initializable{
             int statusPadding = Math.max(1, (39 - statusLength) / 2); // Ensure padding is at least 1
             receiptContent.append(String.format("%" + statusPadding + "s%s\n\n", "", status));
 
-            // Center thank you message
+
             String thankYou = "Thank you for choosing Noir Dhaka!";
             int thankYouLength = thankYou.length();
             int thankYouPadding = Math.max(1, (39 - thankYouLength) / 2); // Ensure padding is at least 1
@@ -543,7 +545,9 @@ public class cartcontroller implements Initializable{
             receiptContent.append(String.format("%" + deliveryPadding + "s%s\n\n", "", delivery));
 
             receiptContent.append("═══════════════════════════════════════");
-
+            User u = database.getUserinfo();
+            u.addToRecipts(receiptContent.toString());
+            database.updateUser(u);
             // Create custom alert with scrollable content
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Order Confirmation");
@@ -554,7 +558,7 @@ public class cartcontroller implements Initializable{
             alert.getDialogPane().setMinSize(setX, setY);  // Minimum size
             alert.getDialogPane().setMaxSize(setX,setY);
 
-            // Create a TextArea for the receipt content
+
             TextArea receiptArea = new TextArea(receiptContent.toString());
             receiptArea.setEditable(false);
             receiptArea.setWrapText(false);
@@ -581,7 +585,9 @@ public class cartcontroller implements Initializable{
             alert.showAndWait();
 
             // Clear cart after checkout
-            currentCart.getBuyHistory().clear();
+            database.buyCart(currentCart);
+            currentCart = null;
+            /* TODO */
             try {
                 // database.updateCart(currentCart);
                 loadCartData();
@@ -607,7 +613,7 @@ public class cartcontroller implements Initializable{
     @FXML
     private void redirectToScene(MouseEvent event) {
         try {
-            // Get the source of the event (could be ImageView or Text)
+
             Object source = event.getSource();
 
             // Get the current stage

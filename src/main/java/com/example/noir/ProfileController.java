@@ -20,6 +20,8 @@ import javafx.fxml.Initializable;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.List;
@@ -32,6 +34,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
 import java.util.ArrayList;
 public class ProfileController implements Initializable {
+
     @FXML
     private ScrollPane verticalScrollPane;
     @FXML
@@ -71,6 +74,7 @@ public class ProfileController implements Initializable {
     private TableColumn<Coffee, String> descriptionColumn;
     @FXML
     private TableColumn<Coffee, Integer> coffeeCountColumn;
+    public TableColumn<Coffee, String> buyDateColumn;
 
     @FXML
     private Button logoutbutton;
@@ -124,13 +128,14 @@ public class ProfileController implements Initializable {
 
     private void loadUserData() {
         try {
-            currentUser = database.getUserinfo(); // Store the user data
+            currentUser = database.getUserinfo();
             if (currentUser != null) {
                 if (usernameLabel != null) {
                     usernameLabel.setText(currentUser.getUsername());
                 }
                 if (emailLabel != null) {
                     emailLabel.setText(currentUser.getEmail());
+                    System.out.println(currentUser.getEmail());
                 }
                 if (addressLabel != null) {
                     addressLabel.setText(currentUser.getAddress());
@@ -139,6 +144,25 @@ public class ProfileController implements Initializable {
         } catch (Exception e) {
             System.err.println("Error loading user data: " + e.getMessage());
         }
+    }
+    public static String formatDateTimePretty(LocalDateTime dateTime) {
+        int day = dateTime.getDayOfMonth();
+        String suffix = getDaySuffix(day);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM HH:mm");
+        String formatted = dateTime.format(formatter);
+
+        return day + suffix + " " + formatted;
+    }
+
+    private static String getDaySuffix(int day) {
+        if (day >= 11 && day <= 13) return "th";
+        return switch (day % 10) {
+            case 1 -> "st";
+            case 2 -> "nd";
+            case 3 -> "rd";
+            default -> "th";
+        };
     }
 
     private void loadCoffeeData() {
@@ -176,7 +200,7 @@ public class ProfileController implements Initializable {
 
     private void setupTableColumns() {
         if (nameColumn != null) {
-            System.out.println("khela");
+
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
             nameColumn.setCellFactory(column -> {
                 return new javafx.scene.control.TableCell<Coffee, String>() {
@@ -228,7 +252,7 @@ public class ProfileController implements Initializable {
             });
         }
 
-        // Add the coffee count column setup
+
         if (coffeeCountColumn != null) {
             coffeeCountColumn.setCellValueFactory(cellData -> {
                 Coffee coffee = cellData.getValue();
@@ -241,6 +265,27 @@ public class ProfileController implements Initializable {
                 return new javafx.beans.property.SimpleIntegerProperty(0).asObject();
             });
         }
+
+        if (buyDateColumn != null) {
+            buyDateColumn.setCellValueFactory(cellData -> {
+                Coffee coffee = cellData.getValue();
+
+                if (currentUser != null && currentUser.getBuyTime() != null) {
+
+                    LocalDateTime timeObj = currentUser.getBuyTime().get(coffee.getId());
+
+                    if (timeObj != null) {
+                        String timeStr = formatDateTimePretty(timeObj);
+                        return new javafx.beans.property.SimpleStringProperty(timeStr);
+                    }
+                }
+
+                return new javafx.beans.property.SimpleStringProperty("N/A");
+            });
+        }
+
+
+
     }
 
     // Method to refresh data

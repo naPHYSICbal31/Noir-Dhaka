@@ -33,10 +33,12 @@ public class User {
     //history
     private HashMap<Integer,Integer> buyHistory;
     private HashMap<Integer, LocalDateTime> buyTime;
+    private HashMap<String, LocalDateTime> recipts;
 
     public User(String username,String pass, String email,  String address, boolean isAds) {
-        this.buyHistory = new HashMap<Integer,Integer>();
-        this.buyTime = new HashMap<Integer, LocalDateTime>();
+        this.buyHistory = new HashMap<>();
+        this.buyTime = new HashMap<>();
+        this.recipts = new HashMap<>();
         this.isAds = isAds;
         this.address = address;
         this.setPass(pass);
@@ -45,10 +47,11 @@ public class User {
         this.username = username;
     }
 
-    public User(String username, int userid, String email, String address, boolean isAds, HashMap<Integer, Integer> buyHistory, HashMap<Integer, LocalDateTime> buyTime) {
+    public User(String username, int userid, String email, String address, boolean isAds, HashMap<Integer, Integer> buyHistory, HashMap<Integer, LocalDateTime> buyTime, HashMap<String, LocalDateTime> recipts) {
         this.username = username;
         this.userid = userid;
         this.email = email;
+        this.recipts = recipts;
         //this.passhash = passhash;
         this.address = address;
         this.isAds = isAds;
@@ -57,7 +60,17 @@ public class User {
     }
 
 
+    public HashMap<String, LocalDateTime> getRecipts() {
+        return recipts;
+    }
 
+    public void setRecipts(HashMap<String, LocalDateTime> recipts) {
+        this.recipts = recipts;
+    }
+
+    public void addToRecipts(String rec){
+        this.recipts.put(rec, LocalDateTime.now());
+    }
 
     private static String hashSHA256(String input) {
         try {
@@ -163,8 +176,8 @@ public class User {
         HashMap<Integer, Integer> j = c.getBuyHistory();
 
         for(Map.Entry<Integer, Integer> entry : j.entrySet()){
-            if(j.containsKey(entry.getKey())){
-                this.buyHistory.put(entry.getKey(), j.get(entry.getKey())+entry.getValue());
+            if(this.buyHistory.containsKey(entry.getKey())){
+                this.buyHistory.replace(entry.getKey(), this.buyHistory.get(entry.getKey())+entry.getValue());
             }else{
                 this.buyHistory.put(entry.getKey(), entry.getValue());
             }

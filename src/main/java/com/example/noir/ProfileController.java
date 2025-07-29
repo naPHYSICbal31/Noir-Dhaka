@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.util.Duration;
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -96,6 +98,14 @@ public class ProfileController implements Initializable {
     private Text ordertxt;
     @FXML
     private Line orderline;
+    @FXML
+    private CheckBox check1;
+    @FXML
+    private CheckBox check2;
+    @FXML
+    private CheckBox check3;
+    @FXML
+    private AnchorPane anchor1;
     private Font euclidBoldFont;
     public User currentUser;
     
@@ -112,8 +122,26 @@ public class ProfileController implements Initializable {
         applyCustomFonts();
         applyTableViewStyles();
         setupReceiptScrollPane();
-
+        Platform.runLater(this::styleCheckboxes);
     }
+    private void styleCheckboxes() {
+        // Apply styles to the checkbox boxes after they're rendered
+        String checkboxStyle = "-fx-background-color: #91b08f; -fx-border-color: #91b08f; -fx-mark-color: #000000;";
+
+        if (check1 != null && check1.lookup(".box") != null) {
+            check1.lookup(".box").setStyle(checkboxStyle);
+            check1.setFont(euclidBoldFont);
+        }
+        if (check2 != null && check2.lookup(".box") != null) {
+            check2.lookup(".box").setStyle(checkboxStyle);
+            check2.setFont(euclidBoldFont);
+        }
+        if (check3 != null && check3.lookup(".box") != null) {
+            check3.lookup(".box").setStyle(checkboxStyle);
+            check3.setFont(euclidBoldFont);
+        }
+    }
+
 
     private void setupReceiptScrollPane() {
 
@@ -527,7 +555,7 @@ public class ProfileController implements Initializable {
                 }
                 else if(source instanceof Label)
                     {
-                        Text textSource = (Text) source;
+                        Label textSource = (Label) source;
                         fxId = textSource.getId();
                     }
                     switch (fxId) {
@@ -620,6 +648,8 @@ public class ProfileController implements Initializable {
         fadeOutIfVisible(usernameLabel3, Duration.seconds(0.25));
         fadeOutIfVisible(usernameLabel4, Duration.seconds(0.25));
         fadeOutIfVisible(scrollpane1, Duration.seconds(0.25));
+        fadeOutIfVisible(anchor1, Duration.seconds(0.25));
+        anchor1.setMouseTransparent(true);
         scrollpane1.setMouseTransparent(true);
         Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.25), e -> {
             fadeInIfHidden(coffeeTableView, Duration.seconds(0.25));
@@ -644,6 +674,8 @@ public class ProfileController implements Initializable {
         coffeeTableView.setMouseTransparent(true);
         fadeOutIfVisible(ordertxt, Duration.seconds(0.25));
         fadeOutIfVisible(orderline, Duration.seconds(0.25));
+        fadeOutIfVisible(anchor1, Duration.seconds(0.25));
+        anchor1.setMouseTransparent(true);
         Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.25), e -> {
 
             loadReceiptData();
@@ -662,6 +694,8 @@ public class ProfileController implements Initializable {
         fadeOutIfVisible(orderline, Duration.seconds(0.25));
         fadeOutIfVisible(scrollpane1, Duration.seconds(0.25));
         scrollpane1.setMouseTransparent(true);
+        fadeOutIfVisible(anchor1, Duration.seconds(0.25));
+        anchor1.setMouseTransparent(true);
         Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.25), e -> {
             fadeInIfHidden(usernameLabel, Duration.seconds(0.25));
             fadeInIfHidden(emailLabel, Duration.seconds(0.25));
@@ -800,5 +834,10 @@ public class ProfileController implements Initializable {
         coffeeTableView.setMouseTransparent(true);
         fadeOutIfVisible(ordertxt, Duration.seconds(0.25));
         fadeOutIfVisible(orderline, Duration.seconds(0.25));
+        Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.25), e -> {
+            fadeInIfHidden(anchor1, Duration.seconds(0.25));
+            anchor1.setMouseTransparent(false);
+        }));
+        delay.play();
     }
 }

@@ -90,6 +90,8 @@ public class logincontroller implements Initializable {
     
     @FXML
     private Button appleButton11;
+    @FXML
+    private Text errortxt;
     
     @FXML
     private Button githubButton11;
@@ -271,6 +273,7 @@ public class logincontroller implements Initializable {
 
         registerForm.setTranslateX(400);
         registerForm.setOpacity(0);
+        errortxt.setOpacity(0);
         
         TranslateTransition registerSlide = new TranslateTransition(Duration.millis(500), registerForm);
         registerSlide.setToX(0);
@@ -863,10 +866,7 @@ public class logincontroller implements Initializable {
             passwordField.clear();
 
             System.out.println(e.getMessage());
-
-            /* TODO
-            *  Show error message in a notification or smth
-            * */
+            errortxt.setOpacity(1);
         }
 
         System.out.println("Login attempt with username: " + username);
@@ -881,7 +881,7 @@ public class logincontroller implements Initializable {
         String address = regAddressField.getText();
         String password = regPasswordField.getText();
         String confirmPassword = regConfirmPasswordField.getText();
-
+        errortxt.setOpacity(0);
 
         if (password.equals(confirmPassword)) {
             System.out.println("Registration attempt with username: " + username + ", email: " + email);

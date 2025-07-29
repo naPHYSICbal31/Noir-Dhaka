@@ -26,7 +26,7 @@
          <font>
             <Font name="RetrokiaCaps-Rough" size="12.0" />
          </font></Button>
-      <Button fx:id="regbutton" layoutX="1233.0" layoutY="111.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="134.0" text="REGISTER" translateX="-17.0" />
+      <Button fx:id="regbutton" layoutX="1225.0" layoutY="111.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="134.0" text="REGISTER" translateX="-17.0" />
       <Line fx:id="line" endX="19.199951171875" endY="60.19999694824219" layoutX="1180.0" layoutY="110.0" startX="19.199951171875" startY="-10.199996948242188" translateX="-17.0" />
       
       <!-- Login Form -->
@@ -35,6 +35,11 @@
             <TextField fx:id="usernameField" layoutY="0.0" prefHeight="36.0" prefWidth="327.0" promptText="username" />
             <PasswordField fx:id="passwordField" layoutY="74.0" prefHeight="36.0" prefWidth="327.0" promptText="password" />
             <Button fx:id="continuebutton" layoutY="166.0" mnemonicParsing="false" onMouseClicked="#handleLogin" prefHeight="48.0" prefWidth="327.0" text="CONTINUE" />
+            <Text fx:id="errortxt" fill="RED" layoutY="147.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Username or password" wrappingWidth="291.87187767028814">
+               <font>
+                  <Font name="RetrokiaCaps-Rough" size="14.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
       

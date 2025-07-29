@@ -291,7 +291,7 @@ public class HelloController {
             checkAndAnimateImages();
         });
 
-
+        verticalScrollPane.getStylesheets().add("scrollbar.css");
         Platform.runLater(() -> {
             setupImageClipping(blog1);
             setupImageClipping(blog2);

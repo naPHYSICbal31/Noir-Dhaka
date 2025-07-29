@@ -5,7 +5,9 @@ import com.example.backend.Client;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.*;
@@ -68,8 +70,6 @@ public class HelloApplication extends Application {
             } else {
                 System.out.println("Euclid Circular A Regular font loaded successfully");
             }
-
-
             Font euclidBold = Font.loadFont(getClass().getResourceAsStream("/fonts/RetrokiaCaps-Rough.otf"), 16);
             if (euclidBold == null) {
                 System.err.println("Failed to load Euclid Circular A Bold font");
@@ -82,21 +82,17 @@ public class HelloApplication extends Application {
             e.printStackTrace();
         }
     }
-
     public void start(Stage stage) throws IOException {
         try {
-
             loadGlobalFonts();
             client = new Client();
-            client.validateLogin("test", "test");
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("profile.fxml"));
+            //client.validateLogin("test", "test");
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
             scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
             stage.setScene(scene);
-
-
             try {
                 stage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("images/noir_logo.png")));
                 System.out.println("Icon loaded successfully");
@@ -105,6 +101,9 @@ public class HelloApplication extends Application {
                 iconException.printStackTrace();
             }
             scene.getRoot().requestFocus();
+            Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5); // Set hotspot as needed
+            scene.setCursor(customCursor);
             stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
@@ -112,6 +111,7 @@ public class HelloApplication extends Application {
             System.exit(1);
         }
     }
+
     public static void main(String[] args) {
         launch();
     }

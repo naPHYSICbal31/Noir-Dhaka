@@ -1,0 +1,46 @@
+.scroll-bar {
+    -fx-background-color: transparent; /* Background of the whole scrollbar area */
+}
+
+.scroll-bar:horizontal {
+    -fx-pref-height: 15px; /* Thickness for horizontal scrollbar */
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 10px; /* Thickness for vertical scrollbar */
+}
+
+/* Track */
+.scroll-bar .track {
+    -fx-background-color: #e9e9e9;
+    -fx-background-radius: 5px;
+}
+
+/* Thumb (the draggable part) */
+.scroll-bar .thumb {
+    -fx-background-color: #91b08f;
+    -fx-background-radius: 5px;
+}
+
+/* Hover and Pressed states */
+.scroll-bar .thumb:hover {
+    -fx-background-color: #90b18f;
+}
+
+.scroll-bar .thumb:pressed {
+    -fx-background-color: #90b18f;
+}
+
+/* Increment/Decrement Buttons (optional, usually hidden in modern UI) */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* Hide arrow icons inside buttons */
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: "";
+    -fx-padding: 0;
+}

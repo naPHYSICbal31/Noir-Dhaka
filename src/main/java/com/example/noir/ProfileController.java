@@ -54,11 +54,11 @@ public class ProfileController implements Initializable {
     @FXML
     private Label usernameLabel1;
     @FXML
-    private Label usernameLabel2;
-    @FXML
     private Label usernameLabel3;
     @FXML
     private Label usernameLabel4;
+    @FXML
+    private Text bar11;
 
     @FXML
     public Label usernameLabel;
@@ -106,6 +106,8 @@ public class ProfileController implements Initializable {
     private CheckBox check3;
     @FXML
     private AnchorPane anchor1;
+    @FXML
+    private Line line1;
     private Font euclidBoldFont;
     public User currentUser;
     
@@ -288,13 +290,13 @@ public class ProfileController implements Initializable {
     private void applyCustomFonts() {
 
         if (euclidBoldFont != null) {
-            usernameLabel.setFont(euclidBoldFont);
-            emailLabel.setFont(euclidBoldFont);
-            addressLabel.setFont(euclidBoldFont);
-            usernameLabel1.setFont(euclidBoldFont);
-            usernameLabel2.setFont(euclidBoldFont);
-            usernameLabel3.setFont(euclidBoldFont);
-            usernameLabel4.setFont(euclidBoldFont);
+            usernameLabel.setFont(Font.font(euclidBoldFont.getFamily(), 32));
+            emailLabel.setFont(Font.font(euclidBoldFont.getFamily(), 32));
+            addressLabel.setFont(Font.font(euclidBoldFont.getFamily(), 32));
+            usernameLabel1.setFont(Font.font(euclidBoldFont.getFamily(), 32));
+            //bar11.setFont(euclidBoldFont);
+            usernameLabel3.setFont(Font.font(euclidBoldFont.getFamily(), 32));
+            usernameLabel4.setFont(Font.font(euclidBoldFont.getFamily(), 32));
             usernameLabel41.setFont(euclidBoldFont);
             contact.setFont(euclidBoldFont);
         }
@@ -644,11 +646,12 @@ public class ProfileController implements Initializable {
         fadeOutIfVisible(emailLabel, Duration.seconds(0.25));
         fadeOutIfVisible(addressLabel, Duration.seconds(0.25));
         fadeOutIfVisible(usernameLabel1, Duration.seconds(0.25));
-        fadeOutIfVisible(usernameLabel2, Duration.seconds(0.25));
+        fadeOutIfVisible(bar11, Duration.seconds(0.25));
         fadeOutIfVisible(usernameLabel3, Duration.seconds(0.25));
         fadeOutIfVisible(usernameLabel4, Duration.seconds(0.25));
         fadeOutIfVisible(scrollpane1, Duration.seconds(0.25));
         fadeOutIfVisible(anchor1, Duration.seconds(0.25));
+        fadeOutIfVisible(line1, Duration.seconds(0.25));
         anchor1.setMouseTransparent(true);
         scrollpane1.setMouseTransparent(true);
         Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.25), e -> {
@@ -667,7 +670,7 @@ public class ProfileController implements Initializable {
         fadeOutIfVisible(emailLabel, Duration.seconds(0.25));
         fadeOutIfVisible(addressLabel, Duration.seconds(0.25));
         fadeOutIfVisible(usernameLabel1, Duration.seconds(0.25));
-        fadeOutIfVisible(usernameLabel2, Duration.seconds(0.25));
+        fadeOutIfVisible(bar11, Duration.seconds(0.25));
         fadeOutIfVisible(usernameLabel3, Duration.seconds(0.25));
         fadeOutIfVisible(usernameLabel4, Duration.seconds(0.25));
         fadeOutIfVisible(coffeeTableView, Duration.seconds(0.25));
@@ -675,6 +678,7 @@ public class ProfileController implements Initializable {
         fadeOutIfVisible(ordertxt, Duration.seconds(0.25));
         fadeOutIfVisible(orderline, Duration.seconds(0.25));
         fadeOutIfVisible(anchor1, Duration.seconds(0.25));
+        fadeOutIfVisible(line1, Duration.seconds(0.25));
         anchor1.setMouseTransparent(true);
         Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.25), e -> {
 
@@ -701,9 +705,10 @@ public class ProfileController implements Initializable {
             fadeInIfHidden(emailLabel, Duration.seconds(0.25));
             fadeInIfHidden(addressLabel, Duration.seconds(0.25));
             fadeInIfHidden(usernameLabel1, Duration.seconds(0.25));
-            fadeInIfHidden(usernameLabel2, Duration.seconds(0.25));
+            fadeInIfHidden(bar11, Duration.seconds(0.25));
             fadeInIfHidden(usernameLabel3, Duration.seconds(0.25));
             fadeInIfHidden(usernameLabel4, Duration.seconds(0.25));
+            fadeInIfHidden(line1, Duration.seconds(0.25));
         }));
         delay.play();
     }
@@ -825,13 +830,14 @@ public class ProfileController implements Initializable {
         fadeOutIfVisible(emailLabel, Duration.seconds(0.25));
         fadeOutIfVisible(addressLabel, Duration.seconds(0.25));
         fadeOutIfVisible(usernameLabel1, Duration.seconds(0.25));
-        fadeOutIfVisible(usernameLabel2, Duration.seconds(0.25));
+        fadeOutIfVisible(bar11, Duration.seconds(0.25));
         fadeOutIfVisible(usernameLabel3, Duration.seconds(0.25));
         fadeOutIfVisible(usernameLabel4, Duration.seconds(0.25));
         fadeOutIfVisible(coffeeTableView, Duration.seconds(0.25));
         fadeOutIfVisible(scrollpane1, Duration.seconds(0.25));
         scrollpane1.setMouseTransparent(true);
         coffeeTableView.setMouseTransparent(true);
+        fadeOutIfVisible(line1, Duration.seconds(0.25));
         fadeOutIfVisible(ordertxt, Duration.seconds(0.25));
         fadeOutIfVisible(orderline, Duration.seconds(0.25));
         Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.25), e -> {

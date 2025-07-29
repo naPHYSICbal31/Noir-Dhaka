@@ -406,6 +406,59 @@ public class Client {
         }
     }
 
+    public boolean saveReview(Review review) {
+        try {
+            objectOut.writeObject("saveReview");
+            objectOut.writeObject(review);
+            objectOut.flush();
+            return (Boolean) objectIn.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean hasUserReviewedCoffee(int userId, int coffeeId) {
+        try {
+            objectOut.writeObject("hasUserReviewedCoffee");
+            objectOut.writeInt(userId);
+            objectOut.writeInt(coffeeId);
+            objectOut.flush();
+            return (Boolean) objectIn.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean updateReview(int userId, int coffeeId, double newRating, String newDescription) {
+        try {
+            objectOut.writeObject("updateReview");
+            objectOut.writeInt(userId);
+            objectOut.writeInt(coffeeId);
+            objectOut.writeDouble(newRating);
+            objectOut.writeObject(newDescription);
+            objectOut.flush();
+            return (Boolean) objectIn.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Review getUserReviewForCoffee(int userId, int coffeeId) {
+        try {
+            objectOut.writeObject("getUserReviewForCoffee");
+            objectOut.writeInt(userId);
+            objectOut.writeInt(coffeeId);
+            objectOut.flush();
+            return (Review) objectIn.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
+
     public void close() throws IOException {
         objectOut.close();
         objectIn.close();

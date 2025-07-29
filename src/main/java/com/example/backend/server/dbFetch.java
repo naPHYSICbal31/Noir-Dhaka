@@ -696,12 +696,10 @@ public class dbFetch {
 
         this.collection.findOneAndReplace(new Document("id", coffee.getId()), j);
     }
-    // Add these imports if not already present
 
-    // Add this method to your dbFetch class
     public boolean saveReview(Review review) {
         try {
-            // Create a document from the review
+
             Document reviewDoc = new Document()
                     .append("reviewid", review.getReviewid())
                     .append("userid", review.getUserid())
@@ -712,7 +710,7 @@ public class dbFetch {
                     .append("timestamp", review.getTimestamp().toString())
                     .append("isVerified", review.isVerified());
 
-            // Insert the review into the reviews collection
+
             MongoCollection<Document> reviewsCollection = database.getCollection("reviews");
             reviewsCollection.insertOne(reviewDoc);
 
@@ -726,7 +724,7 @@ public class dbFetch {
         }
     }
 
-    // Optional: Add method to check if user has already reviewed a coffee
+
     public boolean hasUserReviewedCoffee(int userId, int coffeeId) {
         try {
             MongoCollection<Document> reviewsCollection = database.getCollection("reviews");
@@ -745,7 +743,7 @@ public class dbFetch {
         }
     }
 
-    // Optional: Add method to update existing review
+
     public boolean updateReview(int userId, int coffeeId, double newRating, String newDescription) {
         try {
             MongoCollection<Document> reviewsCollection = database.getCollection("reviews");
@@ -778,7 +776,6 @@ public class dbFetch {
         }
     }
 
-    // Optional: Add method to get existing review by user and coffee
     public Review getUserReviewForCoffee(int userId, int coffeeId) {
         try {
             MongoCollection<Document> reviewsCollection = database.getCollection("reviews");
@@ -808,8 +805,5 @@ public class dbFetch {
             return null;
         }
     }
-    // public void update review???
-
-
-
+    
 }

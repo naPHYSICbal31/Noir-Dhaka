@@ -24,10 +24,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import com.example.backend.*;
 
+import static com.example.noir.HelloApplication.client;
+
 public class logincontroller implements Initializable {
     public static final int TRANSLATE_X = -400;
-    // Login form fields
-    private Client client;
+
 
     @FXML
     private TextField usernameField;

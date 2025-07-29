@@ -106,11 +106,11 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
 
     private void saveRating() {
         if (currentCoffee != null && selectedRating > 0) {
-            // Store the rating locally
+
             controller.coffeeRatings.put(currentCoffee.getId(), selectedRating);
 
             try {
-                // Check if user has already reviewed this coffee
+
                 boolean hasExistingReview = client.hasUserReviewedCoffee(
                         controller.currentUser.getUserId(),
                         currentCoffee.getId()
@@ -131,7 +131,7 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
                         System.out.println("Review updated: " + selectedRating + " stars for " + currentCoffee.getName());
                     }
                 } else {
-                    // Create new review with properly formatted timestamp
+
                     java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
                     String timestamp = java.time.LocalDateTime.now().format(formatter);
 
@@ -145,8 +145,8 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
                             "Order Review"
                     );
 
-                    // Use the existing addReview method instead of saveReview
-                    controller.client.addReview(review);
+
+                    client.addReview(review);
                     success = true;
 
                     if (success) {

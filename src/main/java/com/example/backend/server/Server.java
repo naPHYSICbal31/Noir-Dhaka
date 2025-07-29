@@ -287,7 +287,31 @@ public class Server {
                             break;
                         }
 
-                        
+                        case "saveReview":
+                            Review reviewToSave = (Review) objectIn.readObject();
+                            boolean saved = database.saveReview(reviewToSave);
+                            objectOut.writeObject(saved);
+                            break;
+
+                        case "hasUserReviewedCoffee":
+                            int userId = objectIn.readInt();
+                            int coffeeId = objectIn.readInt();
+                            boolean hasReviewed = database.hasUserReviewedCoffee(userId, coffeeId);
+                            objectOut.writeObject(hasReviewed);
+                            break;
+
+                        case "updateReview":
+                            int userIdToUpdate = objectIn.readInt();
+                            int coffeeIdToUpdate = objectIn.readInt();
+                            double newRating = objectIn.readDouble();
+                            String newDescription = (String) objectIn.readObject();
+                            boolean updated = database.updateReview(userIdToUpdate, coffeeIdToUpdate, newRating, newDescription);
+                            objectOut.writeObject(updated);
+                            break;
+
+
+
+
 
                         default:
                             objectOut.writeObject("Undefined");

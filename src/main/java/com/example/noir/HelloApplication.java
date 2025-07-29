@@ -42,7 +42,7 @@ public class HelloApplication extends Application {
             }
         }
     }
-    
+
     public void displayReview(Review review)
     {
         if(review != null)
@@ -50,18 +50,18 @@ public class HelloApplication extends Application {
             title1.setText(review.getTitle());
         }
     }
-    
+
     private void loadGlobalFonts() {
         try {
-            // Load RetrokiaCaps-Rough font (existing)
+
             Font customFont = Font.loadFont(getClass().getResourceAsStream("/fonts/RetrokiaCaps-Rough.otf"), 20);
             if (customFont == null) {
                 System.err.println("Failed to load RetrokiaCaps-Rough font");
             } else {
                 System.out.println("RetrokiaCaps-Rough font loaded successfully");
             }
-            
-            // Load Euclid Circular A Regular font (corrected filename)
+
+
             Font euclidRegular = Font.loadFont(getClass().getResourceAsStream("/fonts/RetrokiaCaps-Rough.otf"), 16);
             if (euclidRegular == null) {
                 System.err.println("Failed to load Euclid Circular A Regular font");
@@ -69,23 +69,23 @@ public class HelloApplication extends Application {
                 System.out.println("Euclid Circular A Regular font loaded successfully");
             }
 
-            // Load Euclid Circular A Bold font (corrected filename)
+
             Font euclidBold = Font.loadFont(getClass().getResourceAsStream("/fonts/RetrokiaCaps-Rough.otf"), 16);
             if (euclidBold == null) {
                 System.err.println("Failed to load Euclid Circular A Bold font");
             } else {
                 System.out.println("Euclid Circular A Bold font loaded successfully");
             }
-            
+
         } catch (Exception e) {
             System.err.println("Error loading fonts: " + e.getMessage());
             e.printStackTrace();
         }
     }
-    
+
     public void start(Stage stage) throws IOException {
         try {
-            // Load fonts first
+
             loadGlobalFonts();
             client = new Client();
             client.validateLogin("test", "test");
@@ -95,8 +95,8 @@ public class HelloApplication extends Application {
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
             stage.setScene(scene);
-            
-            // Try this approach for loading the icon
+
+
             try {
                 stage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("images/noir_logo.png")));
                 System.out.println("Icon loaded successfully");
@@ -104,7 +104,7 @@ public class HelloApplication extends Application {
                 System.err.println("Failed to load application icon: " + iconException.getMessage());
                 iconException.printStackTrace();
             }
-            scene.getRoot().requestFocus(); // Add this line to prevent automatic focus on TextField
+            scene.getRoot().requestFocus();
             stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {

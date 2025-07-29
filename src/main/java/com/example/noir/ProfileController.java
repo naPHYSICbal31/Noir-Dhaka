@@ -2,7 +2,7 @@ package com.example.noir;
 
 import com.example.backend.Client;
 import com.example.backend.StarRatingCell;
-//import com.example.backend.server.dbFetch;
+
 import com.example.backend.server.dbFetch;
 import javafx.scene.Node;
 import javafx.animation.KeyFrame;
@@ -42,7 +42,7 @@ import static com.example.noir.HelloApplication.client;
 
 public class ProfileController implements Initializable {
 
-    //public dbFetch database;
+
     @FXML
     private ScrollPane verticalScrollPane;
     @FXML
@@ -57,12 +57,12 @@ public class ProfileController implements Initializable {
     private Label usernameLabel3;
     @FXML
     private Label usernameLabel4;
-    // Add UI components to display client data
+
     @FXML
     public Label usernameLabel;
     @FXML
     private TableColumn<Coffee, Integer> ratingColumn;
-    // Add this field to store ratings for each coffee
+
     public HashMap<Integer, Integer> coffeeRatings = new HashMap<>();
 
     @FXML
@@ -116,29 +116,29 @@ public class ProfileController implements Initializable {
     }
 
     private void setupReceiptScrollPane() {
-        // Create a VBox container to hold receipt information
+
         receiptContainer = new VBox();
         receiptContainer.setSpacing(15);
         receiptContainer.setStyle("-fx-background-color: #e9e9e9; -fx-padding: 20;");
         
-        // Set the VBox as the content of the scrollpane
+
         scrollpane1.setContent(receiptContainer);
         scrollpane1.setFitToWidth(true);
         
-        // Load receipt data initially
+
         loadReceiptData();
     }
     
     private void loadReceiptData() {
         if (receiptContainer == null || currentUser == null) return;
         
-        // Clear existing content
+
         receiptContainer.getChildren().clear();
         
         HashMap<String, LocalDateTime> receipts = currentUser.getRecipts();
         
         if (receipts == null || receipts.isEmpty()) {
-            // Show "No receipts" message
+
             Label noReceiptsLabel = new Label("No receipts found");
             noReceiptsLabel.setFont(euclidBoldFont);
             noReceiptsLabel.setStyle("-fx-text-fill: #666666; -fx-alignment: center;");
@@ -146,119 +146,119 @@ public class ProfileController implements Initializable {
             return;
         }
         
-        // Add title
+
         Label titleLabel = new Label("BILLING RECEIPTS");
         titleLabel.setFont(Font.font(euclidBoldFont.getFamily(), 22));
         titleLabel.setStyle("-fx-text-fill: #333333; -fx-font-weight: bold;");
         receiptContainer.getChildren().add(titleLabel);
         
-        // Add a proper line separator instead of dashed text
+
         javafx.scene.shape.Line separatorLine = new javafx.scene.shape.Line();
         separatorLine.setStartX(0);
-        separatorLine.setEndX(200); // Adjusted width to match new container width
+        separatorLine.setEndX(200);
         separatorLine.setStroke(javafx.scene.paint.Color.web("#91b08f"));
         separatorLine.setStrokeWidth(2);
         receiptContainer.getChildren().add(separatorLine);
         
-        // Sort receipts by date (newest first)
+
         receipts.entrySet().stream()
             .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
             .forEach(entry -> {
                 String receiptText = entry.getKey();
                 LocalDateTime receiptDate = entry.getValue();
                 
-                // Create a container for each receipt with reduced width
+
                 VBox receiptBox = new VBox();
                 receiptBox.setSpacing(12);
                 receiptBox.setStyle("-fx-background-color: #ffffff; -fx-padding: 25; " +
                                   "-fx-background-radius: 10; -fx-border-color: #d0d0d0; " +
                                   "-fx-border-radius: 10; -fx-border-width: 2;");
                 
-                // Set reduced width for receipt containers
+
                 receiptBox.setPrefWidth(460);
                 receiptBox.setMaxWidth(460);
                 
-                // Receipt date with larger font
+
                 Label dateLabel = new Label("Date: " + formatDateTimePretty(receiptDate));
                 dateLabel.setFont(Font.font(euclidBoldFont.getFamily(), 16));
                 dateLabel.setStyle("-fx-text-fill: #4e634d; -fx-font-weight: bold;");
                 
-                // Receipt content - Use Text instead of Label to avoid ellipsis
+
                 Text contentText = new Text(receiptText);
                 contentText.setFont(Font.font(euclidBoldFont.getFamily(), 14));
                 contentText.setStyle("-fx-fill: #333333;");
-                contentText.setWrappingWidth(410); // Adjusted wrapping width for new container size
+                contentText.setWrappingWidth(410);
                 
-                // Calculate height based on text content more accurately but reduce by 50
+
                 String[] lines = receiptText.split("\n");
                 int totalLines = 0;
                 for (String line : lines) {
-                    // Calculate how many visual lines each logical line will take
+
                     int lineLength = line.length();
-                    int wrappedLines = Math.max(1, (int) Math.ceil(lineLength / 60.0)); // Adjusted for smaller width
+                    int wrappedLines = Math.max(1, (int) Math.ceil(lineLength / 60.0));
                     totalLines += wrappedLines;
                 }
                 
-                // Set height based on calculated lines, reduced by 50
-                double estimatedHeight = Math.max(50, totalLines * 22 + 10); // Reduced from 60 to 10 padding, min from 100 to 50
+
+                double estimatedHeight = Math.max(50, totalLines * 22 + 10);
                 receiptBox.setMinHeight(estimatedHeight);
                 receiptBox.setPrefHeight(estimatedHeight);
                 
-                // Use Text instead of Label to avoid ellipsis issues
+
                 receiptBox.getChildren().addAll(dateLabel, contentText);
                 receiptContainer.getChildren().add(receiptBox);
             });
     
-    // Update the container's preferred height to fit all receipts
+
     Platform.runLater(() -> {
         double totalHeight = 0;
         
-        // Calculate height more accurately
+
         for (Node node : receiptContainer.getChildren()) {
             if (node instanceof VBox) {
                 VBox vbox = (VBox) node;
                 totalHeight += vbox.getPrefHeight();
             } else if (node instanceof Label) {
-                totalHeight += 35; // Height for title
+                totalHeight += 35;
             } else if (node instanceof javafx.scene.shape.Line) {
-                totalHeight += 15; // Height for line separator
+                totalHeight += 15;
             }
         }
         
-        // Add spacing between elements
+
         totalHeight += receiptContainer.getSpacing() * (receiptContainer.getChildren().size() - 1);
-        // Add container padding
+
         totalHeight += 60;
         
-        // Ensure minimum height and set the calculated height
+
         double finalHeight = Math.max(295, totalHeight);
         receiptContainer.setPrefHeight(finalHeight);
         receiptContainer.setMinHeight(finalHeight);
         
-        // Update the scroll pane to accommodate the new height
-        scrollpane1.setVvalue(0); // Reset scroll to top
+
+        scrollpane1.setVvalue(0);
     });
 }
 
     private void loadFonts() {
         try {
-            // Load EuclidCircularA-Bold font
+
             euclidBoldFont = Font.loadFont(getClass().getResourceAsStream("/fonts/euclidbold.ttf"), 18);
             if (euclidBoldFont == null) {
                 System.err.println("Failed to load euclidbold.ttf font - using default");
-                euclidBoldFont = Font.font("Arial", 18); // Fallback font
+                euclidBoldFont = Font.font("Arial", 18);
             } else {
                 System.out.println("EuclidCircularA-Bold font loaded successfully");
             }
         } catch (Exception e) {
             System.err.println("Error loading fonts: " + e.getMessage());
-            euclidBoldFont = Font.font("Arial", 18); // Fallback font
+            euclidBoldFont = Font.font("Arial", 18);
             e.printStackTrace();
         }
     }
 
     private void applyCustomFonts() {
-        // Apply the loaded font to UI components
+
         if (euclidBoldFont != null) {
             usernameLabel.setFont(euclidBoldFont);
             emailLabel.setFont(euclidBoldFont);
@@ -404,7 +404,7 @@ public class ProfileController implements Initializable {
                 Coffee coffee = cellData.getValue();
 
                 if (currentUser != null && currentUser.getBuyHistory() != null) {
-                    // Get count from buy history using coffee ID
+
                     Integer count = currentUser.getBuyHistory().get(coffee.getId());
                     return new javafx.beans.property.SimpleIntegerProperty(count != null ? count : 0).asObject();
                 }
@@ -444,28 +444,28 @@ public class ProfileController implements Initializable {
 
     }
 
-    // Method to refresh data
+
     @FXML
     private void refreshData() {
         loadUserData();
         loadCoffeeData();
-        loadReceiptData(); // Refresh receipt data as well
+        loadReceiptData();
     }
 
-    // Your existing methods...
+
     @FXML
     private void handlehoverzoom(MouseEvent event) {
         ImageView imageView = (ImageView) event.getSource();
 
-        // Create a scale transition for zoom effect
+
         javafx.animation.ScaleTransition scaleTransition = new javafx.animation.ScaleTransition(Duration.millis(300), imageView);
-        scaleTransition.setToX(1.1); // Scale to 110% of original size
+        scaleTransition.setToX(1.1);
         scaleTransition.setToY(1.1);
         scaleTransition.play();
-        // Add mouse exited handler to zoom back out
+
         imageView.setOnMouseExited(exitEvent -> {
             javafx.animation.ScaleTransition scaleBack = new javafx.animation.ScaleTransition(Duration.millis(300), imageView);
-            scaleBack.setToX(1.0); // Scale back to original size
+            scaleBack.setToX(1.0);
             scaleBack.setToY(1.0);
             scaleBack.play();
         });
@@ -473,13 +473,13 @@ public class ProfileController implements Initializable {
 
     @FXML
     private void addunderline(MouseEvent event) {
-        // Get the Text object that triggered the event
+
         Text textElement = (Text) event.getSource();
 
-        // Add underline when mouse enters
+
         textElement.setUnderline(true);
 
-        // Add mouse exited handler to remove underline when mouse leaves
+
         textElement.setOnMouseExited(exitEvent -> {
             textElement.setUnderline(false);
         });
@@ -488,10 +488,10 @@ public class ProfileController implements Initializable {
     @FXML
     private void redirectToScene(MouseEvent event) {
         try {
-            // Get the source of the event (could be ImageView or Text)
+
             Object source = event.getSource();
 
-            // Get the current stage
+
             Stage stage = null;
             if (source instanceof ImageView) {
                 stage = (Stage) ((ImageView) source).getScene().getWindow();
@@ -503,24 +503,24 @@ public class ProfileController implements Initializable {
                 stage = (Stage) ((Label) source).getScene().getWindow();
             }
 
-            // Load the specific FXML file
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
 
-            // Get the controller and reset scroll position
+
             HelloController helloController = fxmlLoader.getController();
 
-            // Set up the stage
+
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
             stage.setScene(scene);
             stage.centerOnScreen();
 
-            // Reset scroll position to top after scene is set
+
             Platform.runLater(() -> {
                 helloController.scrollToTop();
                 String fxId = "";
-                // Switch statement to handle different navigation targets
+
                 if (source instanceof Text) {
                     Text textSource = (Text) source;
                     fxId = textSource.getId();
@@ -545,7 +545,7 @@ public class ProfileController implements Initializable {
                             helloController.handleTop4Click();
                             break;
                         default:
-                            // No specific scroll action for other elements
+
                             break;
                     }
             });
@@ -555,15 +555,15 @@ public class ProfileController implements Initializable {
         }
     }
 
-    // Fixed scrollToTop method - moved outside redirectToScene
+
     public void scrollToTop() {
-        // Reset scroll position to top with a quick animation
+
         Platform.runLater(() -> {
-            smoothScrollTo(0.0, 0.0001); // 0.25 seconds duration
+            smoothScrollTo(0.0, 0.0001);
         });
     }
 
-    // Add the smoothScrollTo method
+
     private void smoothScrollTo(double targetValue, double time) {
         if (verticalScrollPane == null) return;
 
@@ -589,7 +589,7 @@ public class ProfileController implements Initializable {
             System.err.println("Cannot fade null node: " + node);
             return;
         }
-        // Fade out transition
+
         FadeTransition fadeOut = new FadeTransition(fadeOutDuration, node);
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
@@ -600,7 +600,7 @@ public class ProfileController implements Initializable {
             System.err.println("Cannot fade null node: " + node);
             return;
         }
-        // Fade out transition
+
         FadeTransition fadeIn = new FadeTransition(fadeInDuration, node);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
@@ -608,7 +608,7 @@ public class ProfileController implements Initializable {
     }
 
 
-    // Fade out method with visibility checker
+
     @FXML
     public void bar2clicked(MouseEvent event)
     {
@@ -645,7 +645,7 @@ public class ProfileController implements Initializable {
         fadeOutIfVisible(ordertxt, Duration.seconds(0.25));
         fadeOutIfVisible(orderline, Duration.seconds(0.25));
         Timeline delay = new Timeline(new KeyFrame(Duration.seconds(0.25), e -> {
-            // Refresh receipt data before showing
+
             loadReceiptData();
             fadeInIfHidden(scrollpane1, Duration.seconds(0.25));
             scrollpane1.setMouseTransparent(false);
@@ -679,7 +679,7 @@ public class ProfileController implements Initializable {
             return;
         }
 
-        // Only fade out if the node is currently visible (opacity > 0.2)
+
         if (node.getOpacity() > 0.2) {
             System.out.println("Fading out: " + node.getClass().getSimpleName());
             FadeTransition fade = new FadeTransition(duration, node);
@@ -691,14 +691,14 @@ public class ProfileController implements Initializable {
         }
     }
 
-    // Fade in method with visibility checker
+
     private void fadeInIfHidden(Node node, Duration duration) {
         if (node == null) {
             System.err.println("Cannot fade null node");
             return;
         }
 
-        // Only fade in if the node is currently faded out (opacity <= 0.2)
+
         if (node.getOpacity() <= 0.2) {
             System.out.println("Fading in: " + node.getClass().getSimpleName());
             FadeTransition fade = new FadeTransition(duration, node);
@@ -722,11 +722,11 @@ public class ProfileController implements Initializable {
 
         scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
 
-        // Get the current stage and set the new scene
+
         Stage stage = (Stage) logoutbutton.getScene().getWindow();
         stage.setScene(scene);
 
-        // Reset scroll position to top
+
         HelloController controller = loader.getController();
         if (controller != null) {
             controller.scrollToTop();
@@ -766,17 +766,17 @@ public class ProfileController implements Initializable {
                             "-fx-font-weight: bold;"
             );
 
-            // Remove fixed row height to allow dynamic sizing based on content
+
             coffeeTableView.setRowFactory(tv -> {
                 javafx.scene.control.TableRow<Coffee> row = new javafx.scene.control.TableRow<Coffee>() {
                     @Override
                     protected void updateItem(Coffee item, boolean empty) {
                         super.updateItem(item, empty);
                         if (empty || item == null) {
-                            setPrefHeight(-1); // Use default height
+                            setPrefHeight(-1);
                         } else {
-                            setPrefHeight(-1); // Let it calculate height based on content
-                            setMinHeight(30); // Set minimum height
+                            setPrefHeight(-1);
+                            setMinHeight(30);
                         }
                     }
                 };

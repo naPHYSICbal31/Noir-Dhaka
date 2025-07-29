@@ -39,7 +39,7 @@ public class BlogController {
 
         loadingBar.progressProperty().bind(engine.getLoadWorker().progressProperty());
 
-        // Show/hide progress bar during loading
+
         engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             switch (newState) {
                 case RUNNING -> loadingBar.setVisible(true);
@@ -53,15 +53,15 @@ public class BlogController {
     private void handlehoverzoom(MouseEvent event) {
         ImageView imageView = (ImageView) event.getSource();
 
-        // Create a scale transition for zoom effect
+
         javafx.animation.ScaleTransition scaleTransition = new javafx.animation.ScaleTransition(Duration.millis(300), imageView);
-        scaleTransition.setToX(1.1); // Scale to 110% of original size
+        scaleTransition.setToX(1.1);
         scaleTransition.setToY(1.1);
         scaleTransition.play();
-        // Add mouse exited handler to zoom back out
+
         imageView.setOnMouseExited(exitEvent -> {
             javafx.animation.ScaleTransition scaleBack = new javafx.animation.ScaleTransition(Duration.millis(300), imageView);
-            scaleBack.setToX(1.0); // Scale back to original size
+            scaleBack.setToX(1.0);
             scaleBack.setToY(1.0);
             scaleBack.play();
         });
@@ -117,10 +117,10 @@ public class BlogController {
     @FXML
     public void redirectToCoffee(MouseEvent event) {
         try {
-            // Get the source of the event (could be ImageView or Text)
+
             Object source = event.getSource();
 
-            // Get the current stage
+
             Stage stage = null;
             if (source instanceof ImageView) {
                 stage = (Stage) ((ImageView) source).getScene().getWindow();
@@ -128,14 +128,14 @@ public class BlogController {
                 stage = (Stage) ((Text) source).getScene().getWindow();
             }
 
-            // Load the specific FXML file
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("coffee.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
 
-            // Get the controller and reset scroll position
+
             coffeeController coffeeController = fxmlLoader.getController();
 
-            // Set up the stage
+
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
             stage.setScene(scene);
@@ -148,13 +148,11 @@ public class BlogController {
 
     @FXML
     private void addunderline(MouseEvent event) {
-        // Get the Text object that triggered the event
         Text textElement = (Text) event.getSource();
 
-        // Add underline when mouse enters
+
         textElement.setUnderline(true);
 
-        // Add mouse exited handler to remove underline when mouse leaves
         textElement.setOnMouseExited(exitEvent -> {
             textElement.setUnderline(false);
         });
@@ -166,7 +164,7 @@ public class BlogController {
 
             Object source = event.getSource();
 
-            // Get the current stage
+
             Stage stage = null;
             if (source instanceof ImageView) {
                 stage = (Stage) ((ImageView) source).getScene().getWindow();
@@ -174,24 +172,21 @@ public class BlogController {
                 stage = (Stage) ((Text) source).getScene().getWindow();
             }
 
-            // Load the specific FXML file
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
 
-            // Get the controller and reset scroll position
             HelloController helloController = fxmlLoader.getController();
 
-            // Set up the stage
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
             stage.setScene(scene);
             stage.centerOnScreen();
 
-            // Reset scroll position to top after scene is set
             Platform.runLater(() -> {
                 helloController.scrollToTop();
 
-                // Switch statement to handle different navigation targets
+
                 if (source instanceof Text) {
                     Text textSource = (Text) source;
                     String fxId = textSource.getId();
@@ -213,7 +208,7 @@ public class BlogController {
                             helloController.handleTop4Click();
                             break;
                         default:
-                            // No specific scroll action for other elements
+
                             break;
                     }
                 }

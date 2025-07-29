@@ -24,7 +24,7 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
         starContainer = new HBox(3);
         starContainer.setAlignment(Pos.CENTER);
 
-        // Create 5 stars
+
         for (int i = 1; i <= 5; i++) {
             Polygon star = createStar();
             final int starIndex = i;
@@ -53,16 +53,16 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
     private Polygon createStar() {
         Polygon star = new Polygon();
         star.getPoints().addAll(new Double[]{
-                8.0, 0.0,   // top point
-                9.5, 5.0,   // top right
-                14.0, 5.0,  // right point
-                10.5, 8.0,  // bottom right
-                12.0, 13.0, // bottom point
-                8.0, 10.0,  // bottom left
-                4.0, 13.0,  // left bottom
-                5.5, 8.0,   // left point
-                2.0, 5.0,   // left top
-                6.5, 5.0    // top left
+                8.0, 0.0,
+                9.5, 5.0,
+                14.0, 5.0,
+                10.5, 8.0,
+                12.0, 13.0,
+                8.0, 10.0,
+                4.0, 13.0,
+                5.5, 8.0,
+                2.0, 5.0,
+                6.5, 5.0
         });
         star.setFill(Color.LIGHTGRAY);
         star.setStroke(Color.GRAY);
@@ -91,7 +91,7 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
         } else {
             currentCoffee = (Coffee) getTableRow().getItem();
 
-            // Check if there's an existing rating for this coffee
+
             Integer existingRating = controller.coffeeRatings.get(currentCoffee.getId());
             if (existingRating != null) {
                 selectedRating = existingRating;
@@ -119,7 +119,7 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
                 boolean success = false;
 
                 if (hasExistingReview) {
-                    // Update existing review
+
                     success = client.updateReview(
                             controller.currentUser.getUserId(),
                             currentCoffee.getId(),
@@ -141,7 +141,7 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
                             currentCoffee.getId(),
                             "Review from order history - " + selectedRating + " stars",
                             timestamp,
-                            true, // verified purchase
+                            true,
                             "Order Review"
                     );
 

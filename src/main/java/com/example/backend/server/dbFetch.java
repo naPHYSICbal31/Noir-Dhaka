@@ -356,14 +356,14 @@ public class dbFetch {
         List<Document> rev = d.getList("reviews", Document.class);
         List<Review> revs = parseReviews(rev);
         
-        // Simple fix - just get tag as List<Boolean> directly
+
         List<Boolean> tg;
         try {
             Object tagObj = d.get("tag");
             if (tagObj instanceof List<?>) {
                 tg = (List<Boolean>) tagObj;
             } else {
-                // Create default list if tag is not a list
+
                 tg = new ArrayList<>();
                 for (int i = 0; i < 3; i++) {
                     tg.add(false);
@@ -509,7 +509,7 @@ public class dbFetch {
                     .append("description", review.getDescription())
                     .append("isVerified", review.isVerified())
                     .append("title", review.getTitle())
-                    .append("timestamp", review.getTimestamp().toString()) // convert LocalDateTime to string
+                    .append("timestamp", review.getTimestamp().toString())
                     .append("userid", review.getUserid());
 
             reviews.add(doc);
@@ -533,7 +533,7 @@ public class dbFetch {
                 .append("description", review.getDescription())
                 .append("isVerified", review.isVerified())
                 .append("title", review.getTitle())
-                .append("timestamp", review.getTimestamp().toString()) // convert LocalDateTime to string
+                .append("timestamp", review.getTimestamp().toString())
                 .append("userid", review.getUserid());
 
         this.collection.insertOne(doc);
@@ -686,7 +686,7 @@ public class dbFetch {
                     .append("description", review.getDescription())
                     .append("isVerified", review.isVerified())
                     .append("title", review.getTitle())
-                    .append("timestamp", review.getTimestamp().toString()) // convert LocalDateTime to string
+                    .append("timestamp", review.getTimestamp().toString())
                     .append("userid", review.getUserid());
 
             reviews.add(doc);
@@ -805,5 +805,5 @@ public class dbFetch {
             return null;
         }
     }
-    
+
 }

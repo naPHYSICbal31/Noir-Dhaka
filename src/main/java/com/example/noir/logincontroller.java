@@ -39,7 +39,7 @@ public class logincontroller implements Initializable {
     @FXML
     private Button continuebutton;
 
-    // Register form fields
+
     @FXML
     private TextField regUsernameField;
 
@@ -58,7 +58,7 @@ public class logincontroller implements Initializable {
     @FXML
     private Button regContinueButton;
 
-    // Form containers
+
     @FXML
     private AnchorPane loginForm;
 
@@ -84,7 +84,7 @@ public class logincontroller implements Initializable {
     private Button facebookButton1;
     @FXML
     private Text orText1;
-    // Register social buttons
+
     @FXML
     private Button googleButton11;
     
@@ -109,7 +109,7 @@ public class logincontroller implements Initializable {
     @FXML
     private Line line3;
 
-    // Register social elements
+
     @FXML
     private Line line21;
 
@@ -127,7 +127,7 @@ public class logincontroller implements Initializable {
     @FXML
     private Text continueWithText;
 
-    // Register social elements
+
 
     @FXML
     private Text continueWithText1;
@@ -138,7 +138,7 @@ public class logincontroller implements Initializable {
     @FXML
     private ImageView noir_logo;
 
-    // Track which button is currently active
+
     private boolean isLoginActive = true;
 
     @FXML
@@ -147,19 +147,19 @@ public class logincontroller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
-        // Load custom fonts
+
         loadCustomFonts();
 
-        // Initialize all elements in their starting positions
+
         initializeElements();
 
-        // Set up button click handlers
+
         setupButtonHandlers();
 
-        // Set initial button states
+
         setInitialButtonStates();
 
-        // Start the animation sequence
+
         startAnimationSequence();
     }
 
@@ -181,13 +181,13 @@ public class logincontroller implements Initializable {
             loginButton.getStyleClass().removeAll("active-button", "inactive-button");
             regbutton.getStyleClass().removeAll("active-button", "inactive-button");
 
-            // Set login as active
+
             loginButton.getStyleClass().add("active-button");
             regbutton.getStyleClass().add("inactive-button");
 
             isLoginActive = true;
 
-            // Animate slide and fade to login form
+
             slideAndFadeToLogin();
 
             System.out.println("Switched to Login");
@@ -197,17 +197,17 @@ public class logincontroller implements Initializable {
     @FXML
     private void switchToRegister() {
         if (isLoginActive) {
-            // Remove current styles
+
             loginButton.getStyleClass().removeAll("active-button", "inactive-button");
             regbutton.getStyleClass().removeAll("active-button", "inactive-button");
 
-            // Set register as active
+
             regbutton.getStyleClass().add("active-button");
             loginButton.getStyleClass().add("inactive-button");
 
             isLoginActive = false;
 
-            // Animate slide and fade to register form
+
             slideAndFadeToRegister();
 
             System.out.println("Switched to Register");
@@ -215,85 +215,85 @@ public class logincontroller implements Initializable {
     }
 
     private void slideAndFadeToLogin() {
-        // Slide register form to the right while fading out
+
         ParallelTransition registerSlideOut = new ParallelTransition();
         
         TranslateTransition registerSlide = new TranslateTransition(Duration.millis(500), registerForm);
-        registerSlide.setToX(400); // Slide to the right
+        registerSlide.setToX(400);
         
         FadeTransition registerFade = new FadeTransition(Duration.millis(500), registerForm);
         registerFade.setToValue(0);
         
         registerSlideOut.getChildren().addAll(registerSlide, registerFade);
 
-        // Slide login form in from the right while fading in
+
         ParallelTransition loginSlideIn = new ParallelTransition();
         
-        // Start login form from the right
+
         loginForm.setTranslateX(TRANSLATE_X);
         loginForm.setOpacity(0);
 
         TranslateTransition loginSlide = new TranslateTransition(Duration.millis(500), loginForm);
-        loginSlide.setToX(0); // Slide to original position
+        loginSlide.setToX(0);
         
         FadeTransition loginFade = new FadeTransition(Duration.millis(500), loginForm);
         loginFade.setToValue(1);
         
         loginSlideIn.getChildren().addAll(loginSlide, loginFade);
 
-        // Slide and fade register social elements out to the right
+
         slideAndFadeRegisterSocialElementsOut();
 
-        // Slide and fade login social elements in from the right
+
         slideAndFadeLoginSocialElementsIn();
 
-        // Start animations with slight delay
+
         registerSlideOut.play();
         loginSlideIn.setDelay(Duration.millis(00));
         loginSlideIn.play();
     }
 
     private void slideAndFadeToRegister() {
-        // Slide login form to the left while fading out
+
         ParallelTransition loginSlideOut = new ParallelTransition();
         
         TranslateTransition loginSlide = new TranslateTransition(Duration.millis(500), loginForm);
-        loginSlide.setToX(TRANSLATE_X); // Slide to the left
+        loginSlide.setToX(TRANSLATE_X);
         
         FadeTransition loginFade = new FadeTransition(Duration.millis(500), loginForm);
         loginFade.setToValue(0);
         
         loginSlideOut.getChildren().addAll(loginSlide, loginFade);
 
-        // Slide register form in from the right while fading in
+
         ParallelTransition registerSlideIn = new ParallelTransition();
         
-        // Start register form from the right
+
         registerForm.setTranslateX(400);
         registerForm.setOpacity(0);
         
         TranslateTransition registerSlide = new TranslateTransition(Duration.millis(500), registerForm);
-        registerSlide.setToX(0); // Slide to original position
+        registerSlide.setToX(0);
         
         FadeTransition registerFade = new FadeTransition(Duration.millis(500), registerForm);
         registerFade.setToValue(1);
         
         registerSlideIn.getChildren().addAll(registerSlide, registerFade);
 
-        // Slide and fade login social elements out to the left
+
         slideAndFadeLoginSocialElementsOut();
 
-        // Slide and fade register social elements in from the right
+
         slideAndFadeRegisterSocialElementsIn();
 
-        // Start animations with slight delay
+
         loginSlideOut.play();
         registerSlideIn.setDelay(Duration.millis(100));
         registerSlideIn.play();
     }
 
     private void slideAndFadeLoginSocialElementsOut() {
-        // Slide and fade out all login social elements to the left
+
         ParallelTransition socialSlideOut = new ParallelTransition();
         
         if (orText != null) {
@@ -328,7 +328,7 @@ public class logincontroller implements Initializable {
             socialSlideOut.getChildren().addAll(line3Slide, line3Fade);
         }
 
-        // Slide and fade out social buttons to the left
+
         Button[] socialButtons = {googleButton1, appleButton1, facebookButton1, githubButton1};
         for (Button button : socialButtons) {
             if (button != null) {
@@ -344,7 +344,7 @@ public class logincontroller implements Initializable {
     }
 
     private void slideAndFadeLoginSocialElementsIn() {
-        // Slide and fade in all login social elements from the left
+
         ParallelTransition socialSlideIn = new ParallelTransition();
         if (orText != null) {
             orText.setTranslateX(TRANSLATE_X);
@@ -386,7 +386,7 @@ public class logincontroller implements Initializable {
             socialSlideIn.getChildren().addAll(line3Slide, line3Fade);
         }
 
-        // Slide and fade in social buttons from the right
+
         Button[] socialButtons = {googleButton1, appleButton1, facebookButton1, githubButton1};
         for (Button button : socialButtons) {
             if (button != null) {
@@ -404,7 +404,7 @@ public class logincontroller implements Initializable {
         socialSlideIn.play();
     }
     private void slideAndFadeRegisterSocialElementsOut() {
-        // Slide and fade out all register social elements to the right
+
         ParallelTransition socialSlideOut = new ParallelTransition();
         
         if (orText1 != null) {
@@ -439,7 +439,7 @@ public class logincontroller implements Initializable {
             socialSlideOut.getChildren().addAll(line31Slide, line31Fade);
         }
 
-        // Slide and fade out register social buttons to the right
+
         Button[] socialButtons = {googleButton11, appleButton11, facebookButton11, githubButton11};
         for (Button button : socialButtons) {
             if (button != null) {
@@ -455,7 +455,7 @@ public class logincontroller implements Initializable {
     }
 
     private void slideAndFadeRegisterSocialElementsIn() {
-        // Slide and fade in all register social elements from the right
+
         ParallelTransition socialSlideIn = new ParallelTransition();
         
         if (orText1 != null) {
@@ -498,7 +498,7 @@ public class logincontroller implements Initializable {
             socialSlideIn.getChildren().addAll(line31Slide, line31Fade);
         }
 
-        // Slide and fade in register social buttons from the right
+
         Button[] socialButtons = {googleButton11, appleButton11, facebookButton11, githubButton11};
         for (Button button : socialButtons) {
             if (button != null) {
@@ -519,29 +519,29 @@ public class logincontroller implements Initializable {
     @FXML
     private void handleGoogleLogin() {
         System.out.println("Google login clicked");
-        // Add your Google Oclient logic here
+
     }
 
     @FXML
     private void handleAppleLogin() {
         System.out.println("Apple login clicked");
-        // Add your Apple Oclient logic here
+
     }
 
     @FXML
     private void handleGithubLogin() {
         System.out.println("GitHub login clicked");
-        // Add your GitHub Oclient logic here
+
     }
 
     @FXML
     private void handleFacebookLogin() {
         System.out.println("Facebook login clicked");
-        // Add your Facebook Oclient logic here
+
     }
 
     private void initializeElements() {
-        // Check if ImageViews exist before animating them
+
         if (loginbg != null) {
             loginbg.setTranslateY(800);
             loginbg.setOpacity(0);
@@ -552,7 +552,7 @@ public class logincontroller implements Initializable {
             noir_logo.setOpacity(0);
         }
 
-        // Hide text elements by moving them off-screen to the left
+
         if (orText2 != null) {
             orText2.setTranslateX(TRANSLATE_X);
             orText2.setOpacity(0);
@@ -562,7 +562,7 @@ public class logincontroller implements Initializable {
             orText3.setOpacity(0);
         }
 
-        // Hide login social elements by moving them off-screen to the left
+
         if (orText != null) {
             orText.setTranslateX(TRANSLATE_X);
             orText.setOpacity(0);
@@ -573,7 +573,7 @@ public class logincontroller implements Initializable {
             continueWithText.setOpacity(0);
         }
 
-        // Hide register social elements by moving them off-screen to the right
+
         if (orText1 != null) {
             orText1.setTranslateX(400);
             orText1.setOpacity(0);
@@ -584,7 +584,7 @@ public class logincontroller implements Initializable {
             continueWithText1.setOpacity(0);
         }
 
-        // Hide buttons by moving them below the screen
+
         if (loginButton != null) {
             loginButton.setTranslateY(100);
             loginButton.setOpacity(0);
@@ -595,7 +595,7 @@ public class logincontroller implements Initializable {
             regbutton.setOpacity(0);
         }
 
-        // Hide login social buttons
+
         if (googleButton1 != null) {
             googleButton1.setTranslateY(100);
             googleButton1.setOpacity(0);
@@ -613,7 +613,7 @@ public class logincontroller implements Initializable {
             facebookButton1.setOpacity(0);
         }
 
-        // Hide register social buttons
+
         if (googleButton11 != null) {
             googleButton11.setTranslateX(400);
             googleButton11.setOpacity(0);
@@ -631,7 +631,7 @@ public class logincontroller implements Initializable {
             facebookButton11.setOpacity(0);
         }
 
-        // Hide line separators
+
         if (line != null) {
             line.setTranslateY(100);
             line.setOpacity(0);
@@ -647,7 +647,7 @@ public class logincontroller implements Initializable {
             line3.setOpacity(0);
         }
 
-        // Hide register line separators
+
         if (line21 != null) {
             line21.setTranslateX(400);
             line21.setOpacity(0);
@@ -658,27 +658,27 @@ public class logincontroller implements Initializable {
             line31.setOpacity(0);
         }
 
-        // Initialize form containers
+
         if (loginForm != null) {
             loginForm.setTranslateY(100);
             loginForm.setOpacity(0);
         }
 
         if (registerForm != null) {
-            registerForm.setTranslateX(400); // Position register form off-screen to the right
-            registerForm.setOpacity(0); // Initially hidden
+            registerForm.setTranslateX(400);
+            registerForm.setOpacity(0);
         }
     }
 
     private void startAnimationSequence() {
-        // Remove animation for loginbg - set it to final position immediately
+
         if (loginbg != null) {
             loginbg.setTranslateY(0);
             loginbg.setOpacity(1);
         }
 
-        // Remove animations for noir_logo, orText2, and orText3
-        // Just set them to their final positions immediately
+
+
         if (noir_logo != null) {
             noir_logo.setTranslateY(0);
             noir_logo.setOpacity(1);
@@ -694,73 +694,73 @@ public class logincontroller implements Initializable {
             orText3.setOpacity(1);
         }
 
-        // Keep the rest of the animations starting from the beginning
+
         if (loginButton != null) {
             Timeline loginButtonAnimation = createButtonSlideUpAnimation(loginButton, 100, Duration.millis(400));
-            loginButtonAnimation.setDelay(Duration.millis(200)); // Start earlier since no background animation
+            loginButtonAnimation.setDelay(Duration.millis(200));
             loginButtonAnimation.play();
         }
 
         if (line != null) {
             Timeline lineAnimation = createLineSlideUpAnimation(line, 100, Duration.millis(400));
-            lineAnimation.setDelay(Duration.millis(200)); // Start earlier
+            lineAnimation.setDelay(Duration.millis(200));
             lineAnimation.play();
         }
 
         if (regbutton != null) {
             Timeline regButtonAnimation = createButtonSlideUpAnimation(regbutton, 100, Duration.millis(400));
-            regButtonAnimation.setDelay(Duration.millis(300)); // Start earlier
+            regButtonAnimation.setDelay(Duration.millis(300));
             regButtonAnimation.play();
         }
 
         if (loginForm != null) {
             Timeline loginFormAnimation = createFormSlideUpAnimation(loginForm, 100, Duration.millis(400));
-            loginFormAnimation.setDelay(Duration.millis(400)); // Start earlier
+            loginFormAnimation.setDelay(Duration.millis(400));
             loginFormAnimation.play();
         }
 
         if (orText != null) {
             Timeline orTextAnimation = createSlideInAnimation(orText, Duration.millis(400));
-            orTextAnimation.setDelay(Duration.millis(700)); // Start earlier
+            orTextAnimation.setDelay(Duration.millis(700));
             orTextAnimation.play();
         }
 
         if (line2 != null) {
             Timeline line2Animation = createLineSlideUpAnimation(line2, 100, Duration.millis(400));
-            line2Animation.setDelay(Duration.millis(700)); // Start earlier
+            line2Animation.setDelay(Duration.millis(700));
             line2Animation.play();
         }
 
         if (line3 != null) {
             Timeline line3Animation = createLineSlideUpAnimation(line3, 100, Duration.millis(400));
-            line3Animation.setDelay(Duration.millis(700)); // Start earlier
+            line3Animation.setDelay(Duration.millis(700));
             line3Animation.play();
         }
 
         if (continueWithText != null) {
             Timeline continueWithTextAnimation = createSlideInAnimation(continueWithText, Duration.millis(400));
-            continueWithTextAnimation.setDelay(Duration.millis(800)); // Start earlier
+            continueWithTextAnimation.setDelay(Duration.millis(800));
             continueWithTextAnimation.play();
         }
 
         if (googleButton1 != null) {
             Timeline googleButtonAnimation = createButtonSlideUpAnimation(googleButton1, 100, Duration.millis(400));
-            googleButtonAnimation.setDelay(Duration.millis(900)); // Start earlier
+            googleButtonAnimation.setDelay(Duration.millis(900));
             googleButtonAnimation.play();
         }
         if (appleButton1 != null) {
             Timeline appleButtonAnimation = createButtonSlideUpAnimation(appleButton1, 100, Duration.millis(400));
-            appleButtonAnimation.setDelay(Duration.millis(950)); // Start earlier
+            appleButtonAnimation.setDelay(Duration.millis(950));
             appleButtonAnimation.play();
         }
         if (facebookButton1 != null) {
             Timeline facebookButtonAnimation = createButtonSlideUpAnimation(facebookButton1, 100, Duration.millis(400));
-            facebookButtonAnimation.setDelay(Duration.millis(1000)); // Start earlier
+            facebookButtonAnimation.setDelay(Duration.millis(1000));
             facebookButtonAnimation.play();
         }
         if (githubButton1 != null) {
             Timeline githubButtonAnimation = createButtonSlideUpAnimation(githubButton1, 100, Duration.millis(400));
-            githubButtonAnimation.setDelay(Duration.millis(1050)); // Start earlier
+            githubButtonAnimation.setDelay(Duration.millis(1050));
             githubButtonAnimation.play();
         }
     }
@@ -835,10 +835,10 @@ public class logincontroller implements Initializable {
 
             Font retrokia = Font.loadFont(
                 getClass().getResourceAsStream("/fonts/RetrokiaCaps-Rough.otf"),
-                36 // Default size, can be overridden by CSS
+                36
             );
 
-            // Apply fonts to text elements
+
 
         } catch (Exception e) {
             System.err.println("Error loading custom fonts: " + e.getMessage());
@@ -882,7 +882,7 @@ public class logincontroller implements Initializable {
         String password = regPasswordField.getText();
         String confirmPassword = regConfirmPasswordField.getText();
 
-        // Add your registration logic here
+
         if (password.equals(confirmPassword)) {
             System.out.println("Registration attempt with username: " + username + ", email: " + email);
 
@@ -895,14 +895,14 @@ public class logincontroller implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
                 Scene scene = new Scene(loader.load(), 1440, 810);
 
-                // Add the stylesheet if needed
+
                 scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
 
-                // Get the current stage and set the new scene
+
                 Stage stage = (Stage) regContinueButton.getScene().getWindow();
                 stage.setScene(scene);
 
-                // Reset scroll position to top
+
                 HelloController controller = loader.getController();
                 if (controller != null) {
                     controller.scrollToTop();
@@ -921,18 +921,18 @@ public class logincontroller implements Initializable {
     @FXML
     private void handleLogoClick() {
         try {
-            // Load the hello-view.fxml
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Scene scene = new Scene(loader.load(), 1440, 810);
 
-            // Add the stylesheet if needed
+
             scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
 
-            // Get the current stage and set the new scene
+
             Stage stage = (Stage) noir_logo.getScene().getWindow();
             stage.setScene(scene);
 
-            // Reset scroll position to top
+
             HelloController controller = loader.getController();
             if (controller != null) {
                 controller.scrollToTop();

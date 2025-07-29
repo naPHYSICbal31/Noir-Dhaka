@@ -28,7 +28,7 @@ public class coffeeController implements Initializable {
     private Font euclidBoldFont;
     private Font retrokiaFont;
 
-    // Add quantity tracking variable
+
     private int currentQuantity = 1;
 
     @FXML
@@ -138,11 +138,11 @@ public class coffeeController implements Initializable {
     private ImageView coffeeImageView;
     @FXML
     private ImageView cart;
-    // Add quantity Text element
+
     @FXML
     private Text quantity;
 
-    //private Client client;
+
     private com.example.backend.Coffee currentCoffee;
 
     @Override
@@ -157,16 +157,16 @@ public class coffeeController implements Initializable {
                 });
             } catch (Exception e) {
                 Platform.runLater(() -> {
-                    e.printStackTrace(); // or show in GUI
+                    e.printStackTrace();
                 });
             }
         }).start();
 
-        // Initialize quantity display
+
         if (quantity != null) {
             quantity.setText(String.valueOf(currentQuantity));
         }
-        // Apply fonts after FXML processing is complete
+
         Platform.runLater(() -> {
             applyCustomFonts();
         });
@@ -292,7 +292,7 @@ public class coffeeController implements Initializable {
 
 
     private void updateQuantityAndPrice() {
-        // Update quantity display
+
         if (quantity != null) {
             quantity.setText(String.valueOf(currentQuantity));
         }
@@ -324,12 +324,12 @@ public class coffeeController implements Initializable {
     private void displayCoffeeInfo() {
         if (currentCoffee == null) return;
 
-        // Basic information
+
         if (coffeeNameLabel != null) {
             coffeeNameLabel.setText(currentCoffee.getName());
         }
         if (coffeePriceLabel != null) {
-            // Display price based on current quantity
+
             double totalPrice = currentCoffee.getPrice() * currentQuantity;
             String formattedPrice = NumberFormat.getNumberInstance().format(totalPrice);
             coffeePriceLabel.setText("TK " + formattedPrice + " BDT");
@@ -338,7 +338,7 @@ public class coffeeController implements Initializable {
             coffeeDescriptionLabel.setText(currentCoffee.getDescription());
         }
 
-        // Product details
+
         if (coffeePacketSizeLabel != null) {
             coffeePacketSizeLabel.setText(currentCoffee.getPacketSize());
         }
@@ -419,7 +419,7 @@ public class coffeeController implements Initializable {
             coffeeAromaLabel.setText("Aroma: " + currentCoffee.getAroma() + "/10");
         }
 
-        // Stock and sales information
+
         if (coffeeStockLabel != null) {
             coffeeStockLabel.setText("Stock: " + currentCoffee.getCurrentStock());
         }
@@ -427,13 +427,13 @@ public class coffeeController implements Initializable {
             coffeeSalesLabel.setText("Sales: " + currentCoffee.getNumberOfSales());
         }
 
-        // Average rating
+
         if (coffeeAverageRatingLabel != null) {
             double avgRating = currentCoffee.getAverageRating();
             coffeeAverageRatingLabel.setText("Rating: " + String.format("%.1f", avgRating) + "/5.0");
         }
 
-        // Status information
+
         if (coffeeStatusLabel != null) {
             StringBuilder status = new StringBuilder();
             if (currentCoffee.isSoldOut()) {
@@ -475,7 +475,7 @@ public class coffeeController implements Initializable {
 
     private void loadFonts() {
         try {
-            // Load EuclidCircularA-Bold font
+
             euclidBoldFont = Font.loadFont(getClass().getResourceAsStream("/fonts/euclidbold.ttf"), 18);
             if (euclidBoldFont == null) {
                 System.err.println("Failed to load euclidbold.ttf font - using default");
@@ -484,7 +484,7 @@ public class coffeeController implements Initializable {
                 System.out.println("EuclidCircularA-Bold font loaded successfully");
             }
 
-            // Load RetrokiaCaps font with proper error checking
+
             retrokiaFont = Font.loadFont(getClass().getResourceAsStream("/fonts/RetrokiaCaps-Rough.otf"), 24);
             if (retrokiaFont == null) {
                 System.err.println("Failed to load RetrokiaCaps-Rough.otf font - using default");
@@ -503,13 +503,13 @@ public class coffeeController implements Initializable {
 
     @FXML
     private void addunderline(MouseEvent event) {
-        // Get the Text object that triggered the event
+
         Text textElement = (Text) event.getSource();
 
-        // Add underline when mouse enters
+
         textElement.setUnderline(true);
 
-        // Add mouse exited handler to remove underline when mouse leaves
+
         textElement.setOnMouseExited(exitEvent -> {
             textElement.setUnderline(false);
         });
@@ -518,10 +518,10 @@ public class coffeeController implements Initializable {
     @FXML
     private void redirectToScene(MouseEvent event) {
         try {
-            // Get the source of the event (could be ImageView or Text)
+
             Object source = event.getSource();
 
-            // Get the current stage
+
             Stage stage = null;
             if (source instanceof ImageView) {
                 stage = (Stage) ((ImageView) source).getScene().getWindow();
@@ -529,24 +529,24 @@ public class coffeeController implements Initializable {
                 stage = (Stage) ((Text) source).getScene().getWindow();
             }
 
-            // Load the specific FXML file
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
 
-            // Get the controller and reset scroll position
+
             HelloController helloController = fxmlLoader.getController();
 
-            // Set up the stage
+
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
             stage.setScene(scene);
             stage.centerOnScreen();
 
-            // Reset scroll position to top after scene is set
+
             Platform.runLater(() -> {
                 helloController.scrollToTop();
 
-                // Switch statement to handle different navigation targets
+
                 if (source instanceof Text) {
                     Text textSource = (Text) source;
                     String fxId = textSource.getId();
@@ -565,7 +565,7 @@ public class coffeeController implements Initializable {
                             helloController.handleTop4Click();
                             break;
                         default:
-                            // No specific scroll action for other elements
+
                             break;
                     }
                 }
@@ -577,7 +577,7 @@ public class coffeeController implements Initializable {
     }
 
     private void applyCustomFonts() {
-    // Apply RetrokiaCaps font to navigation text elements
+
     if (retrokiaFont != null) {
         System.out.println("Applying RetrokiaCaps font to navigation elements");
         if (top1 != null) {
@@ -596,15 +596,15 @@ public class coffeeController implements Initializable {
             top4.setFont(retrokiaFont);
             System.out.println("Applied font to top4");
         }
-        // Apply RetrokiaCaps font to coffee name label
+
         if (coffeeNameLabel != null) {
-            // Create a new font instance with the desired size
+
             Font coffeeNameFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 30);
             coffeeNameLabel.setFont(coffeeNameFont);
             System.out.println("Applied RetrokiaCaps font to coffeeNameLabel");
         }
         if (coffeeWeightLabel != null) {
-            // Create a new font instance with the desired size
+
             Font coffeeNameFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
             coffeeWeightLabel.setFont(coffeeNameFont);
         }
@@ -647,7 +647,7 @@ public class coffeeController implements Initializable {
             Font coffeePriceFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 24);
             coffeePriceLabel.setFont(coffeePriceFont);
         }
-        // Apply font to quantity text
+
         if (quantity != null) {
             Font quantityFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 20);
             quantity.setFont(quantityFont);
@@ -680,7 +680,7 @@ public class coffeeController implements Initializable {
         grindtext6.setFill(Paint.valueOf("#000000"));
         grind7.setFill(Paint.valueOf("#e9e9e9"));
         grindtext7.setFill(Paint.valueOf("#000000"));
-        // Handle different grind types
+
         switch (fxId) {
             case "grind1":
             case "grindtext1":
@@ -750,13 +750,13 @@ public class coffeeController implements Initializable {
                 imageElement.setScaleY(1.0);
             });
         }
-        // Scale down the text (zoom out effect)
+
     }
     @FXML
     private void redirect(MouseEvent event) {
         if (Client.currentToken == null) {
             try {
-                // Get the current stage
+
                 Stage stage;
                 if(event.getSource() instanceof Rectangle) {
                     stage = (Stage) ((Rectangle) event.getSource()).getScene().getWindow();
@@ -766,11 +766,11 @@ public class coffeeController implements Initializable {
                     stage = (Stage) ((Text) event.getSource()).getScene().getWindow();
                 }
 
-                // Load the login FXML file
+
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
 
-                // Set up the stage
+
                 stage.setTitle("Noir Dhaka - Login");
                 stage.setResizable(false);
                 stage.setScene(scene);

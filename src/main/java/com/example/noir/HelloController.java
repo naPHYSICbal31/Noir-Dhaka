@@ -70,13 +70,13 @@ public class HelloController {
     private Text top4Text;
     @FXML
     private ImageView profile;
-    // Add these @FXML fields to your HelloController class:
 
-    // ScrollPane elements
+
+
     @FXML
     private ScrollPane horizontalScrollPane;
 
-    // Product ImageViews (coffee products)
+
     @FXML
     private ImageView bucaramanga;
     @FXML
@@ -110,7 +110,7 @@ public class HelloController {
     @FXML
     private ImageView costa1;
 
-    // Product Text elements (names)
+
     @FXML
     private Text prtxt1;
     @FXML
@@ -144,7 +144,7 @@ public class HelloController {
     @FXML
     private Text prtxt81;
 
-    // Product Text elements (prices)
+
     @FXML
     private Text prtk1;
     @FXML
@@ -180,26 +180,26 @@ public class HelloController {
     public static String url = "";
     @FXML
     public void handleTop1Click() {
-        // Scroll to Products section
-        smoothScrollTo(0.27, .375); // Adjust this value to match Products section position
+
+        smoothScrollTo(0.27, .375);
     }
 
     @FXML
     public void handleTop2Click() {
-        // Scroll to Subscriptions section
-        smoothScrollTo(0.82, 0.625); // Adjust this value to match Subscriptions section position
+
+        smoothScrollTo(0.82, 0.625);
     }
 
     @FXML
     public void handleTop3Click() {
-        // Scroll to Reviews section
-        smoothScrollTo(0.1478, 0.2); // Adjust this value to match Reviews section position
+
+        smoothScrollTo(0.1478, 0.2);
     }
 
     @FXML
     public void handleTop4Click() {
-        // Scroll to About Us section
-        smoothScrollTo(0.465, 0.5); // Adjust this value to match About Us section position
+
+        smoothScrollTo(0.465, 0.5);
     }
 
     @FXML
@@ -251,7 +251,7 @@ public class HelloController {
         }
     }
 
-    // Modified scroll method that takes a target value parameter
+
     public void smoothScrollTo(double targetValue, double time) {
         double startValue = verticalScrollPane.getVvalue();
         Duration duration = Duration.seconds(time);
@@ -274,7 +274,7 @@ public class HelloController {
 
     @FXML
     private void initialize() {
-        // Newsletter functionality
+
         submitButton.setOnAction(event -> saveEmail());
         newsletterField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -282,16 +282,16 @@ public class HelloController {
             }
         });
 
-        // Initialize animated images list
+
         animatedImages = Arrays.asList(reviewHead, productsHead, qualitiesHead);
         animationPlayed = new boolean[animatedImages.size()];
 
-        // Add scroll listener
+
         verticalScrollPane.vvalueProperty().addListener((observable, oldValue, newValue) -> {
             checkAndAnimateImages();
         });
 
-        // Set up clipping for blog images after the scene is fully loaded
+
         Platform.runLater(() -> {
             setupImageClipping(blog1);
             setupImageClipping(blog2);
@@ -301,10 +301,10 @@ public class HelloController {
     }
 
     private void smoothScrollToMiddle() {
-        double targetValue = 0.27; // Middle of the scroll pane
+        double targetValue = 0.27;
         double startValue = verticalScrollPane.getVvalue();
-        Duration duration = Duration.seconds(0.5); // 0.5 seconds animation
-        int frames = 120; // 120 frames for smooth animations
+        Duration duration = Duration.seconds(0.5);
+        int frames = 120;
 
         Timeline timeline = new Timeline();
         for (int i = 0; i <= frames; i++) {
@@ -366,9 +366,9 @@ public class HelloController {
     }
 
     public void scrollToTop() {
-        // Reset scroll position to top with a quick animation
+
         Platform.runLater(() -> {
-            smoothScrollTo(0.0, 0.0001); // 0.5 seconds duration
+            smoothScrollTo(0.0, 0.0001);
         });
     }
 
@@ -376,15 +376,15 @@ public class HelloController {
     private void handlehoverzoom(MouseEvent event) {
         ImageView imageView = (ImageView) event.getSource();
 
-        // Create a scale transition for zoom effect
+
         javafx.animation.ScaleTransition scaleTransition = new javafx.animation.ScaleTransition(Duration.millis(300), imageView);
-        scaleTransition.setToX(1.05); // Scale to 110% of original size
+        scaleTransition.setToX(1.05);
         scaleTransition.setToY(1.05);
         scaleTransition.play();
-        // Add mouse exited handler to zoom back out
+
         imageView.setOnMouseExited(exitEvent -> {
             javafx.animation.ScaleTransition scaleBack = new javafx.animation.ScaleTransition(Duration.millis(300), imageView);
-            scaleBack.setToX(1.0); // Scale back to original size
+            scaleBack.setToX(1.0);
             scaleBack.setToY(1.0);
             scaleBack.play();
         });
@@ -392,13 +392,13 @@ public class HelloController {
 
     @FXML
     private void addunderline(MouseEvent event) {
-        // Get the Text object that triggered the event
+
         Text textElement = (Text) event.getSource();
 
-        // Add underline when mouse enters
+
         textElement.setUnderline(true);
 
-        // Add mouse exited handler to remove underline when mouse leaves
+
         textElement.setOnMouseExited(exitEvent -> {
             textElement.setUnderline(false);
         });
@@ -440,10 +440,10 @@ public class HelloController {
     @FXML
     private void redirectToScene(MouseEvent event) {
         try {
-            // Get the source of the event (could be ImageView or Text)
+
             Object source = event.getSource();
 
-            // Get the current stage
+
             Stage stage = null;
             if (source instanceof ImageView) {
                 stage = (Stage) ((ImageView) source).getScene().getWindow();
@@ -451,29 +451,29 @@ public class HelloController {
                 stage = (Stage) ((Text) source).getScene().getWindow();
             }
 
-            // Load the specific FXML file
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
 
-            // Get the controller and reset scroll position
+
             HelloController helloController = fxmlLoader.getController();
 
-            // Set up the stage
+
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
             stage.setScene(scene);
             stage.centerOnScreen();
 
-            // Reset scroll position to top after scene is set
+
             Platform.runLater(() -> {
                 helloController.scrollToTop();
 
-                // Switch statement to handle different navigation targets
+
                 if (source instanceof Text) {
                     Text textSource = (Text) source;
                     String fxId = textSource.getId();
 
-                    // Add the missing switch statement
+
                     switch (fxId) {
                         case "top1":
                             helloController.handleTop1Click();
@@ -488,7 +488,7 @@ public class HelloController {
                             helloController.handleTop4Click();
                             break;
                         default:
-                            // No specific scroll action for other elements
+
                             break;
                     }
                 }
@@ -503,16 +503,16 @@ public class HelloController {
     private void handleBlogImageClick(MouseEvent event) {
         ImageView imageView = (ImageView) event.getSource();
 
-        // Check if image is already zoomed (scaled up)
+
         boolean isZoomed = imageView.getScaleX() > 1.0;
 
         if (isZoomed) {
-            // Zoom out - return to original size
+
             ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(300), imageView);
             scaleTransition.setToX(1.0);
             scaleTransition.setToY(1.0);
 
-            // Reset translation to center the image back to original position
+
             TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), imageView);
             translateTransition.setToX(0);
             translateTransition.setToY(0);
@@ -520,27 +520,27 @@ public class HelloController {
             ParallelTransition parallelTransition = new ParallelTransition(scaleTransition, translateTransition);
             parallelTransition.play();
 
-            // Change cursor back to hand
+
             imageView.setStyle("-fx-cursor: hand;");
         } else {
-            // Zoom in - scale up to 1.5x while keeping within boundaries
+
             double zoomFactor = 1.5;
 
             ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(300), imageView);
             scaleTransition.setToX(zoomFactor);
             scaleTransition.setToY(zoomFactor);
 
-            // Calculate bounds to keep image within its original container
+
             double originalWidth = imageView.getFitWidth();
             double originalHeight = imageView.getFitHeight();
             double scaledWidth = originalWidth * zoomFactor;
             double scaledHeight = originalHeight * zoomFactor;
 
-            // Calculate maximum translation to keep image within bounds
+
             double maxTranslateX = (scaledWidth - originalWidth) / 2;
             double maxTranslateY = (scaledHeight - originalHeight) / 2;
 
-            // Limit translation to keep image within original boundaries
+
             TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), imageView);
             translateTransition.setToX(Math.max(-maxTranslateX, Math.min(maxTranslateX, 0)));
             translateTransition.setToY(Math.max(-maxTranslateY, Math.min(maxTranslateY, 0)));
@@ -548,21 +548,21 @@ public class HelloController {
             ParallelTransition parallelTransition = new ParallelTransition(scaleTransition, translateTransition);
             parallelTransition.play();
 
-            // Change cursor to indicate clickable to zoom out
+
             imageView.setStyle("-fx-cursor: zoom-out;");
         }
     }
 
     private void setupImageClipping(ImageView imageView) {
-        // Get the actual dimensions
+
         double width = imageView.getFitWidth();
         double height = imageView.getFitHeight();
 
-        // Create and set the clipping rectangle
+
         javafx.scene.shape.Rectangle clipRect = new javafx.scene.shape.Rectangle(width, height);
         imageView.setClip(clipRect);
 
-        // Ensure the image doesn't have preserveRatio issues
+
         imageView.setPreserveRatio(false);
     }
 
@@ -570,16 +570,16 @@ public class HelloController {
     private void handleBlogHover(MouseEvent event) {
         ImageView imageView = (ImageView) event.getSource();
 
-        // Create a scale transition for zoom effect with clipping in mind
+
         ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(300), imageView);
-        scaleTransition.setToX(1.15); // Reduced scale to 115% to stay within bounds better
+        scaleTransition.setToX(1.15);
         scaleTransition.setToY(1.15);
         scaleTransition.play();
 
-        // Add mouse exited handler to zoom back out
+
         imageView.setOnMouseExited(exitEvent -> {
             ScaleTransition scaleBack = new ScaleTransition(Duration.millis(300), imageView);
-            scaleBack.setToX(1.0); // Scale back to original size
+            scaleBack.setToX(1.0);
             scaleBack.setToY(1.0);
             scaleBack.play();
         });
@@ -612,7 +612,7 @@ public class HelloController {
                 Text textElement = (Text) source;
                 String textId = textElement.getId();
 
-                // Map different text elements to different websites
+
                 switch (textId) {
                     case "blogtxt1":
                         url = "https://sprudge.com/the-truth-about-travel-coffee-mugs-197148.html";
@@ -647,10 +647,10 @@ public class HelloController {
 
 
         try {
-            // Get the source of the event (could be ImageView or Text)
+
             Object source = event.getSource();
 
-            // Get the current stage
+
             Stage stage = null;
             if (source instanceof ImageView) {
                 stage = (Stage) ((ImageView) source).getScene().getWindow();
@@ -658,14 +658,14 @@ public class HelloController {
                 stage = (Stage) ((Text) source).getScene().getWindow();
             }
 
-            // Load the specific FXML file
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("blog.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
 
-            // Get the controller and reset scroll position
+
             BlogController blogController = fxmlLoader.getController();
 
-            // Set up the stage
+
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
             stage.setScene(scene);

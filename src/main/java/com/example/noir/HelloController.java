@@ -409,10 +409,10 @@ public class HelloController {
     @FXML
     public void redirectToCoffee(MouseEvent event) {
         try {
-            // Get the source of the event (could be ImageView or Text)
+
             Object source = event.getSource();
             String sourceFxId = null;
-            // Get the current stage
+
             Stage stage = null;
             if (source instanceof ImageView) {
                 stage = (Stage) ((ImageView) source).getScene().getWindow();
@@ -421,14 +421,14 @@ public class HelloController {
                 stage = (Stage) ((Text) source).getScene().getWindow();
                 sourceFxId = ((Text) source).getId();
             }
-            // Load the specific FXML file
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("coffee.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
 
-            // Get the controller and reset scroll position
+
             coffeeController coffeeController = fxmlLoader.getController();
             coffeeController.setSourceFxId(sourceFxId);
-            // Set up the stage
+
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
             stage.setScene(scene);

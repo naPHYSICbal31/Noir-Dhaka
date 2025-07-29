@@ -260,17 +260,17 @@ public class coffeeController implements Initializable {
                 coffeeImageView.setImage(image);
                 break;
         }
-        // Now you can use the FXID to determine what actions to take
+
     }
 
-    // Method to handle plus button click
+
     @FXML
     private void handlePlusClick(MouseEvent event) {
         currentQuantity++;
         updateQuantityAndPrice();
     }
 
-    // Method to handle minus button click
+
     @FXML
     private void handleMinusClick(MouseEvent event) {
         if (currentQuantity > 1) {
@@ -279,14 +279,14 @@ public class coffeeController implements Initializable {
         }
     }
 
-    // Method to update both quantity display and total price
+
     private void updateQuantityAndPrice() {
         // Update quantity display
         if (quantity != null) {
             quantity.setText(String.valueOf(currentQuantity));
         }
 
-        // Update total price
+
         if (currentCoffee != null && coffeePriceLabel != null) {
             double totalPrice = currentCoffee.getPrice() * currentQuantity;
             String formattedPrice = NumberFormat.getNumberInstance().format(totalPrice);
@@ -335,7 +335,7 @@ public class coffeeController implements Initializable {
             coffeeWeightLabel.setText(currentCoffee.getWeight() + "g");
         }
 
-        // Coffee quality ratings
+
         if(currentCoffee.getStrength() >= 1)
         {
             str1.setOpacity(1);

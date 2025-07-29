@@ -119,20 +119,41 @@ public class Server {
                             break;
 
                         case "getCriticalReviews": {
-                            int ida = Integer.parseInt(in.readLine());
-                            objectOut.writeObject(database.getCriticalReviews(database.getCoffeeById(ida)));
+                            int ida = (Integer) objectIn.readObject();
+                            List<Review> r = database.getCriticalReviews(database.getCoffeeById(ida));
+                            if(r != null){
+                                objectOut.writeObject(r);
+                                break;
+                            }
+                            List<Review> e = new ArrayList<>();
+                            e.add(new Review());
+                            objectOut.writeObject(e);
                             break;
                         }
 
                         case "getModerateReviews": {
-                            int idb = Integer.parseInt(in.readLine());
-                            objectOut.writeObject(database.getModerateReviews(database.getCoffeeById(idb)));
+                            int idb = (Integer) objectIn.readObject();
+                            List<Review> r = database.getModerateReviews(database.getCoffeeById(idb));
+                            if(r != null){
+                                objectOut.writeObject(r);
+                                break;
+                            }
+                            List<Review> e = new ArrayList<>();
+                            e.add(new Review());
+                            objectOut.writeObject(e);
                             break;
                         }
 
                         case "getPositiveReviews": {
-                            int idd = Integer.parseInt(in.readLine());
-                            objectOut.writeObject(database.getPositiveReviews(database.getCoffeeById(idd)));
+                            int idd = (Integer) objectIn.readObject();
+                            List<Review> r = database.getPositiveReviews(database.getCoffeeById(idd));
+                            if(r != null){
+                                objectOut.writeObject(r);
+                                break;
+                            }
+                            List<Review> e = new ArrayList<>();
+                            e.add(new Review());
+                            objectOut.writeObject(e);
                             break;
                         }
 

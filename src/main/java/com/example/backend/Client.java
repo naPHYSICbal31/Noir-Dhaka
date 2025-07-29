@@ -227,41 +227,41 @@ public class Client {
         }
     }
 
-//    public List<Review> getAllReviews() throws IOException, ClassNotFoundException {
-//        objectOut.writeObject("getAllReviews");
-//        objectOut.flush();
-//        return (List<Review>) objectIn.readObject();
-//    }
-//
-//    public List<Review> getCriticalReviews(Coffee coffeeId) throws IOException, ClassNotFoundException {
-//        objectOut.writeObject("getCriticalReviews");
-//        objectOut.writeObject(coffeeId);
-//        objectOut.flush();
-//        return (List<Review>) objectIn.readObject();
-//    }
-//
-//    public List<Review> getModerateReviews(Coffee coffeeId) throws IOException, ClassNotFoundException {
-//        objectOut.writeObject("getModerateReviews");
-//        objectOut.writeObject(coffeeId);
-//        objectOut.flush();
-//        return (List<Review>) objectIn.readObject();
-//    }
-//
-//    public List<Review> getPositiveReviews(Coffee coffeeId){
-//        try {
-//            objectOut.writeObject("getPositiveReviews");
-//            objectOut.writeObject(coffeeId);
-//            objectOut.flush();
-//            try {
-//                return (List<Review>) objectIn.readObject();
-//            } catch (ClassNotFoundException e) {
-//                throw new RuntimeException(e);
-//            }
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//    }
+    public List<Review> getAllReviews() throws IOException, ClassNotFoundException {
+        objectOut.writeObject("getAllReviews");
+        objectOut.flush();
+        return (List<Review>) objectIn.readObject();
+    }
+
+    public List<Review> getCriticalReviews(Coffee coffeeId) throws IOException, ClassNotFoundException {
+        objectOut.writeObject("getCriticalReviews");
+        objectOut.writeObject(coffeeId);
+        objectOut.flush();
+        return (List<Review>) objectIn.readObject();
+    }
+
+    public List<Review> getModerateReviews(Coffee coffeeId) throws IOException, ClassNotFoundException {
+        objectOut.writeObject("getModerateReviews");
+        objectOut.writeObject(coffeeId);
+        objectOut.flush();
+        return (List<Review>) objectIn.readObject();
+    }
+
+    public List<Review> getPositiveReviews(Coffee coffeeId){
+        try {
+            objectOut.writeObject("getPositiveReviews");
+            objectOut.writeObject(coffeeId);
+            objectOut.flush();
+            try {
+                return (List<Review>) objectIn.readObject();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 
     /*

@@ -228,7 +228,12 @@ public class dbFetch {
                         Filters.eq("coffeeid", coffee.getId())
                 )
         ).into(new ArrayList<>());
-        return parseReviews(docs);
+        if(docs.size() > 0){
+            return parseReviews(docs);
+        }
+
+        return null;
+
     }
 
 
@@ -240,7 +245,11 @@ public class dbFetch {
                         Filters.lt("stars", 4.0),
                         Filters.eq("coffeeid", coffee.getId())
                 )).into(new ArrayList<>());
-        return parseReviews(docs);
+        if(docs.size() > 0){
+            return parseReviews(docs);
+        }
+
+        return null;
     }
 
 
@@ -251,7 +260,11 @@ public class dbFetch {
                         Filters.eq("coffeeid", coffee.getId())
                 )
         ).into(new ArrayList<>());
-        return parseReviews(docs);
+        if(docs.size() > 0){
+            return parseReviews(docs);
+        }
+
+        return null;
     }
 
     public Cart getCart(){

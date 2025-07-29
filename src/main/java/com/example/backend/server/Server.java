@@ -308,6 +308,19 @@ public class Server {
                             boolean updated = database.updateReview(userIdToUpdate, coffeeIdToUpdate, newRating, newDescription);
                             objectOut.writeObject(updated);
                             break;
+                        case "getUserReviewForCoffee": {
+                            int userId1 = objectIn.readInt();
+                            int coffeeId1 = objectIn.readInt();
+                            Review review = database.getUserReviewForCoffee(userId1, coffeeId1);
+                            if(review != null) {
+                                objectOut.writeObject(review);
+                            }else{
+                                objectOut.writeObject(new Review());
+                            }
+
+                            break;
+                        }
+
 
 
 

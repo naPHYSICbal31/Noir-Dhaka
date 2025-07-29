@@ -449,7 +449,14 @@ public class Client {
             objectOut.writeInt(userId);
             objectOut.writeInt(coffeeId);
             objectOut.flush();
-            return (Review) objectIn.readObject();
+            Review r = (Review) objectIn.readObject();
+
+            if(r.getCoffeeId() == 0){
+                return null;
+            }else{
+                return r;
+            }
+
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

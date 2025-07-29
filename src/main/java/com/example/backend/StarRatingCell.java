@@ -18,6 +18,8 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
     public StarRatingCell(ProfileController controller) {
         this.controller = controller;
         createStarContainer();
+
+
     }
 
     private void createStarContainer() {
@@ -25,10 +27,14 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
         starContainer.setAlignment(Pos.CENTER);
 
 
+
+
         for (int i = 1; i <= 5; i++) {
             Polygon star = createStar();
             final int starIndex = i;
-
+//            if(i < numberOfStars){
+//                star.setFill(Color.GOLD);
+//            }
             star.setOnMouseClicked(event -> {
                 selectedRating = starIndex;
                 updateStarDisplay();
@@ -47,7 +53,9 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
             });
 
             starContainer.getChildren().add(star);
+
         }
+
     }
 
     private Polygon createStar() {

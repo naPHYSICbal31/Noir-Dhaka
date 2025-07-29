@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -130,7 +131,7 @@
          </font>
       </Label>
 
-<!-- Coffee TableView with Columns -->
+      <!-- Coffee TableView with Columns -->
       <TableView fx:id="coffeeTableView" layoutX="358.0" layoutY="293.0" opacity="0.0" prefHeight="246.0" prefWidth="700.0">
          <columns>
             <TableColumn fx:id="nameColumn" editable="false" maxWidth="200.0" prefWidth="150.0" resizable="false" sortable="false" text="Coffee Name" />
@@ -142,9 +143,9 @@
       </TableView>
 
       <ScrollPane fx:id="scrollpane1" hbarPolicy="NEVER" layoutX="358.0" layoutY="244.0" opacity="0.0" prefHeight="295.0" prefWidth="500.0" style="-fx-background-color: #e9e9e9;" vbarPolicy="NEVER">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="500.0" style="-fx-background-color: #e9e9e9;" />
-        </content>
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="500.0" style="-fx-background-color: #e9e9e9;" />
+         </content>
       </ScrollPane>
       <Text fx:id="ordertxt" layoutX="358.0" layoutY="260.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="Coffee Orders" wrappingWidth="234.07200622558582">
          <font>
@@ -152,5 +153,24 @@
          </font>
       </Text>
       <Line fx:id="orderline" endX="145.60003662109375" layoutX="459.0" layoutY="271.0" opacity="0.0" startX="-100.0" stroke="#91b08f" strokeWidth="2.0" />
+      <AnchorPane fx:id="anchor1" layoutX="358.0" layoutY="244.0" opacity="0.0" prefHeight="305.0" prefWidth="527.0" style="-fx-background-color: #e9e9e9;">
+         <children>
+            <CheckBox fx:id="check1" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="508.0" text="I want to receive Noir-Dhk's weekly newsletters&#10;&#10;&#10;">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="check2" layoutX="14.0" layoutY="118.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="500.0" text="Notify me about the blogs when they get published&#10;&#10;">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="check3" layoutX="14.0" layoutY="221.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="442.0" text="Notify me about discounts and offers&#10;&#10;&#10;">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

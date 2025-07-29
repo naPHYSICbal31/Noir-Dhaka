@@ -89,7 +89,7 @@ public class HelloApplication extends Application {
             loadGlobalFonts();
             client = new Client();
             client.validateLogin("test", "test");
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("profile.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
             scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
             stage.setTitle("Noir Dhaka");

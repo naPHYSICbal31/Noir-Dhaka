@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -644,6 +645,9 @@ public class cartcontroller implements Initializable{
             Stage stage = (Stage) cartScrollPane.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
+            Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            scene.setCursor(customCursor);
             stage.setScene(scene);
             stage.centerOnScreen();
         } catch (IOException e) {
@@ -674,6 +678,9 @@ public class cartcontroller implements Initializable{
 
 
             stage.setTitle("Noir Dhaka");
+            Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            scene.setCursor(customCursor);
             stage.setResizable(false);
             stage.setScene(scene);
             stage.centerOnScreen();
@@ -809,6 +816,9 @@ public class cartcontroller implements Initializable{
                 Stage stage = (Stage) profile.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();
@@ -817,6 +827,9 @@ public class cartcontroller implements Initializable{
                 Stage stage = (Stage) profile.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();

@@ -102,7 +102,7 @@ public class HelloApplication extends Application {
             }
             scene.getRoot().requestFocus();
             Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5); // Set hotspot as needed
+            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
             scene.setCursor(customCursor);
             stage.centerOnScreen();
             stage.show();

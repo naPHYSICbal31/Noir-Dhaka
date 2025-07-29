@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -538,6 +539,9 @@ public class coffeeController implements Initializable {
 
 
             stage.setTitle("Noir Dhaka");
+            Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            scene.setCursor(customCursor);
             stage.setResizable(false);
             stage.setScene(scene);
             stage.centerOnScreen();
@@ -772,6 +776,9 @@ public class coffeeController implements Initializable {
 
 
                 stage.setTitle("Noir Dhaka - Login");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();
@@ -797,6 +804,9 @@ public class coffeeController implements Initializable {
 
 
                 stage.setTitle("Noir Dhaka - Cart");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();
@@ -815,6 +825,9 @@ public class coffeeController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka - Login");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();
@@ -829,6 +842,9 @@ public class coffeeController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka - Cart");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();
@@ -847,6 +863,9 @@ public class coffeeController implements Initializable {
                 Stage stage = (Stage) cart.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();
@@ -855,6 +874,9 @@ public class coffeeController implements Initializable {
                 Stage stage = (Stage) cart.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();

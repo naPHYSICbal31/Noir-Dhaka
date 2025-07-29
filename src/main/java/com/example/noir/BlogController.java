@@ -3,8 +3,10 @@ package com.example.noir;
 import com.example.backend.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -179,6 +181,9 @@ public class BlogController {
             HelloController helloController = fxmlLoader.getController();
 
             stage.setTitle("Noir Dhaka");
+            Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            scene.setCursor(customCursor);
             stage.setResizable(false);
             stage.setScene(scene);
             stage.centerOnScreen();

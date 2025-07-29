@@ -92,7 +92,7 @@ public class Test {
 //        System.out.println("Moderate: " + db.getCoffeesByKeyValueString("name", "Nonexistent").size());
 //        System.out.println("Positive: " + db.getCoffeesByKeyValueBoolean("isRare", true).size());
 
-        // Test user update with extreme buyHistory
+
         try {
             db.validateLogin("user0", "pass0");
             User u = db.getUserinfo();

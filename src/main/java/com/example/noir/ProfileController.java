@@ -4,6 +4,7 @@ import com.example.backend.Client;
 import com.example.backend.StarRatingCell;
 
 import com.example.backend.server.dbFetch;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -542,6 +544,9 @@ public class ProfileController implements Initializable {
 
 
             stage.setTitle("Noir Dhaka");
+            Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            scene.setCursor(customCursor);
             stage.setResizable(false);
             stage.setScene(scene);
             stage.centerOnScreen();
@@ -760,7 +765,9 @@ public class ProfileController implements Initializable {
         }
 
         scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
-
+        Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+        ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+        scene.setCursor(customCursor);
 
         Stage stage = (Stage) logoutbutton.getScene().getWindow();
         stage.setScene(scene);
@@ -781,6 +788,9 @@ public class ProfileController implements Initializable {
                 Stage stage = (Stage) cart.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();
@@ -789,6 +799,9 @@ public class ProfileController implements Initializable {
                 Stage stage = (Stage) cart.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();

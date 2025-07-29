@@ -8,10 +8,12 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -210,6 +212,9 @@ public class HelloController {
                 Stage stage = (Stage) cart.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();
@@ -218,6 +223,9 @@ public class HelloController {
                 Stage stage = (Stage) cart.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();
@@ -234,6 +242,9 @@ public class HelloController {
                 Stage stage = (Stage) profile.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();
@@ -242,6 +253,9 @@ public class HelloController {
                 Stage stage = (Stage) profile.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
                 stage.centerOnScreen();
@@ -428,6 +442,9 @@ public class HelloController {
             coffeeController.setSourceFxId(sourceFxId);
 
             stage.setTitle("Noir Dhaka");
+            Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            scene.setCursor(customCursor);
             stage.setResizable(false);
             stage.setScene(scene);
             stage.centerOnScreen();
@@ -457,7 +474,9 @@ public class HelloController {
 
 
             HelloController helloController = fxmlLoader.getController();
-
+            Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            scene.setCursor(customCursor);
 
             stage.setTitle("Noir Dhaka");
             stage.setResizable(false);
@@ -630,20 +649,9 @@ public class HelloController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("Failed to open website: " + e.getMessage());
+
         }
-//        if (java.awt.Desktop.isDesktopSupported()) {
-//            java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
-//
-//            // Check if browse action is supported
-//            if (desktop.isSupported(java.awt.Desktop.Action.BROWSE)) {
-//                desktop.browse(java.net.URI.create(url));
-//            } else {
-//                System.err.println("Browse action not supported");
-//            }
-//        } else {
-//            System.err.println("Desktop not supported");
-//        }
+
 
 
         try {
@@ -667,6 +675,9 @@ public class HelloController {
 
 
             stage.setTitle("Noir Dhaka");
+            Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            scene.setCursor(customCursor);
             stage.setResizable(false);
             stage.setScene(scene);
             stage.centerOnScreen();

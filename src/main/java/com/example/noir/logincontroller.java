@@ -3,7 +3,9 @@ package com.example.noir;
 import com.example.backend.Client;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.animation.*;
@@ -148,7 +150,7 @@ public class logincontroller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
 
         loadCustomFonts();
 
@@ -192,7 +194,7 @@ public class logincontroller implements Initializable {
 
             slideAndFadeToLogin();
 
-            System.out.println("Switched to Login");
+
         }
     }
 
@@ -212,7 +214,7 @@ public class logincontroller implements Initializable {
 
             slideAndFadeToRegister();
 
-            System.out.println("Switched to Register");
+
         }
     }
 
@@ -521,25 +523,25 @@ public class logincontroller implements Initializable {
 
     @FXML
     private void handleGoogleLogin() {
-        System.out.println("Google login clicked");
+
 
     }
 
     @FXML
     private void handleAppleLogin() {
-        System.out.println("Apple login clicked");
+
 
     }
 
     @FXML
     private void handleGithubLogin() {
-        System.out.println("GitHub login clicked");
+
 
     }
 
     @FXML
     private void handleFacebookLogin() {
-        System.out.println("Facebook login clicked");
+
 
     }
 
@@ -844,7 +846,7 @@ public class logincontroller implements Initializable {
 
 
         } catch (Exception e) {
-            System.err.println("Error loading custom fonts: " + e.getMessage());
+
             e.printStackTrace();
         }
     }
@@ -857,9 +859,7 @@ public class logincontroller implements Initializable {
             client.validateLogin(username, password);
             handleLogoClick();
 
-            /* TODO
-             * Navigate back to the HelloApplication
-             */
+
 
         }catch(Exception e){
             usernameField.clear();
@@ -886,9 +886,7 @@ public class logincontroller implements Initializable {
         if (password.equals(confirmPassword)) {
             System.out.println("Registration attempt with username: " + username + ", email: " + email);
 
-            /* TODO
-            * implement isAds
-            * */
+
             User user = new User(username, password, email, address, true);
             try{
                 client.register(user);
@@ -897,7 +895,9 @@ public class logincontroller implements Initializable {
 
 
                 scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
-
+                Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                scene.setCursor(customCursor);
 
                 Stage stage = (Stage) regContinueButton.getScene().getWindow();
                 stage.setScene(scene);
@@ -910,9 +910,7 @@ public class logincontroller implements Initializable {
 
                 stage.show();
             }catch(Exception e){
-                /* TODO
-                    Error message ... maybe same username alr registered
-                 */
+
             }
         } else {
             System.out.println("Passwords do not match!");
@@ -927,7 +925,9 @@ public class logincontroller implements Initializable {
 
 
             scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
-
+            Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
+            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            scene.setCursor(customCursor);
 
             Stage stage = (Stage) noir_logo.getScene().getWindow();
             stage.setScene(scene);
@@ -942,7 +942,7 @@ public class logincontroller implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Error loading hello-view.fxml: " + e.getMessage());
+
         }
     }
 

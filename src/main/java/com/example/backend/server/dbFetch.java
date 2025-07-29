@@ -6,7 +6,10 @@ import com.example.backend.User;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
-
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.time.Instant;
@@ -693,7 +696,118 @@ public class dbFetch {
 
         this.collection.findOneAndReplace(new Document("id", coffee.getId()), j);
     }
+    // Add these imports if not already present
 
+    // Add this method to your dbFetch class
+    public boolean saveReview(Review review) {
+        try {
+            // Create a document from the review
+            Document reviewDoc = new Document()
+                    .append("reviewid", review.getReviewid())
+                    .append("userid", review.getUserid())
+                    .append("coffeeid", review.getCoffeeid())
+                    .append("stars", review.getStars())
+                    .append("description", review.getDescription())
+                    .append("title", review.getTitle())
+                    .append("timestamp", review.getTimestamp().toString())
+                    .append("isVerified", review.isVerified());
+
+            // Insert the review into the reviews collection
+            MongoCollection<Document> reviewsCollection = database.getCollection("reviews");
+            reviewsCollection.insertOne(reviewDoc);
+
+            System.out.println("Review saved successfully to database");
+            return true;
+
+        } catch (Exception e) {
+            System.err.println("Error saving review to database: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Optional: Add method to check if user has already reviewed a coffee
+    public boolean hasUserReviewedCoffee(int userId, int coffeeId) {
+        try {
+            MongoCollection<Document> reviewsCollection = database.getCollection("reviews");
+            Document existingReview = reviewsCollection.find(
+                    Filters.and(
+                            Filters.eq("userid", userId),
+                            Filters.eq("coffeeid", coffeeId)
+                    )
+            ).first();
+
+            return existingReview != null;
+
+        } catch (Exception e) {
+            System.err.println("Error checking existing review: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Optional: Add method to update existing review
+    public boolean updateReview(int userId, int coffeeId, double newRating, String newDescription) {
+        try {
+            MongoCollection<Document> reviewsCollection = database.getCollection("reviews");
+
+            Bson filter = Filters.and(
+                    Filters.eq("userid", userId),
+                    Filters.eq("coffeeid", coffeeId)
+            );
+
+            Bson updates = Updates.combine(
+                    Updates.set("stars", newRating),
+                    Updates.set("description", newDescription),
+                    Updates.set("timestamp", java.time.LocalDateTime.now().toString())
+            );
+
+            var result = reviewsCollection.updateOne(filter, updates);
+
+            if (result.getModifiedCount() > 0) {
+                System.out.println("Review updated successfully in database");
+                return true;
+            } else {
+                System.out.println("No review found to update");
+                return false;
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error updating review in database: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Optional: Add method to get existing review by user and coffee
+    public Review getUserReviewForCoffee(int userId, int coffeeId) {
+        try {
+            MongoCollection<Document> reviewsCollection = database.getCollection("reviews");
+            Document reviewDoc = reviewsCollection.find(
+                    Filters.and(
+                            Filters.eq("userid", userId),
+                            Filters.eq("coffeeid", coffeeId)
+                    )
+            ).first();
+
+            if (reviewDoc != null) {
+                return new Review(
+                        reviewDoc.getInteger("userid"),
+                        reviewDoc.getDouble("stars"),
+                        reviewDoc.getInteger("coffeeid"),
+                        reviewDoc.getString("description"),
+                        reviewDoc.getString("timestamp"),
+                        reviewDoc.getBoolean("isVerified"),
+                        reviewDoc.getString("title")
+                );
+            }
+
+            return null;
+
+        } catch (Exception e) {
+            System.err.println("Error getting user review: " + e.getMessage());
+            return null;
+        }
+    }
     // public void update review???
 
 

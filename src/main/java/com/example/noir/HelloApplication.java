@@ -8,9 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
 import java.io.*;
-
 public class HelloApplication extends Application {
 
     @FXML private javafx.scene.text.Text title1;
@@ -91,7 +89,7 @@ public class HelloApplication extends Application {
             loadGlobalFonts();
             client = new Client();
             client.validateLogin("test", "test");
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
             scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
             stage.setTitle("Noir Dhaka");

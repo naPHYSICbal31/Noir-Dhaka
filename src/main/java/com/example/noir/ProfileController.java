@@ -1,6 +1,9 @@
 package com.example.noir;
 
 import com.example.backend.Client;
+import com.example.backend.StarRatingCell;
+//import com.example.backend.server.dbFetch;
+import com.example.backend.server.dbFetch;
 import javafx.scene.Node;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -39,6 +42,7 @@ import static com.example.noir.HelloApplication.client;
 
 public class ProfileController implements Initializable {
 
+    //public dbFetch database;
     @FXML
     private ScrollPane verticalScrollPane;
     @FXML
@@ -56,6 +60,10 @@ public class ProfileController implements Initializable {
     // Add UI components to display client data
     @FXML
     public Label usernameLabel;
+    @FXML
+    private TableColumn<Coffee, Integer> ratingColumn;
+    // Add this field to store ratings for each coffee
+    public HashMap<Integer, Integer> coffeeRatings = new HashMap<>();
 
     @FXML
     private Label emailLabel;
@@ -89,7 +97,7 @@ public class ProfileController implements Initializable {
     @FXML
     private Line orderline;
     private Font euclidBoldFont;
-    private User currentUser;
+    public User currentUser;
     
     private VBox receiptContainer;
     
@@ -421,6 +429,16 @@ public class ProfileController implements Initializable {
                 return new javafx.beans.property.SimpleStringProperty("N/A");
             });
         }
+        if (ratingColumn != null) {
+            ratingColumn.setCellValueFactory(cellData -> {
+                Coffee coffee = cellData.getValue();
+                Integer rating = coffeeRatings.get(coffee.getId());
+                return new javafx.beans.property.SimpleIntegerProperty(rating != null ? rating : 0).asObject();
+            });
+
+            ratingColumn.setCellFactory(column -> new StarRatingCell(this));
+        }
+
 
 
 

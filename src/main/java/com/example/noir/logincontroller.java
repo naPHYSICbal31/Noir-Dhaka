@@ -670,97 +670,96 @@ public class logincontroller implements Initializable {
     }
 
     private void startAnimationSequence() {
-
+        // Remove animation for loginbg - set it to final position immediately
         if (loginbg != null) {
-            Timeline backgroundAnimation = createSlideUpAnimation(loginbg, 800, Duration.millis(400));
-            backgroundAnimation.play();
+            loginbg.setTranslateY(0);
+            loginbg.setOpacity(1);
         }
 
-
+        // Remove animations for noir_logo, orText2, and orText3
+        // Just set them to their final positions immediately
         if (noir_logo != null) {
-            Timeline logoAnimation = createSlideUpAnimation(noir_logo, 800, Duration.millis(400));
-            logoAnimation.setDelay(Duration.millis(200));
-            logoAnimation.play();
+            noir_logo.setTranslateY(0);
+            noir_logo.setOpacity(1);
         }
 
         if (orText2 != null) {
-            Timeline login1Animation = createSlideInAnimation(orText2, Duration.millis(500));
-            login1Animation.setDelay(Duration.millis(600));
-            login1Animation.play();
+            orText2.setTranslateX(0);
+            orText2.setOpacity(1);
         }
 
         if (orText3 != null) {
-            Timeline login2Animation = createSlideInAnimation(orText3, Duration.millis(500));
-            login2Animation.setDelay(Duration.millis(900));
-            login2Animation.play();
+            orText3.setTranslateX(0);
+            orText3.setOpacity(1);
         }
 
+        // Keep the rest of the animations starting from the beginning
         if (loginButton != null) {
             Timeline loginButtonAnimation = createButtonSlideUpAnimation(loginButton, 100, Duration.millis(400));
-            loginButtonAnimation.setDelay(Duration.millis(1200));
+            loginButtonAnimation.setDelay(Duration.millis(200)); // Start earlier since no background animation
             loginButtonAnimation.play();
         }
 
         if (line != null) {
             Timeline lineAnimation = createLineSlideUpAnimation(line, 100, Duration.millis(400));
-            lineAnimation.setDelay(Duration.millis(1200));
+            lineAnimation.setDelay(Duration.millis(200)); // Start earlier
             lineAnimation.play();
         }
+
         if (regbutton != null) {
             Timeline regButtonAnimation = createButtonSlideUpAnimation(regbutton, 100, Duration.millis(400));
-            regButtonAnimation.setDelay(Duration.millis(1300));
+            regButtonAnimation.setDelay(Duration.millis(300)); // Start earlier
             regButtonAnimation.play();
         }
 
         if (loginForm != null) {
             Timeline loginFormAnimation = createFormSlideUpAnimation(loginForm, 100, Duration.millis(400));
-            loginFormAnimation.setDelay(Duration.millis(1400));
+            loginFormAnimation.setDelay(Duration.millis(400)); // Start earlier
             loginFormAnimation.play();
         }
 
         if (orText != null) {
             Timeline orTextAnimation = createSlideInAnimation(orText, Duration.millis(400));
-            orTextAnimation.setDelay(Duration.millis(1700));
+            orTextAnimation.setDelay(Duration.millis(700)); // Start earlier
             orTextAnimation.play();
         }
 
         if (line2 != null) {
             Timeline line2Animation = createLineSlideUpAnimation(line2, 100, Duration.millis(400));
-            line2Animation.setDelay(Duration.millis(1700));
+            line2Animation.setDelay(Duration.millis(700)); // Start earlier
             line2Animation.play();
         }
 
-        // Step 11: Animate line3 sliding up from bottom (starts with OR text)
         if (line3 != null) {
             Timeline line3Animation = createLineSlideUpAnimation(line3, 100, Duration.millis(400));
-            line3Animation.setDelay(Duration.millis(1700));
+            line3Animation.setDelay(Duration.millis(700)); // Start earlier
             line3Animation.play();
         }
 
         if (continueWithText != null) {
             Timeline continueWithTextAnimation = createSlideInAnimation(continueWithText, Duration.millis(400));
-            continueWithTextAnimation.setDelay(Duration.millis(1800));
+            continueWithTextAnimation.setDelay(Duration.millis(800)); // Start earlier
             continueWithTextAnimation.play();
         }
 
         if (googleButton1 != null) {
             Timeline googleButtonAnimation = createButtonSlideUpAnimation(googleButton1, 100, Duration.millis(400));
-            googleButtonAnimation.setDelay(Duration.millis(1900));
+            googleButtonAnimation.setDelay(Duration.millis(900)); // Start earlier
             googleButtonAnimation.play();
         }
         if (appleButton1 != null) {
             Timeline appleButtonAnimation = createButtonSlideUpAnimation(appleButton1, 100, Duration.millis(400));
-            appleButtonAnimation.setDelay(Duration.millis(1950));
+            appleButtonAnimation.setDelay(Duration.millis(950)); // Start earlier
             appleButtonAnimation.play();
         }
         if (facebookButton1 != null) {
             Timeline facebookButtonAnimation = createButtonSlideUpAnimation(facebookButton1, 100, Duration.millis(400));
-            facebookButtonAnimation.setDelay(Duration.millis(2000));
+            facebookButtonAnimation.setDelay(Duration.millis(1000)); // Start earlier
             facebookButtonAnimation.play();
         }
         if (githubButton1 != null) {
             Timeline githubButtonAnimation = createButtonSlideUpAnimation(githubButton1, 100, Duration.millis(400));
-            githubButtonAnimation.setDelay(Duration.millis(2050));
+            githubButtonAnimation.setDelay(Duration.millis(1050)); // Start earlier
             githubButtonAnimation.play();
         }
     }

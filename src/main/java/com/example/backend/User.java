@@ -210,5 +210,9 @@ public class User implements Serializable {
         }
     }
 
+    public int getUserId() {
+        return userid;
+    }
+
     //public void addBuyHistory(Coffee coffee){}
 }

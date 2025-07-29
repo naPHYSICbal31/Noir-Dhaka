@@ -1,9 +1,12 @@
-package com.example.backend;
+package com.example.backend.server;
+import com.example.backend.Cart;
+import com.example.backend.Coffee;
+import com.example.backend.Review;
+import com.example.backend.User;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
-import javax.print.Doc;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.time.Instant;
@@ -27,13 +30,14 @@ public class dbFetch {
      * Methods throw exceptions with messages instead of returning false
      */
 
-    public static String currentToken;
+    public String currentToken;
 
-    public void register(User user){
+    public String register(User user){
         this.collection = database.getCollection("users");
         if(this.collection.find(new Document("username", user.getUsername())).first() != null){
             throw new RuntimeException("Username is already in use");
         }
+
 
         Document entry = new Document("id", user.getUserid()).append("username", user.getUsername()).append("email", user.getEmail()).append("address", user.getAddress()).append("isAds", user.isAds());
         this.collection.insertOne(entry);
@@ -42,10 +46,10 @@ public class dbFetch {
         entry = new Document("username", user.getUsername()).append("password", user.getPasshash());
         this.collection.insertOne(entry);
         setAndGenToken(user.getUsername());
-
+        return  currentToken;
     }
 
-    public void validateLogin(String username, String password) throws RuntimeException{
+    public String validateLogin(String username, String password) throws RuntimeException{
         this.collection = database.getCollection("creds");
         String pass = User.hashpass(password);
 
@@ -56,7 +60,7 @@ public class dbFetch {
             try{if(compPass.equals(pass)){
                 terminateSession(username);
                 setAndGenToken(username);
-
+                return currentToken;
             }else{
                 throw new RuntimeException("Invalid username or password");
             }}finally {
@@ -71,6 +75,10 @@ public class dbFetch {
     public void logOut(){
         terminateSession(currentToken);
         currentToken = null;
+    }
+
+    public void setCurrentToken(String currentToken) {
+        this.currentToken = currentToken;
     }
 
     private void terminateSession(String username){
@@ -90,6 +98,14 @@ public class dbFetch {
         d.insertOne(entry);
 
         currentToken  = sessionToken;
+    }
+
+    public Boolean validateToken(String token){
+        this.collection = database.getCollection("sessions");
+        if(this.collection.find(new Document("sessionToken",token)).first() != null){
+            return true;
+        }
+        return false;
     }
 
 
@@ -151,13 +167,15 @@ public class dbFetch {
 
     public List<Coffee> getCoffeesByKeyAndValue(String key, int value){
         MongoCollection<Document> d = database.getCollection("coffees");
-        List<Document> m = new ArrayList<>();
+        List<Document> m;
         List<Coffee> c = new ArrayList<>();
 
         m = d.find(new Document(key , value)).into(new ArrayList<>());
 
         if(m != null){
             parseCoffees(m);
+        }else{
+            return null;
         }
 
         return c;
@@ -172,6 +190,8 @@ public class dbFetch {
 
         if(m != null){
             parseCoffees(m);
+        }else{
+            return null;
         }
 
         return c;
@@ -186,6 +206,8 @@ public class dbFetch {
 
         if(m != null){
             parseCoffees(m);
+        }else{
+            return null;
         }
 
         return c;
@@ -248,14 +270,14 @@ public class dbFetch {
             buyHistory.put(x.getInteger("coffeeid"), x.getInteger("count"));
         }
 
-        return new Cart(buyHistory);
+        return new Cart(buyHistory, currentToken);
 
     }
 
     public void addToCart(int coffeeid, int count){
         Cart c = getCart();
         if(getCart() == null){
-            addCart(new Cart(coffeeid, count));
+            addCart(new Cart(coffeeid, count, currentToken));
             return;
         }
 
@@ -520,7 +542,7 @@ public class dbFetch {
             coffees.add(new Document("coffeeid", coffeeid).append("count", count));
         }
 
-        Document docx = new Document("userid", userid).append("timestamp", Instant.now().toString()).append("coffees", coffees);
+        Document docx = new Document("userid", userid).append("token", c.getToken()).append("timestamp", Instant.now().toString()).append("coffees", coffees);
 
         this.collection.insertOne(docx);
     }

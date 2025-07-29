@@ -1,4 +1,5 @@
 package com.example.backend;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  * */
 
 
-public class Review {
+public class Review implements Serializable {
     private int reviewid;
     private double stars;
     private int coffeeid;
@@ -31,6 +32,9 @@ public class Review {
         setTimestamp(timestamp);
         this.userid = userid;
         this.isVerified = isVerified;
+    }
+    public Review(){
+
     }
     public Review(String title,String description,User user,int stars,boolean isVerified){
         this.title = title;

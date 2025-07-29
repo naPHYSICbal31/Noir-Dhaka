@@ -1,5 +1,6 @@
 package com.example.noir;
 
+import com.example.backend.Client;
 import javafx.scene.Node;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -27,15 +28,15 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.List;
 
-import com.example.backend.dbFetch;
 import com.example.backend.User;
 import com.example.backend.Coffee;
 import javafx.animation.FadeTransition;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
 
 import java.util.ArrayList;
+
+import static com.example.noir.HelloApplication.client;
+
 public class ProfileController implements Initializable {
 
     @FXML
@@ -52,7 +53,7 @@ public class ProfileController implements Initializable {
     private Label usernameLabel3;
     @FXML
     private Label usernameLabel4;
-    // Add UI components to display database data
+    // Add UI components to display client data
     @FXML
     public Label usernameLabel;
 
@@ -89,12 +90,13 @@ public class ProfileController implements Initializable {
     private Line orderline;
     private Font euclidBoldFont;
     private User currentUser;
-    private dbFetch database;
+    
     private VBox receiptContainer;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        database = new dbFetch();
+        
+
         loadFonts();
         loadUserData();
         loadCoffeeData();
@@ -102,6 +104,7 @@ public class ProfileController implements Initializable {
         applyCustomFonts();
         applyTableViewStyles();
         setupReceiptScrollPane();
+
     }
 
     private void setupReceiptScrollPane() {
@@ -263,7 +266,7 @@ public class ProfileController implements Initializable {
 
     private void loadUserData() {
         try {
-            currentUser = database.getUserinfo();
+            currentUser = client.getUserinfo();
             if (currentUser != null) {
                 if (usernameLabel != null) {
                     usernameLabel.setText(currentUser.getUsername());
@@ -304,7 +307,7 @@ public class ProfileController implements Initializable {
         try {
             if (coffeeTableView != null) {
                 List<Coffee> purchasedCoffees = new ArrayList<>();
-                User u = database.getUserinfo();
+                User u = client.getUserinfo();
                 HashMap<Integer, Integer> bought = u.getBuyHistory();
 
                 if (u != null && bought != null) {
@@ -312,7 +315,7 @@ public class ProfileController implements Initializable {
 
                         Integer purchaseCount = bought.get(coffeeId);
                         System.out.println(coffeeId);
-                        Coffee coffee = database.getCoffeeById(coffeeId);
+                        Coffee coffee = client.getCoffeeById(coffeeId);
 
                         System.out.println(coffee.getName());
                         System.out.println(purchaseCount);
@@ -690,7 +693,7 @@ public class ProfileController implements Initializable {
     }
     @FXML
     private void handleLogOut(){
-        database.logOut();
+        client.logOut();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
         Scene scene = null;
         try {
@@ -716,7 +719,7 @@ public class ProfileController implements Initializable {
     @FXML
     private void handleCartClick() {
         try {
-            if (dbFetch.currentToken != null) {
+            if (Client.currentToken != null) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cart.fxml"));
                 Stage stage = (Stage) cart.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);

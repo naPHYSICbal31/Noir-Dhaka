@@ -1,5 +1,6 @@
 package com.example.noir;
 
+import com.example.backend.Client;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,7 +27,7 @@ import com.example.backend.*;
 public class logincontroller implements Initializable {
     public static final int TRANSLATE_X = -400;
     // Login form fields
-    private dbFetch auth;
+    private Client client;
 
     @FXML
     private TextField usernameField;
@@ -144,7 +145,7 @@ public class logincontroller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        auth = new dbFetch();
+        
         // Load custom fonts
         loadCustomFonts();
 
@@ -517,25 +518,25 @@ public class logincontroller implements Initializable {
     @FXML
     private void handleGoogleLogin() {
         System.out.println("Google login clicked");
-        // Add your Google OAuth logic here
+        // Add your Google Oclient logic here
     }
 
     @FXML
     private void handleAppleLogin() {
         System.out.println("Apple login clicked");
-        // Add your Apple OAuth logic here
+        // Add your Apple Oclient logic here
     }
 
     @FXML
     private void handleGithubLogin() {
         System.out.println("GitHub login clicked");
-        // Add your GitHub OAuth logic here
+        // Add your GitHub Oclient logic here
     }
 
     @FXML
     private void handleFacebookLogin() {
         System.out.println("Facebook login clicked");
-        // Add your Facebook OAuth logic here
+        // Add your Facebook Oclient logic here
     }
 
     private void initializeElements() {
@@ -850,7 +851,7 @@ public class logincontroller implements Initializable {
         String username = usernameField.getText();
         String password = passwordField.getText();
         try{
-            auth.validateLogin(username, password);
+            client.validateLogin(username, password);
             handleLogoClick();
 
             /* TODO
@@ -890,7 +891,7 @@ public class logincontroller implements Initializable {
             * */
             User user = new User(username, password, email, address, true);
             try{
-                auth.register(user);
+                client.register(user);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
                 Scene scene = new Scene(loader.load(), 1440, 810);
 

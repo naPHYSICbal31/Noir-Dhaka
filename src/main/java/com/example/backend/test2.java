@@ -1,12 +1,12 @@
 package com.example.backend;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import com.example.backend.Client;
+
 import java.util.*;
 
 public class test2 {
     public static void main(String[] args) {
-        dbFetch db = new dbFetch();
+        Client db = new Client();
 
         // Register one user
         User user = new User("test", 1001, "soloUser@test.com", "123 Bean Street", true,

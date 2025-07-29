@@ -1,5 +1,5 @@
 package com.example.noir;
-import com.example.backend.*;
+import com.example.backend.Client;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.animation.ParallelTransition;
@@ -24,8 +24,6 @@ import java.util.List;
 import javafx.scene.text.Text;
 import javafx.animation.ScaleTransition;
 import javafx.scene.input.MouseEvent;
-import java.awt.Desktop;
-import java.net.URI;
 
 public class HelloController {
     @FXML
@@ -207,7 +205,7 @@ public class HelloController {
     @FXML
     private void handleCartClick() {
         try {
-            if (dbFetch.currentToken != null) {
+            if (Client.currentToken != null) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cart.fxml"));
                 Stage stage = (Stage) cart.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
@@ -231,7 +229,7 @@ public class HelloController {
     @FXML
     private void handleProfileClick() {
         try {
-            if (dbFetch.currentToken != null) {
+            if (Client.currentToken != null) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
                 Stage stage = (Stage) profile.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);

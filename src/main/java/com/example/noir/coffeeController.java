@@ -1,6 +1,6 @@
 package com.example.noir;
 
-import com.example.backend.dbFetch;
+import com.example.backend.Client;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,14 +16,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.text.*;
 
-import javax.crypto.spec.PSource;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.text.NumberFormat;
+
+import static com.example.noir.HelloApplication.client;
 
 public class coffeeController implements Initializable {
     private Font euclidBoldFont;
@@ -143,13 +142,25 @@ public class coffeeController implements Initializable {
     @FXML
     private Text quantity;
 
-    private dbFetch database;
+    //private Client client;
     private com.example.backend.Coffee currentCoffee;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadFonts();
-        database = new dbFetch();
+        new Thread(() -> {
+            try {
+                
+
+                Platform.runLater(() -> {
+                    System.out.println("Connected!");
+                });
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    e.printStackTrace(); // or show in GUI
+                });
+            }
+        }).start();
 
         // Initialize quantity display
         if (quantity != null) {
@@ -296,7 +307,7 @@ public class coffeeController implements Initializable {
 
     private void loadCoffeeData(int coffeeId) {
         try {
-            currentCoffee = database.getCoffeeById(coffeeId);
+            currentCoffee = client.getCoffeeById(coffeeId);
             if (currentCoffee != null) {
                 displayCoffeeInfo();
             } else {
@@ -449,7 +460,7 @@ public class coffeeController implements Initializable {
             coffeeNameLabel.setText("Coffee Not Found");
         }
         if (coffeeDescriptionLabel != null) {
-            coffeeDescriptionLabel.setText("The requested coffee with ID 201 was not found in the database.");
+            coffeeDescriptionLabel.setText("The requested coffee with ID 201 was not found in the client.");
         }
     }
 
@@ -743,7 +754,7 @@ public class coffeeController implements Initializable {
     }
     @FXML
     private void redirect(MouseEvent event) {
-        if (dbFetch.currentToken == null) {
+        if (Client.currentToken == null) {
             try {
                 // Get the current stage
                 Stage stage;
@@ -780,7 +791,7 @@ public class coffeeController implements Initializable {
                     stage = (Stage) ((Text) event.getSource()).getScene().getWindow();
                 }
 
-                database.addToCart(this.currentCoffee.getId(), currentQuantity);
+                client.addToCart(this.currentCoffee.getId(), currentQuantity);
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cart.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
 
@@ -798,7 +809,7 @@ public class coffeeController implements Initializable {
     }
     @FXML
         private void redirecttoprofile(MouseEvent event) {
-        if (dbFetch.currentToken == null) {
+        if (Client.currentToken == null) {
             try {
                    Stage stage = (Stage) ((ImageView) event.getSource()).getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
@@ -831,7 +842,7 @@ public class coffeeController implements Initializable {
     @FXML
     private void handleCartClick() {
         try {
-            if (dbFetch.currentToken != null) {
+            if (Client.currentToken != null) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cart.fxml"));
                 Stage stage = (Stage) cart.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);

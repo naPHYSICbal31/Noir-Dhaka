@@ -1,39 +1,20 @@
 package com.example.noir;
 
-import com.example.backend.dbFetch;
-import javafx.concurrent.Worker;
+import com.example.backend.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
-import javafx.animation.ParallelTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.List;
-import javafx.scene.text.Text;
-import javafx.animation.ScaleTransition;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
@@ -88,7 +69,7 @@ public class BlogController {
     @FXML
     private void handleCartClick() {
         try {
-            if (dbFetch.currentToken != null) {
+            if (Client.currentToken != null) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cart.fxml"));
                 Stage stage = (Stage) cart.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
@@ -112,7 +93,7 @@ public class BlogController {
     @FXML
     private void handleProfileClick() {
         try {
-            if (dbFetch.currentToken != null) {
+            if (Client.currentToken != null) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
                 Stage stage = (Stage) profile.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);

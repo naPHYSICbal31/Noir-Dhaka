@@ -1,11 +1,16 @@
 package com.example.backend;
+import com.example.backend.Client;
+
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.*;
 
-import static com.example.backend.dbFetch.currentToken;
+import static com.example.noir.HelloApplication.client;
+
+//import static com.example.backend.Client.currentToken;
 
 
-public class Cart {
+public class Cart implements Serializable {
     private String token;
     private HashMap<Integer,Integer> buyHistory;
     private String timestamp;// coffeeId, count
@@ -26,19 +31,19 @@ public class Cart {
         this.token = token;
     }
 
-    public Cart(){
+    public Cart(String currentToken){
         token = currentToken;
         buyHistory = new HashMap<>();
         timestamp = Instant.now().toString();
     }
-    public Cart(int coffeeid, int count){
+    public Cart(int coffeeid, int count, String currentToken){
         token = currentToken;
         buyHistory = new HashMap<>();
         timestamp = Instant.now().toString();
         buyHistory.put(coffeeid, count);
     }
 
-    public Cart(HashMap<Integer,Integer> buyHistory){
+    public Cart(HashMap<Integer,Integer> buyHistory, String currentToken){
         token = currentToken;
         this.buyHistory = buyHistory;
     }
@@ -77,9 +82,9 @@ public class Cart {
 
     public double getTotalPrice(){
         double sum =0;
-        dbFetch auth =  new dbFetch();
+
         for(Integer j : buyHistory.keySet()) {
-            sum += auth.getCoffeeById(j).getPrice() * this.buyHistory.get(j);
+            sum += client.getCoffeeById(j).getPrice() * this.buyHistory.get(j);
         }
         return sum;
     }

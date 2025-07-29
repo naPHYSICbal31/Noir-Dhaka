@@ -1,5 +1,6 @@
 package com.example.backend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -17,7 +18,7 @@ import java.util.Vector;
  */
 
 
-public class Coffee {
+public class Coffee implements Serializable  {
     //intro
 
     static String[] Tags = {"a", "b", "c"};
@@ -50,7 +51,9 @@ public class Coffee {
     //extras
     private List<Review> reviews;
 
+    public Coffee(){
 
+    }
     //new constructor
     public Coffee(int id, String name, String imageurl, String description, String packetSize, double weight,double price ,int strength, int flavour, int acidity, int aroma,
                   boolean isRare, boolean isSmallBatch, boolean isFarmToCup, int currentStock, List<Boolean> tag) {

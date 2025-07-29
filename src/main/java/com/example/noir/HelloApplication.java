@@ -1,20 +1,20 @@
 package com.example.noir;
 
 import com.example.backend.*;
+import com.example.backend.Client;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import java.io.*;
 
 public class HelloApplication extends Application {
 
     @FXML private javafx.scene.text.Text title1;
+    public static Client client;
     Review[] reviews = new Review[100];
     int reviewCount = 0;
     User[] users = new User[100];
@@ -89,7 +89,8 @@ public class HelloApplication extends Application {
         try {
             // Load fonts first
             loadGlobalFonts();
-            (new dbFetch()).validateLogin("test", "test");
+            client = new Client();
+            client.validateLogin("test", "test");
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
             scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());

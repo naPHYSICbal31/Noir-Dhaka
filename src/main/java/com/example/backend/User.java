@@ -1,4 +1,5 @@
 package com.example.backend;
+import java.io.Serializable;
 import java.security.Timestamp;
 import java.util.HashMap;
 import java.util.Locale;
@@ -9,12 +10,26 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 
-public class User {
+public class User implements Serializable {
     private String username;
     private int userid;
     private String email;
 
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", userid=" + userid +
+                ", email='" + email + '\'' +
+                ", passhash='" + passhash + '\'' +
+                ", address='" + address + '\'' +
+                ", isAds=" + isAds +
+                ", buyHistory=" + buyHistory +
+                ", buyTime=" + buyTime +
+                ", recipts=" + recipts +
+                '}';
+    }
 
     private String passhash;  //sha256
     private String address;

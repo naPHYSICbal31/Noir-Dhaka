@@ -1,11 +1,8 @@
 package com.example.noir;
 
-import javafx.scene.Node;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -18,10 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.scene.text.Font;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,13 +24,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-import com.example.backend.dbFetch;
+import com.example.backend.Client;
 import com.example.backend.User;
 import com.example.backend.Coffee;
 import com.example.backend.Cart;
-import com.example.backend.Review;
-import javafx.animation.FadeTransition;
-import javafx.animation.SequentialTransition;
+
+import static com.example.noir.HelloApplication.client;
 
 public class cartcontroller implements Initializable{
     // FXML Elements from Scene Builder
@@ -80,7 +73,7 @@ public class cartcontroller implements Initializable{
     private Text coupontxt;
     @FXML
     private ImageView profile;
-    private dbFetch database;
+    //private Client client;
     private Cart currentCart;
 
     // Store references to cart item UI elements for updates
@@ -103,8 +96,8 @@ public class cartcontroller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Initialize database connection
-        database = new dbFetch();
+        // Initialize client connection
+
 
         // Set reference for legacy code compatibility
         if (verticalScrollPane == null) {
@@ -120,8 +113,8 @@ public class cartcontroller implements Initializable{
 
     private void loadCartData() {
         try {
-            // Fetch cart from database
-            currentCart = database.getCart();
+            // Fetch cart from client
+            currentCart = client.getCart();
 
             if (currentCart != null && currentCart.getBuyHistory() != null && !currentCart.getBuyHistory().isEmpty()) {
                 displayCartItems();
@@ -166,8 +159,8 @@ public class cartcontroller implements Initializable{
             Integer coffeeId = entry.getKey();
             Integer quantity = entry.getValue();
 
-            // Get coffee details from database
-            Coffee coffee = database.getCoffeeById(coffeeId);
+            // Get coffee details from client
+            Coffee coffee = client.getCoffeeById(coffeeId);
 
             if (coffee != null) {
                 HBox cartItem = createCartItemUI(coffee, quantity);
@@ -373,7 +366,7 @@ public class cartcontroller implements Initializable{
 
 
             if (change > 0) {
-                database.addToCart(coffeeId, change);
+                client.addToCart(coffeeId, change);
                 currentCart.addToCart(coffeeId, change);
             } else {
                 if(currentQuantity <= 1)
@@ -382,7 +375,7 @@ public class cartcontroller implements Initializable{
 
                 }
                 else{
-                    database.removeFromCart(coffeeId);
+                    client.removeFromCart(coffeeId);
                     currentCart.removeFromCart(coffeeId);
                 }
 
@@ -399,9 +392,9 @@ public class cartcontroller implements Initializable{
                 updateCartItemUI(coffeeId, newQuantity);
                 updateTotalPriceDisplay();
 
-                // Update database in background
+                // Update client in background
                 try {
-                    // database.updateCart(currentCart);
+                    // client.updateCart(currentCart);
                 } catch (Exception e) {
                     System.err.println("Error updating cart: " + e.getMessage());
                 }
@@ -452,9 +445,9 @@ public class cartcontroller implements Initializable{
     private void removeItem(int coffeeId) {
         if (currentCart != null) {
             currentCart.removeFromCartEntirely(coffeeId);
-            // Update database
+            // Update client
             try {
-                database.updateCart(currentCart);
+                client.updateCart(currentCart);
                 // Refresh display since item is completely removed
                 loadCartData();
             } catch (Exception e) {
@@ -491,8 +484,8 @@ public class cartcontroller implements Initializable{
                 Integer coffeeId = entry.getKey();
                 Integer quantity = entry.getValue();
 
-                // Get coffee details from database
-                Coffee coffee = database.getCoffeeById(coffeeId);
+                // Get coffee details from client
+                Coffee coffee = client.getCoffeeById(coffeeId);
 
                 if (coffee != null) {
                     double itemPrice = coffee.getPrice();
@@ -593,9 +586,9 @@ public class cartcontroller implements Initializable{
             receiptContent.append(String.format("%" + deliveryPadding + "s%s\n\n", "", delivery));
 
             receiptContent.append("═══════════════════════════════════════");
-            User u = database.getUserinfo();
+            User u = client.getUserinfo();
             u.addToRecipts(receiptContent.toString());
-            database.updateUser(u);
+            client.updateUser(u);
             // Create custom alert with scrollable content
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Order Confirmation");
@@ -633,11 +626,11 @@ public class cartcontroller implements Initializable{
             alert.showAndWait();
 
             // Clear cart after checkout
-            database.buyCart(currentCart);
+            client.buyCart(currentCart);
             currentCart = null;
             /* TODO */
             try {
-                // database.updateCart(currentCart);
+                // client.updateCart(currentCart);
                 loadCartData();
             } catch (Exception e) {
                 System.err.println("Error clearing cart: " + e.getMessage());
@@ -811,7 +804,7 @@ public class cartcontroller implements Initializable{
     @FXML
     private void handleProfileClick() {
         try {
-            if (dbFetch.currentToken != null) {
+            if (Client.currentToken != null) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
                 Stage stage = (Stage) profile.getScene().getWindow();
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);

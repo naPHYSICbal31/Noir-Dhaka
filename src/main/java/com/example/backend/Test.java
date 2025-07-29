@@ -1,12 +1,13 @@
 package com.example.backend;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Test {
-    public static void main(String[] args) {
-        dbFetch db = new dbFetch();
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        Client db = new Client();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
@@ -26,6 +27,8 @@ public class Test {
             try {
                 db.validateLogin(username, "pass" + i);
                 System.out.println("[LOGIN] " + username);
+                User u = db.getUserinfo();
+                System.out.println(u.toString());
             } catch (Exception e) {
                 System.out.println("[LOGIN FAIL] " + username + ": " + e.getMessage());
             }
@@ -62,13 +65,15 @@ public class Test {
             String username = "user" + i;
             try {
                 db.validateLogin(username, "pass" + i);
+                System.out.println("[LOGIN] " + username);
                 HashMap<Integer, Integer> cartItems = new HashMap<>();
                 cartItems.put(200 + (i % 20), (i % 3) + 1);
-                db.addCart(new Cart(cartItems));
+                db.addCart(new Cart(cartItems, Client.currentToken));
 
                 Cart fetched = db.getCart();
                 if (fetched != null) {
                     System.out.println("[FETCHED CART] " + username + ": " + fetched.getBuyHistory());
+                    System.out.println(Client.currentToken);
                 }
                 db.buyCart(fetched);
             } catch (Exception e) {
@@ -83,9 +88,9 @@ public class Test {
 
         System.out.println("[EDGE TEST] Get reviews for nonexistent coffee:");
         Coffee dummy = new Coffee(9999, "Dummy", "", "", "", 0.0, 0.0, 0, 0, 0, 0, false, false, false, 0, 0, false, false, new ArrayList<>(), Arrays.asList(false, false, false));
-        System.out.println("Critical: " + db.getCriticalReviews(dummy).size());
-        System.out.println("Moderate: " + db.getModerateReviews(dummy).size());
-        System.out.println("Positive: " + db.getPositiveReviews(dummy).size());
+//        System.out.println("Critical: " + db.getCoffeesByKeyValueInt("id", 9999).size());
+//        System.out.println("Moderate: " + db.getCoffeesByKeyValueString("name", "Nonexistent").size());
+//        System.out.println("Positive: " + db.getCoffeesByKeyValueBoolean("isRare", true).size());
 
         // Test user update with extreme buyHistory
         try {
@@ -103,4 +108,5 @@ public class Test {
         db.logOut();
     }
 }
+
 

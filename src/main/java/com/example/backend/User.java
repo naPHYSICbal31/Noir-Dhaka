@@ -58,7 +58,7 @@ public class User implements Serializable {
         this.address = address;
         this.setPass(pass);
         this.email = email;
-        this.userid = 10000 + ++usercount;
+        //this.userid = 10000 + ++usercount;
         this.username = username;
     }
 

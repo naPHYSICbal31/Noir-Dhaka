@@ -24,6 +24,8 @@ public class dbFetch {
         this.database = mongoClient.getDatabase("noirdb");
     }
 
+    public static int userCount = 0;
+
 
 
 
@@ -42,7 +44,7 @@ public class dbFetch {
         }
 
 
-        Document entry = new Document("id", user.getUserid()).append("username", user.getUsername()).append("email", user.getEmail()).append("address", user.getAddress()).append("isAds", user.isAds());
+        Document entry = new Document("id", 1000 + (++userCount)).append("username", user.getUsername()).append("email", user.getEmail()).append("address", user.getAddress()).append("isAds", user.isAds());
         this.collection.insertOne(entry);
 
         this.collection = database.getCollection("creds");

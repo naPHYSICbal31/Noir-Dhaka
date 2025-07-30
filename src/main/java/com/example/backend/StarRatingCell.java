@@ -108,8 +108,12 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
                 System.out.println("Selected rating: " + selectedRating);
             } else {
                 Review r = client.getUserReviewForCoffee(controller.currentUser.getUserId(), currentCoffee.getId());
+                if(r != null) {
+                    selectedRating = (int) r.getStars();
+                }else{
+                    selectedRating = 0;
+                }
 
-                selectedRating = (int)r.getStars();
             }
 
             updateStarDisplay();

@@ -25,6 +25,8 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
+
 import com.example.backend.*;
 
 import static com.example.noir.HelloApplication.client;
@@ -155,6 +157,12 @@ public class logincontroller implements Initializable {
         alert.setHeaderText("Registration Failed");
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public static boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
     }
 
     @Override
@@ -892,13 +900,18 @@ public class logincontroller implements Initializable {
         String confirmPassword = regConfirmPasswordField.getText();
         errortxt.setOpacity(0);
 
+
         if (password.equals(confirmPassword)) {
             System.out.println("Registration attempt with username: " + username + ", email: " + email);
 
 
             User user = new User(username, password, email, address, true);
             try{
+                if(!isValidEmail(email)){
+                    throw new RuntimeException("Email is not valid");
+                }
                 client.register(user);
+                client.validateLogin(user.getUsername(), password);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
                 Scene scene = new Scene(loader.load(), 1440, 810);
 
@@ -924,7 +937,7 @@ public class logincontroller implements Initializable {
                 regAddressField.clear();
                 regPasswordField.clear();
                 regConfirmPasswordField.clear();
-                showAlert("Username is already in use");
+                showAlert(e.getMessage());
             }
         } else {
             regUsernameField.clear();

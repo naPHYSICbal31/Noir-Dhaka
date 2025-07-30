@@ -11,10 +11,21 @@ public class test2 {
         // Register one user
         User user = new User("test", 1001, "soloUser@test.com", "123 Bean Street", true,
                 new HashMap<>(), new HashMap<>(), new HashMap<>());
+        User user2 = new User("test2", 1001, "soloUser@test.com", "123 Bean Street", true,
+                new HashMap<>(), new HashMap<>(), new HashMap<>());
         user.setPass("test");
+        user2.setPass("test2");
         try {
             db.register(user);
+
             System.out.println("[REGISTERED] soloUser");
+        } catch (Exception e) {
+            System.out.println("[REGISTER FAIL] soloUser: " + e.getMessage());
+        }
+        try {
+            db.register(user2);
+
+            System.out.println("[REGISTERED] soloUser2");
         } catch (Exception e) {
             System.out.println("[REGISTER FAIL] soloUser: " + e.getMessage());
         }

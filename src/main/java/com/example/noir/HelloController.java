@@ -72,6 +72,8 @@ public class HelloController {
     private Text top4Text;
     @FXML
     private ImageView profile;
+    @FXML
+    private ImageView blogHead;
 
 
 
@@ -213,7 +215,7 @@ public class HelloController {
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
@@ -224,7 +226,7 @@ public class HelloController {
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
@@ -243,7 +245,7 @@ public class HelloController {
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
@@ -254,7 +256,7 @@ public class HelloController {
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
@@ -297,7 +299,7 @@ public class HelloController {
         });
 
 
-        animatedImages = Arrays.asList(reviewHead, productsHead, qualitiesHead);
+        animatedImages = Arrays.asList(reviewHead, productsHead, qualitiesHead, blogHead);
         animationPlayed = new boolean[animatedImages.size()];
 
 
@@ -443,7 +445,7 @@ public class HelloController {
 
             stage.setTitle("Noir Dhaka");
             Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
             scene.setCursor(customCursor);
             stage.setResizable(false);
             stage.setScene(scene);
@@ -475,7 +477,7 @@ public class HelloController {
 
             HelloController helloController = fxmlLoader.getController();
             Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
             scene.setCursor(customCursor);
 
             stage.setTitle("Noir Dhaka");
@@ -676,7 +678,7 @@ public class HelloController {
 
             stage.setTitle("Noir Dhaka");
             Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
             scene.setCursor(customCursor);
             stage.setResizable(false);
             stage.setScene(scene);

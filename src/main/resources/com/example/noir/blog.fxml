@@ -10,11 +10,11 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<ScrollPane fx:id="verticalScrollPane" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1440.0" style="-fx-background-color: #e9e9e9;" stylesheets="@../../../font.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.noir.BlogController">
+<ScrollPane fx:id="verticalScrollPane" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1440.0" style="-fx-background-color: #e9e9e9;" stylesheets="@../../../font.css" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.noir.BlogController">
 
 <AnchorPane minHeight="810.0" minWidth="1440.0" prefHeight="671.5" prefWidth="810.0" style="-fx-background-color: #e9e9e9;">
 
-    <VBox layoutY="132.0" prefHeight="559.0" prefWidth="1440.0" spacing="0" xmlns:fx="http://javafx.com/fxml">
+    <VBox layoutY="132.0" prefHeight="559.0" prefWidth="1440.0" spacing="0" stylesheets="@scrollbar.css" xmlns:fx="http://javafx.com/fxml">
         <children>
             <!-- WebView -->
             <WebView fx:id="webView" layoutY="100.0" prefHeight="978.0" prefWidth="1437.0"> </WebView>

@@ -121,7 +121,6 @@ public class ProfileController implements Initializable {
     public void showAlert(String message) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Information");
-        //alert.setHeaderText("This is a header");
         alert.setContentText(message);
         alert.showAndWait();
     }
@@ -139,7 +138,6 @@ public class ProfileController implements Initializable {
         Platform.runLater(this::styleCheckboxes);
     }
     private void styleCheckboxes() {
-        // Apply styles to the checkbox boxes after they're rendered
         String checkboxStyle = "-fx-background-color: #91b08f; -fx-border-color: #91b08f; -fx-mark-color: #000000;";
 
         if (check1 != null && check1.lookup(".box") != null) {
@@ -223,6 +221,7 @@ public class ProfileController implements Initializable {
 
                 Label dateLabel = new Label("Date: " + formatDateTimePretty(receiptDate));
                 dateLabel.setFont(Font.font(euclidBoldFont.getFamily(), 16));
+               
                 dateLabel.setStyle("-fx-text-fill: #4e634d; -fx-font-weight: bold;");
                 
 
@@ -290,7 +289,6 @@ public class ProfileController implements Initializable {
                 System.err.println("Failed to load euclidbold.ttf font - using default");
                 euclidBoldFont = Font.font("Arial", 18);
             } else {
-                System.out.println("EuclidCircularA-Bold font loaded successfully");
             }
         } catch (Exception e) {
             System.err.println("Error loading fonts: " + e.getMessage());
@@ -306,7 +304,6 @@ public class ProfileController implements Initializable {
             emailLabel.setFont(Font.font(euclidBoldFont.getFamily(), 32));
             addressLabel.setFont(Font.font(euclidBoldFont.getFamily(), 32));
             usernameLabel1.setFont(Font.font(euclidBoldFont.getFamily(), 32));
-            //bar11.setFont(euclidBoldFont);
             usernameLabel3.setFont(Font.font(euclidBoldFont.getFamily(), 32));
             usernameLabel4.setFont(Font.font(euclidBoldFont.getFamily(), 32));
             usernameLabel41.setFont(euclidBoldFont);
@@ -323,7 +320,6 @@ public class ProfileController implements Initializable {
                 }
                 if (emailLabel != null) {
                     emailLabel.setText(currentUser.getEmail());
-                    System.out.println(currentUser.getEmail());
                 }
                 if (addressLabel != null) {
                     addressLabel.setText(currentUser.getAddress());
@@ -364,13 +360,8 @@ public class ProfileController implements Initializable {
                     for (int coffeeId : bought.keySet()) {
 
                         Integer purchaseCount = bought.get(coffeeId);
-                        System.out.println(coffeeId);
                         Coffee coffee = client.getCoffeeById(coffeeId);
-
-                        System.out.println(coffee.getName());
-                        System.out.println(purchaseCount);
                         if (purchaseCount != null && purchaseCount > 0) {
-                            System.out.println(coffee.getName());
                             purchasedCoffees.add(coffee);
                         }
                     }
@@ -555,7 +546,7 @@ public class ProfileController implements Initializable {
 
             stage.setTitle("Noir Dhaka");
             Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
             scene.setCursor(customCursor);
             stage.setResizable(false);
             stage.setScene(scene);
@@ -735,13 +726,11 @@ public class ProfileController implements Initializable {
 
 
         if (node.getOpacity() > 0.2) {
-            System.out.println("Fading out: " + node.getClass().getSimpleName());
             FadeTransition fade = new FadeTransition(duration, node);
             fade.setFromValue(node.getOpacity());
             fade.setToValue(0.0);
             fade.play();
         } else {
-            System.out.println("Skipping fade out - already faded: " + node.getClass().getSimpleName());
         }
     }
 
@@ -754,13 +743,12 @@ public class ProfileController implements Initializable {
 
 
         if (node.getOpacity() <= 0.2) {
-            System.out.println("Fading in: " + node.getClass().getSimpleName());
             FadeTransition fade = new FadeTransition(duration, node);
             fade.setFromValue(node.getOpacity());
             fade.setToValue(1.0);
             fade.play();
         } else {
-            System.out.println("Skipping fade in - already visible: " + node.getClass().getSimpleName());
+            
         }
     }
     @FXML
@@ -776,7 +764,7 @@ public class ProfileController implements Initializable {
 
         scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
         Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-        ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+        ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
         scene.setCursor(customCursor);
 
         Stage stage = (Stage) logoutbutton.getScene().getWindow();
@@ -799,7 +787,7 @@ public class ProfileController implements Initializable {
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
@@ -810,7 +798,7 @@ public class ProfileController implements Initializable {
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);

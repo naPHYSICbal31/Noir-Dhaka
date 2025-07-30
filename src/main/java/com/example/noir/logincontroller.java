@@ -881,12 +881,10 @@ public class logincontroller implements Initializable {
         }catch(Exception e){
             usernameField.clear();
             passwordField.clear();
-
-            System.out.println(e.getMessage());
             errortxt.setOpacity(1);
         }
 
-        System.out.println("Login attempt with username: " + username);
+        //.println("Login attempt with username: " + username);
 
     }
 
@@ -902,7 +900,7 @@ public class logincontroller implements Initializable {
 
 
         if (password.equals(confirmPassword)) {
-            System.out.println("Registration attempt with username: " + username + ", email: " + email);
+            //.println("Registration attempt with username: " + username + ", email: " + email);
 
 
             User user = new User(username, password, email, address, true);
@@ -918,7 +916,7 @@ public class logincontroller implements Initializable {
 
                 scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
 
                 Stage stage = (Stage) regContinueButton.getScene().getWindow();
@@ -958,7 +956,7 @@ public class logincontroller implements Initializable {
 
             scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());
             Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
             scene.setCursor(customCursor);
 
             Stage stage = (Stage) noir_logo.getScene().getWindow();

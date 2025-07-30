@@ -182,7 +182,7 @@ public class BlogController {
 
             stage.setTitle("Noir Dhaka");
             Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
             scene.setCursor(customCursor);
             stage.setResizable(false);
             stage.setScene(scene);

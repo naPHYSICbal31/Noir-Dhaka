@@ -17,12 +17,14 @@ public class dbFetch {
     private MongoClient mongoClient;
     private MongoDatabase database;
     private MongoCollection<Document> collection;
+    public static int userCount = 0;
     public dbFetch() {
         this.mongoClient = MongoClients.create("mongodb://localhost:27017");
         this.database = mongoClient.getDatabase("noirdb");
+        this.collection = database.getCollection("users");
+        userCount = Math.toIntExact(this.collection.countDocuments());
     }
 
-    public static int userCount = 0;
 
 
 
@@ -35,7 +37,7 @@ public class dbFetch {
 
     public String currentToken;
 
-    public String register(User user){
+    public synchronized String register(User user){
         this.collection = database.getCollection("users");
         if(this.collection.find(new Document("username", user.getUsername())).first() != null){
             throw new RuntimeException("Username is already in use");
@@ -52,7 +54,7 @@ public class dbFetch {
         return  currentToken;
     }
 
-    public String validateLogin(String username, String password) throws RuntimeException{
+    public synchronized String validateLogin(String username, String password) throws RuntimeException{
         this.collection = database.getCollection("creds");
         String pass = User.hashpass(password);
 
@@ -75,21 +77,21 @@ public class dbFetch {
 
     }
 
-    public void logOut(){
+    public synchronized void logOut(){
         terminateSession(currentToken);
         currentToken = null;
     }
 
-    public void setCurrentToken(String currentToken) {
+    public synchronized void setCurrentToken(String currentToken) {
         this.currentToken = currentToken;
     }
 
-    private void terminateSession(String username){
+    private synchronized void terminateSession(String username){
         MongoCollection<Document> d = database.getCollection("sessions");
         d.findOneAndDelete(new Document("username",username));
     }
 
-    private void setAndGenToken(String username){
+    private synchronized void setAndGenToken(String username){
         String sessionToken = UUID.randomUUID().toString();
 
         Instant now = Instant.now();
@@ -103,7 +105,7 @@ public class dbFetch {
         currentToken  = sessionToken;
     }
 
-    public Boolean validateToken(String token){
+    public synchronized Boolean validateToken(String token){
         this.collection = database.getCollection("sessions");
         if(this.collection.find(new Document("sessionToken",token)).first() != null){
             return true;
@@ -116,21 +118,21 @@ public class dbFetch {
      *  GET
      * */
 
-    private int getUserIdByToken(){
+    private synchronized int getUserIdByToken(){
         MongoCollection<Document> d  = database.getCollection("sessions");
         String m =  d.find(new Document("sessionToken", currentToken)).first().getString("username");
         MongoCollection<Document> f =  database.getCollection("users");
         return f.find(new Document("username",m)).first().getInteger("id");
     }
 
-    private String getUserNameById(int id){
+    private synchronized String getUserNameById(int id){
         MongoCollection<Document> d  = database.getCollection("users");
         String m =  d.find(new Document("id", id)).first().getString("username");
 
         return m;
     }
 
-    public User getUserinfo(){
+    public synchronized User getUserinfo(){
         this.collection = database.getCollection("users");
         if(currentToken == null){
             return null;
@@ -143,7 +145,7 @@ public class dbFetch {
         return null;
     }
 
-    public List<Coffee> getAllCoffees(){
+    public synchronized List<Coffee> getAllCoffees(){
         List<Coffee> coffees = new ArrayList<Coffee>();
         MongoCollection<Document> d = database.getCollection("coffees");
 
@@ -155,7 +157,7 @@ public class dbFetch {
         return coffees;
     }
 
-    public Coffee getCoffeeById(int id){
+    public synchronized Coffee getCoffeeById(int id){
         MongoCollection<Document> d = database.getCollection("coffees");
 
 
@@ -168,7 +170,7 @@ public class dbFetch {
         return null;
     }
 
-    public List<Coffee> getCoffeesByKeyAndValue(String key, int value){
+    public synchronized List<Coffee> getCoffeesByKeyAndValue(String key, int value){
         MongoCollection<Document> d = database.getCollection("coffees");
         List<Document> m;
         List<Coffee> c = new ArrayList<>();
@@ -184,7 +186,7 @@ public class dbFetch {
         return c;
     }
 
-    public List<Coffee> getCoffeesByKeyAndValue(String key, String value){
+    public synchronized List<Coffee> getCoffeesByKeyAndValue(String key, String value){
         MongoCollection<Document> d = database.getCollection("coffees");
         List<Document> m = new ArrayList<>();
         List<Coffee> c = new ArrayList<>();
@@ -200,7 +202,7 @@ public class dbFetch {
         return c;
     }
 
-    public List<Coffee> getCoffeesByKeyAndValue(String key, boolean value){
+    public synchronized List<Coffee> getCoffeesByKeyAndValue(String key, boolean value){
         MongoCollection<Document> d = database.getCollection("coffees");
         List<Document> m = new ArrayList<>();
         List<Coffee> c = new ArrayList<>();
@@ -217,14 +219,14 @@ public class dbFetch {
     }
 
 
-    public List<Review> getAllReviews() {
+    public synchronized List<Review> getAllReviews() {
         MongoCollection<Document> d = database.getCollection("reviews");
         List<Document> docs = d.find().into(new ArrayList<>());
         return parseReviews(docs);
     }
 
 
-    public List<Review> getCriticalReviews(Coffee coffee) {
+    public synchronized List<Review> getCriticalReviews(Coffee coffee) {
         MongoCollection<Document> d = database.getCollection("reviews");
         List<Document> docs = d.find(Filters.and(
                         Filters.lte("stars", 2.0),
@@ -240,7 +242,7 @@ public class dbFetch {
     }
 
 
-    public List<Review> getModerateReviews(Coffee coffee) {
+    public synchronized List<Review> getModerateReviews(Coffee coffee) {
         MongoCollection<Document> d = database.getCollection("reviews");
         List<Document> docs = d.find(
                 Filters.and(
@@ -256,7 +258,7 @@ public class dbFetch {
     }
 
 
-    public List<Review> getPositiveReviews(Coffee coffee) {
+    public synchronized List<Review> getPositiveReviews(Coffee coffee) {
         MongoCollection<Document> d = database.getCollection("reviews");
         List<Document> docs = d.find(Filters.and(
                         Filters.gte("stars", 4.0),
@@ -270,7 +272,7 @@ public class dbFetch {
         return null;
     }
 
-    public Cart getCart(){
+    public synchronized Cart getCart(){
         int userid = getUserIdByToken();
 
         this.collection = database.getCollection("carts");
@@ -290,7 +292,7 @@ public class dbFetch {
 
     }
 
-    public void addToCart(int coffeeid, int count){
+    public synchronized void addToCart(int coffeeid, int count){
         Cart c = getCart();
         if(getCart() == null){
             addCart(new Cart(coffeeid, count, currentToken));
@@ -301,7 +303,7 @@ public class dbFetch {
         addCart(c);
     }
 
-    public void removeFromCart(int coffeeid){
+    public synchronized void removeFromCart(int coffeeid){
         Cart c = getCart();
         if(getCart() == null){
             return;
@@ -311,7 +313,7 @@ public class dbFetch {
         addCart(c);
     }
 
-    public void removeFromCartEntirely(int coffeeid){
+    public synchronized void removeFromCartEntirely(int coffeeid){
         Cart c = getCart();
         if(getCart() == null){
             return;
@@ -320,7 +322,7 @@ public class dbFetch {
         addCart(c);
     }
 
-    public double getAverageRatingForCoffee(int coffeeId){
+    public synchronized double getAverageRatingForCoffee(int coffeeId){
         double res = 0;
         this.collection = database.getCollection("reviews");
 
@@ -344,7 +346,7 @@ public class dbFetch {
      *  PRIVATE PARSE FUNCTIONS
      * */
 
-    private List<Review> parseReviews(List<Document> d){
+    private synchronized List<Review> parseReviews(List<Document> d){
 
         List<Review> reviews = new ArrayList<>(d.size());
 
@@ -362,7 +364,7 @@ public class dbFetch {
         return reviews;
     }
 
-    private List<Coffee> parseCoffees(List<Document> d){
+    private synchronized List<Coffee> parseCoffees(List<Document> d){
         List<Coffee> coffees = new ArrayList<>(d.size());
         for(Document m : d){
             coffees.add(parseCoffee(m));
@@ -371,7 +373,7 @@ public class dbFetch {
         return coffees;
     }
 
-    private Coffee parseCoffee(Document d) {
+    private synchronized Coffee parseCoffee(Document d) {
         List<Document> rev = d.getList("reviews", Document.class);
         List<Review> revs = parseReviews(rev);
         
@@ -426,7 +428,7 @@ public class dbFetch {
         );
     }
 
-    private User parseUser(Document m){
+    private synchronized User parseUser(Document m){
         String username = m.getString("username");
         int userid = m.getInteger("id");
         String email = m.getString("email");
@@ -519,7 +521,7 @@ public class dbFetch {
      *  ADD
      * */
 
-    public void addCoffee(Coffee coffee){
+    public synchronized void addCoffee(Coffee coffee){
         this.collection = database.getCollection("coffees");
 
         List<Document> reviews = new ArrayList<>();
@@ -540,14 +542,14 @@ public class dbFetch {
         this.collection.insertOne(new Document("id", coffee.getId()).append( "name", coffee.getName()).append("imageurl", coffee.getImageurl()).append("description", coffee.getDescription()).append("packetSize", coffee.getPacketSize()).append("weight", coffee.getWeight()).append("tag", coffee.getTag()).append("price", coffee.getPrice()).append("strength", coffee.getStrength()).append("flavour",  coffee.getFlavour()).append("acidity", coffee.getAcidity()).append("aroma", coffee.getAroma()).append("currentStock", coffee.getCurrentStock()).append("numberOfSales", coffee.getNumberOfSales()).append("isSoldOut", coffee.isSoldOut()).append("isNearSoldOUt", coffee.isNearSoldOut()).append("isRare", coffee.isRare()).append("isSmallBatch", coffee.isSmallBatch()).append("isFarmToCup", coffee.isFarmToCup()).append("reviews", reviews));
     }
 
-    public void addCoffees(List<Coffee> coffees){
+    public synchronized void addCoffees(List<Coffee> coffees){
         this.collection = database.getCollection("coffees");
         for(Coffee cof : coffees){
             addCoffee(cof);
         }
     }
 
-    public void addReview(Review review){
+    public synchronized void addReview(Review review){
         this.collection = database.getCollection("reviews");
         Document doc = new Document("review", review.getId())
                 .append("stars", review.getStars())
@@ -565,7 +567,7 @@ public class dbFetch {
         updateCoffee(c);
     }
 
-    public void addCart(Cart c){
+    public synchronized void addCart(Cart c){
         this.collection = database.getCollection("carts");
         int userid = getUserIdByToken();
         if(getCart() != null){
@@ -585,7 +587,7 @@ public class dbFetch {
         this.collection.insertOne(docx);
     }
 
-    public void buyCart(Cart c){
+    public synchronized void buyCart(Cart c){
         if(!c.getToken().equals(currentToken)){
             System.out.println("token error");
             return;
@@ -601,7 +603,7 @@ public class dbFetch {
      * REMOVE
      * */
 
-    public void removeCart(){
+    public synchronized void removeCart(){
         this.collection = database.getCollection("carts");
         this.collection.deleteOne(new Document("userid", getUserIdByToken()));
     }
@@ -620,7 +622,7 @@ public class dbFetch {
         this.collection.deleteOne(new Document("id", id));
 
     }
-    public void updateCart(Cart current)
+    public synchronized void updateCart(Cart current)
     {
         this.collection = database.getCollection("carts");
         int userid = getUserIdByToken();
@@ -641,7 +643,7 @@ public class dbFetch {
      * UPDATE
      * */
 
-    public void updateUser(User user){
+    public synchronized void updateUser(User user){
         int id = getUserIdByToken();
 
         this.collection = database.getCollection("users");
@@ -695,8 +697,7 @@ public class dbFetch {
     }
 
 
-
-    public void updateCoffee(Coffee coffee){
+    public synchronized void updateCoffee(Coffee coffee){
         this.collection = database.getCollection("coffees");
 
         List<Document> reviews = new ArrayList<>();
@@ -719,7 +720,7 @@ public class dbFetch {
         this.collection.findOneAndReplace(new Document("id", coffee.getId()), j);
     }
 
-    public boolean saveReview(Review review) {
+    public synchronized boolean saveReview(Review review) {
         try {
 
             Document reviewDoc = new Document()
@@ -747,7 +748,7 @@ public class dbFetch {
     }
 
 
-    public boolean hasUserReviewedCoffee(int userId, int coffeeId) {
+    public synchronized boolean hasUserReviewedCoffee(int userId, int coffeeId) {
         try {
             MongoCollection<Document> reviewsCollection = database.getCollection("reviews");
             Document existingReview = reviewsCollection.find(
@@ -766,7 +767,7 @@ public class dbFetch {
     }
 
 
-    public boolean updateReview(int userId, int coffeeId, double newRating, String newDescription) {
+    public synchronized boolean updateReview(int userId, int coffeeId, double newRating, String newDescription) {
         try {
             MongoCollection<Document> reviewsCollection = database.getCollection("reviews");
 
@@ -798,7 +799,7 @@ public class dbFetch {
         }
     }
 
-    public Review getUserReviewForCoffee(int userId, int coffeeId) {
+    public synchronized Review getUserReviewForCoffee(int userId, int coffeeId) {
         try {
             MongoCollection<Document> reviewsCollection = database.getCollection("reviews");
             Document reviewDoc = reviewsCollection.find(

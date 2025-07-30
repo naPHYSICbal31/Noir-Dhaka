@@ -154,7 +154,6 @@ public class coffeeController implements Initializable {
                 
 
                 Platform.runLater(() -> {
-                    System.out.println("Connected!");
                 });
             } catch (Exception e) {
                 Platform.runLater(() -> {
@@ -453,7 +452,7 @@ public class coffeeController implements Initializable {
             System.err.println("Error loading image: " + e.getMessage());
         }
 
-        System.out.println("Coffee data loaded successfully: " + currentCoffee.getName());
+       
     }
 
     private void displayNotFound() {
@@ -482,7 +481,7 @@ public class coffeeController implements Initializable {
                 System.err.println("Failed to load euclidbold.ttf font - using default");
                 euclidBoldFont = Font.font("Arial", 18);
             } else {
-                System.out.println("EuclidCircularA-Bold font loaded successfully");
+               
             }
 
 
@@ -491,7 +490,7 @@ public class coffeeController implements Initializable {
                 System.err.println("Failed to load RetrokiaCaps-Rough.otf font - using default");
                 retrokiaFont = Font.font("Arial", 24);
             } else {
-                System.out.println("RetrokiaCaps font loaded successfully: " + retrokiaFont.getName());
+                
             }
 
         } catch (Exception e) {
@@ -540,7 +539,7 @@ public class coffeeController implements Initializable {
 
             stage.setTitle("Noir Dhaka");
             Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
             scene.setCursor(customCursor);
             stage.setResizable(false);
             stage.setScene(scene);
@@ -583,29 +582,29 @@ public class coffeeController implements Initializable {
     private void applyCustomFonts() {
 
     if (retrokiaFont != null) {
-        System.out.println("Applying RetrokiaCaps font to navigation elements");
+       
         if (top1 != null) {
             top1.setFont(retrokiaFont);
-            System.out.println("Applied font to top1");
+           
         }
         if (top2 != null) {
             top2.setFont(retrokiaFont);
-            System.out.println("Applied font to top2");
+           
         }
         if (top3 != null) {
             top3.setFont(retrokiaFont);
-            System.out.println("Applied font to top3");
+           
         }
         if (top4 != null) {
             top4.setFont(retrokiaFont);
-            System.out.println("Applied font to top4");
+           
         }
 
         if (coffeeNameLabel != null) {
 
             Font coffeeNameFont = Font.font(retrokiaFont.getFamily(), FontWeight.BOLD, 30);
             coffeeNameLabel.setFont(coffeeNameFont);
-            System.out.println("Applied RetrokiaCaps font to coffeeNameLabel");
+           
         }
         if (coffeeWeightLabel != null) {
 
@@ -724,7 +723,7 @@ public class coffeeController implements Initializable {
                     grindtext7.setFill(Paint.valueOf("#ffffff"));
                 break;
             default:
-                System.out.println("Unknown grind type: " + fxId);
+               
                 break;
         }
     }
@@ -777,7 +776,7 @@ public class coffeeController implements Initializable {
 
                 stage.setTitle("Noir Dhaka - Login");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
@@ -805,7 +804,7 @@ public class coffeeController implements Initializable {
 
                 stage.setTitle("Noir Dhaka - Cart");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
@@ -826,7 +825,7 @@ public class coffeeController implements Initializable {
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka - Login");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
@@ -843,7 +842,7 @@ public class coffeeController implements Initializable {
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka - Cart");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
@@ -864,7 +863,7 @@ public class coffeeController implements Initializable {
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
@@ -875,7 +874,7 @@ public class coffeeController implements Initializable {
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);

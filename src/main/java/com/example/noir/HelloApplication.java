@@ -35,7 +35,6 @@ public class HelloApplication extends Application {
                 boolean isVerified = Boolean.parseBoolean(parts[4].trim());
                 users[userCount++] = new User(username);
                 reviews[reviewCount++] = new Review(title,description,users[userCount-1],stars,isVerified);
-                System.out.println(reviews[0].getTitle());
                 displayReview(reviews[reviewCount-1]);
 
             } catch (Exception e) {
@@ -60,7 +59,6 @@ public class HelloApplication extends Application {
             if (customFont == null) {
                 System.err.println("Failed to load RetrokiaCaps-Rough font");
             } else {
-                System.out.println("RetrokiaCaps-Rough font loaded successfully");
             }
 
 
@@ -68,13 +66,12 @@ public class HelloApplication extends Application {
             if (euclidRegular == null) {
                 System.err.println("Failed to load Euclid Circular A Regular font");
             } else {
-                System.out.println("Euclid Circular A Regular font loaded successfully");
+               
             }
             Font euclidBold = Font.loadFont(getClass().getResourceAsStream("/fonts/RetrokiaCaps-Rough.otf"), 16);
             if (euclidBold == null) {
                 System.err.println("Failed to load Euclid Circular A Bold font");
             } else {
-                System.out.println("Euclid Circular A Bold font loaded successfully");
             }
 
         } catch (Exception e) {
@@ -95,14 +92,13 @@ public class HelloApplication extends Application {
             stage.setScene(scene);
             try {
                 stage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("images/noir_logo.png")));
-                System.out.println("Icon loaded successfully");
             } catch (Exception iconException) {
                 System.err.println("Failed to load application icon: " + iconException.getMessage());
                 iconException.printStackTrace();
             }
             scene.getRoot().requestFocus();
             Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
             scene.setCursor(customCursor);
             stage.centerOnScreen();
             stage.show();

@@ -31,7 +31,7 @@ public class User implements Serializable {
                 '}';
     }
 
-    private String passhash;  //sha256
+    private String passhash; //sha256
     private String address;
 
     public HashMap<Integer, LocalDateTime> getBuyTime() {
@@ -214,5 +214,4 @@ public class User implements Serializable {
         return userid;
     }
 
-    //public void addBuyHistory(Coffee coffee){}
 }

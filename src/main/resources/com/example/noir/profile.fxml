@@ -47,7 +47,7 @@
          </font>
       </Text>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#748e72" height="126.0" layoutX="1126.0" stroke="TRANSPARENT" strokeType="INSIDE" width="315.0" />
-      <Text layoutX="1197.0" layoutY="67.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" text="FIND YOUR COFFEE">
+      <Text layoutX="1197.0" layoutY="67.0" onMouseClicked="#redirectToScene" onMouseEntered="#addunderline" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="FIND YOUR COFFEE">
          <font>
             <Font name="RetrokiaCaps-Rough" size="18.0" />
          </font>
@@ -168,7 +168,7 @@
             </CheckBox>
          </children>
       </AnchorPane>
-      <Text fx:id="bar11" layoutX="331.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="lOGIN INFORMATION">
+      <Text fx:id="bar11" layoutX="331.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="lOGIN INFORMATION">
          <font>
             <Font name="RetrokiaCaps-Rough" size="36.0" />
          </font>

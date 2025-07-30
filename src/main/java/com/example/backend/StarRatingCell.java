@@ -1,4 +1,4 @@
-package com.example.backend;// Add this as an inner class in ProfileController or as a separate class
+package com.example.backend;
 import com.example.backend.Coffee;
 import com.example.noir.ProfileController;
 import javafx.geometry.Pos;
@@ -21,7 +21,6 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
     public StarRatingCell(ProfileController controller) {
         this.controller = controller;
         createStarContainer();
-        //Coffee c =
 
     }
 
@@ -98,14 +97,12 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
 
         if (empty || getTableRow() == null || getTableRow().getItem() == null) {
             setGraphic(null);
-            currentCoffee = null;
         } else {
             currentCoffee = (Coffee) getTableRow().getItem();
 
             Integer existingRating = controller.coffeeRatings.get(currentCoffee.getId());
             if (existingRating != null) {
                 selectedRating = existingRating;
-                System.out.println("Selected rating: " + selectedRating);
             } else {
                 Review r = client.getUserReviewForCoffee(controller.currentUser.getUserId(), currentCoffee.getId());
                 if(r != null) {
@@ -145,7 +142,7 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
                     );
 
                     if (success) {
-                        System.out.println("Review updated: " + selectedRating + " stars for " + currentCoffee.getName());
+
                     }
                 } else {
 
@@ -167,7 +164,7 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
                     success = true;
 
                     if (success) {
-                        System.out.println("New review saved: " + selectedRating + " stars for " + currentCoffee.getName());
+
                     }
                 }
 

@@ -12,9 +12,9 @@
 
 <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2500.0" prefWidth="1440.0" stylesheets="@scrollbar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.noir.coffeeController">
   <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="2500.0" prefWidth="1425.0" style="-fx-background-color: #e9e9e9;">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="2500.0" prefWidth="1430.0" style="-fx-background-color: #e9e9e9;">
          <children>
-            <ImageView fitHeight="331.0" fitWidth="1425.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="39.0" fitWidth="1430.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/code.png" />
                </image>

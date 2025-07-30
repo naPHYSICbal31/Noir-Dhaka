@@ -276,10 +276,8 @@ public class cartcontroller implements Initializable{
         testBtn.setPrefSize(50, 50);
         Parent parent = increaseBtn.getParent();
         if (parent != null) {
-            System.out.println("Parent type: " + parent.getClass().getSimpleName());
             if (parent instanceof Region) {
                 Region region = (Region) parent;
-                System.out.println("Parent bounds: " + region.getBoundsInLocal());
             }
         }
 
@@ -646,7 +644,7 @@ public class cartcontroller implements Initializable{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
             Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
             scene.setCursor(customCursor);
             stage.setScene(scene);
             stage.centerOnScreen();
@@ -679,7 +677,7 @@ public class cartcontroller implements Initializable{
 
             stage.setTitle("Noir Dhaka");
             Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-            ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+            ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
             scene.setCursor(customCursor);
             stage.setResizable(false);
             stage.setScene(scene);
@@ -817,7 +815,7 @@ public class cartcontroller implements Initializable{
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);
@@ -828,7 +826,7 @@ public class cartcontroller implements Initializable{
                 Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
                 stage.setTitle("Noir Dhaka");
                 Image cursorImage = new Image(getClass().getResourceAsStream("images/maccursor.png"));
-                ImageCursor customCursor = new ImageCursor(cursorImage, 5, 5);
+                ImageCursor customCursor = new ImageCursor(cursorImage, 0, 0);
                 scene.setCursor(customCursor);
                 stage.setResizable(false);
                 stage.setScene(scene);

@@ -19,7 +19,7 @@ public class Server {
         try (ServerSocket listener = new ServerSocket(PORT)) {
             while (true) {
                 Socket client = listener.accept();
-                System.out.println("Accepted connection from " + client.getInetAddress());
+                //.println("Accepted connection from " + client.getInetAddress());
                 pool.execute(new ClientHandler(client));
             }
         } catch (IOException e) {
@@ -52,9 +52,9 @@ public class Server {
                 while ((command = (String)objectIn.readObject()) != null) {
                     switch (command.trim()) {
                         case "setToken":
-                            System.out.println("setToken");
+                            //.println("setToken");
                             String token = (String)objectIn.readObject();
-                            System.out.println("Got token" + token);
+                            //.println("Got token" + token);
                             if (token.equals("null") || token.isEmpty()) {
                                 objectOut.writeObject("Token is null");
                             }else {
@@ -232,7 +232,7 @@ public class Server {
 
                         case "addCart": {
                             Cart cart = (Cart) objectIn.readObject();
-                            System.out.println(cart.getToken());
+                            //.println(cart.getToken());
                             database.addCart(cart);
                             objectOut.writeObject("Cart added.");
                             break;
@@ -240,7 +240,7 @@ public class Server {
 
                         case "buyCart": {
                             Cart cart = (Cart) objectIn.readObject();
-                            System.out.println(cart.getToken());
+                            //.println(cart.getToken());
                             database.buyCart(cart);
                             objectOut.writeObject("Cart purchased.");
                             break;
@@ -312,11 +312,11 @@ public class Server {
                             int userId1 = objectIn.readInt();
                             int coffeeId1 = objectIn.readInt();
                             Review review = database.getUserReviewForCoffee(userId1, coffeeId1);
-                            //System.out.println(review.toString());
+                            //.println(review.toString());
                             if(review != null) {
                                 objectOut.writeObject(review);
                             }else{
-                                System.out.println("Coffee not found.");
+                                //.println("Coffee not found.");
                                 objectOut.writeObject(new Review());
                             }
 
@@ -345,7 +345,7 @@ public class Server {
                 }
             } catch (IOException | NumberFormatException | ClassNotFoundException e) {
                 //objectOut.writeObject("ERROR: " + e.getMessage());
-                System.out.println(e.getMessage());
+                //.println(e.getMessage());
                 e.printStackTrace();
             } finally {
                 try {

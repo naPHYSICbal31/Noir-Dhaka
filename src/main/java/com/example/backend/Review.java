@@ -28,8 +28,8 @@ public class Review implements Serializable {
         this.stars = stars;
         this.coffeeid = coffeeid;
         this.description = description;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        this.timestamp = LocalDateTime.parse(timestamp, formatter);
+
+        this.timestamp = LocalDateTime.parse(timestamp);
         //setTimestamp(timestamp);
         this.userid = userid;
         this.isVerified = isVerified;
@@ -69,9 +69,9 @@ public class Review implements Serializable {
     }
 
     public void setTimestamp(String timestamp) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
-        this.timestamp = LocalDateTime.parse(timestamp, formatter);
+
+        this.timestamp = LocalDateTime.parse(timestamp);
     }
 
     public String getDescription() {

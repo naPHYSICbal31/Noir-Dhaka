@@ -48,27 +48,10 @@ public class test2 {
         };
 
 
-        for (int i = 0; i < 5; i++) {
-            List<Boolean> tags = Arrays.asList(i % 2 == 0, i % 3 == 0, i % 5 == 0);
-            Coffee coffee = new Coffee(
-                    200 + i,
-                    coffeeNames[i],
-                    "http://image.url/" + i,
-                    descriptions[i],
-                    "250g",
-                    0.25 + i * 0.01,
-                    400 + i * 10,
-                    i % 10, i % 10, i % 10, i % 10,
-                    i % 2 == 0, i % 3 == 0, i % 5 == 0,
-                    100 - i,
-                    i * 5,
-                    false, false,
-                    new ArrayList<>(),
-                    tags
-            );
-
-            db.addCoffee(coffee);
-            System.out.println("[ADDED COFFEE] ID: " + (500 + i) + ", Name: " + coffeeNames[i]);
+        for (Coffee i : db.getAllCoffees()) {
+            System.out.println(db.getAverageRatingForCoffee(i.getId()));
         }
     }
+
+
 }

@@ -322,6 +322,25 @@ public class dbFetch {
         addCart(c);
     }
 
+    public double getAverageRatingForCoffee(int coffeeId){
+        double res = 0;
+        this.collection = database.getCollection("reviews");
+
+        List<Document> revs = this.collection.find(new Document("coffeeid", coffeeId)).into(new ArrayList<>());
+
+        List<Review> revv = parseReviews(revs);
+
+        for(Review r : revv){
+            res += r.getStars();
+        }
+
+        if(revv.size() > 0){
+            res/=revv.size();
+        }
+
+        return (res == 0 ? 0.1 : res) ;
+    }
+
 
     /*
      *  PRIVATE PARSE FUNCTIONS
@@ -450,6 +469,9 @@ public class dbFetch {
 
         return new User(username, userid, email, address, isAds, buyHistory, timeHistory, recipts);
     }
+
+
+
 
 //    private List<User> parseUsers(List<Document> d) {
 //        List<User> users = new ArrayList<>(d.size());

@@ -462,6 +462,19 @@ public class Client {
         }
     }
 
+    public double getAverageRatingForCoffee(int coffeeId){
+        try {
+            objectOut.writeObject("getAverageRatingForCoffee");
+            objectOut.writeInt(coffeeId);
+            objectOut.flush();
+            int res = objectIn.readInt();
+            return res;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 
 

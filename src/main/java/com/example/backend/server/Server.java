@@ -323,9 +323,20 @@ public class Server {
                             break;
                         }
 
-
-
-
+                        case "getAverageRatingForCoffee": {
+                            try {
+                                int coffeid = objectIn.readInt();
+                                System.out.println(coffeid);
+                                int res = (int) database.getAverageRatingForCoffee(coffeid);
+                                if (res == 0) res = 5;
+                                System.out.println(res);
+                                objectOut.writeInt(res);
+                                objectOut.flush();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        }
 
 
                         default:

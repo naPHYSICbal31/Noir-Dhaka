@@ -384,7 +384,7 @@ public class coffeeController implements Initializable {
                 if(currentCoffee.getAroma() >= 3) ar3.setOpacity(1);
             }
         }
-        int x = (int)currentCoffee.getAverageRating();
+        int x = (int)client.getAverageRatingForCoffee(currentCoffee.getId());
         switch(x)
         {
             case 5:

@@ -312,9 +312,11 @@ public class Server {
                             int userId1 = objectIn.readInt();
                             int coffeeId1 = objectIn.readInt();
                             Review review = database.getUserReviewForCoffee(userId1, coffeeId1);
+                            System.out.println(review.toString());
                             if(review != null) {
                                 objectOut.writeObject(review);
                             }else{
+                                System.out.println("Coffee not found.");
                                 objectOut.writeObject(new Review());
                             }
 

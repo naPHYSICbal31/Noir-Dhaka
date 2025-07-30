@@ -451,7 +451,7 @@ public class Client {
             objectOut.flush();
             Review r = (Review) objectIn.readObject();
 
-            if(r.getCoffeeId() == 0){
+            if(r.getDescription() == null){
                 return null;
             }else{
                 return r;

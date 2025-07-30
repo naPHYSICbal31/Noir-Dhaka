@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class Review implements Serializable {
+    private static final long serialVersionUID = 4505793262472345332L;
     private int reviewid;
     private double stars;
     private int coffeeid;
@@ -27,9 +28,9 @@ public class Review implements Serializable {
         this.stars = stars;
         this.coffeeid = coffeeid;
         this.description = description;
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-//        this.timestamp = LocalDateTime.parse(timestamp, formatter);
-        setTimestamp(timestamp);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        this.timestamp = LocalDateTime.parse(timestamp, formatter);
+        //setTimestamp(timestamp);
         this.userid = userid;
         this.isVerified = isVerified;
     }
@@ -40,6 +41,13 @@ public class Review implements Serializable {
         this.title = title;
         this.description = description;
         this.stars = stars;
+    }
+    public Review(String title,String description,User user,double stars,boolean isVerified){
+        this.userid = user.getUserid();
+        this.title = title;
+        this.description = description;
+        this.stars = stars;
+        this.isVerified = isVerified;
     }
     public void setTitle(String title){
         this.title = title;
@@ -61,7 +69,8 @@ public class Review implements Serializable {
     }
 
     public void setTimestamp(String timestamp) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.n");
+
         this.timestamp = LocalDateTime.parse(timestamp, formatter);
     }
 

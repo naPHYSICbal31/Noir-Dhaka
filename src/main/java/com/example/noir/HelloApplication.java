@@ -86,7 +86,7 @@ public class HelloApplication extends Application {
         try {
             loadGlobalFonts();
             client = new Client();
-            //client.validateLogin("test", "test");
+            client.validateLogin("test", "test");
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1440, 810);
             scene.getStylesheets().add(getClass().getResource("/font.css").toExternalForm());

@@ -3,7 +3,7 @@
 }
 
 .scroll-bar:horizontal {
-    -fx-pref-height: 15px; /* Thickness for horizontal scrollbar */
+    -fx-pref-height: 20px; /* Thickness for horizontal scrollbar */
 }
 
 .scroll-bar:vertical {
@@ -20,15 +20,18 @@
 .scroll-bar .thumb {
     -fx-background-color: #91b08f;
     -fx-background-radius: 5px;
+    -fx-border-radius: 0px;
 }
 
 /* Hover and Pressed states */
 .scroll-bar .thumb:hover {
     -fx-background-color: #90b18f;
+    -fx-border-radius: 0px;
 }
 
 .scroll-bar .thumb:pressed {
-    -fx-background-color: #90b18f;
+    -fx-background-color: #95b592;
+    -fx-border-radius: 0px;
 }
 
 /* Increment/Decrement Buttons (optional, usually hidden in modern UI) */

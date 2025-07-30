@@ -7,7 +7,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
+import java.util.List;
+
 import static com.example.noir.HelloApplication.client;
+
 
 public class StarRatingCell extends TableCell<Coffee, Integer> {
     private HBox starContainer;
@@ -18,7 +21,7 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
     public StarRatingCell(ProfileController controller) {
         this.controller = controller;
         createStarContainer();
-
+        //Coffee c =
 
     }
 
@@ -98,13 +101,17 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
             currentCoffee = null;
         } else {
             currentCoffee = (Coffee) getTableRow().getItem();
+            System.out.println("Row coffee ID: " + currentCoffee.getId());
 
 
             Integer existingRating = controller.coffeeRatings.get(currentCoffee.getId());
             if (existingRating != null) {
                 selectedRating = existingRating;
+                System.out.println("Selected rating: " + selectedRating);
             } else {
-                selectedRating = rating != null ? rating : 0;
+                Review r = client.getUserReviewForCoffee(controller.currentUser.getUserId(), currentCoffee.getId());
+                System.out.println(r);
+                selectedRating = (int)r.getStars();
             }
 
             updateStarDisplay();

@@ -788,13 +788,11 @@ public class dbFetch {
 
             if (reviewDoc != null) {
                 return new Review(
-                        reviewDoc.getInteger("userid"),
-                        reviewDoc.getDouble("stars"),
-                        reviewDoc.getInteger("coffeeid"),
+                        reviewDoc.getString("title"),
                         reviewDoc.getString("description"),
-                        reviewDoc.getString("timestamp"),
-                        reviewDoc.getBoolean("isVerified"),
-                        reviewDoc.getString("title")
+                        getUserinfo(),
+                        reviewDoc.getDouble("stars"),
+                        reviewDoc.getBoolean("isVerified")
                 );
             }
 
@@ -802,6 +800,7 @@ public class dbFetch {
 
         } catch (Exception e) {
             System.err.println("Error getting user review: " + e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }

@@ -41,6 +41,8 @@ import javafx.animation.FadeTransition;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import static com.example.noir.HelloApplication.client;
 
@@ -114,7 +116,15 @@ public class ProfileController implements Initializable {
     public User currentUser;
     
     private VBox receiptContainer;
-    
+
+
+    public void showAlert(String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information");
+        //alert.setHeaderText("This is a header");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         

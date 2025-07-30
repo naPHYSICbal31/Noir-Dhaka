@@ -101,8 +101,6 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
             currentCoffee = null;
         } else {
             currentCoffee = (Coffee) getTableRow().getItem();
-            System.out.println("Row coffee ID: " + currentCoffee.getId());
-
 
             Integer existingRating = controller.coffeeRatings.get(currentCoffee.getId());
             if (existingRating != null) {
@@ -110,7 +108,7 @@ public class StarRatingCell extends TableCell<Coffee, Integer> {
                 System.out.println("Selected rating: " + selectedRating);
             } else {
                 Review r = client.getUserReviewForCoffee(controller.currentUser.getUserId(), currentCoffee.getId());
-                System.out.println(r);
+
                 selectedRating = (int)r.getStars();
             }
 

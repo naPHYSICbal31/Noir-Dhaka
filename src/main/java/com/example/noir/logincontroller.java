@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -147,6 +148,14 @@ public class logincontroller implements Initializable {
 
     @FXML
     private ImageView profile;
+
+    public void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Registration Failed");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -910,10 +919,20 @@ public class logincontroller implements Initializable {
 
                 stage.show();
             }catch(Exception e){
-
+                regUsernameField.clear();
+                regEmailField.clear();
+                regAddressField.clear();
+                regPasswordField.clear();
+                regConfirmPasswordField.clear();
+                showAlert("Username is already in use");
             }
         } else {
-            System.out.println("Passwords do not match!");
+            regUsernameField.clear();
+            regEmailField.clear();
+            regAddressField.clear();
+            regPasswordField.clear();
+            regConfirmPasswordField.clear();
+            showAlert("Passwords do not match");
         }
     }
     @FXML

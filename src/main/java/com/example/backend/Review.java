@@ -69,7 +69,7 @@ public class Review implements Serializable {
     }
 
     public void setTimestamp(String timestamp) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.n");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
         this.timestamp = LocalDateTime.parse(timestamp, formatter);
     }

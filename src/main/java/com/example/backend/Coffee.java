@@ -18,7 +18,7 @@ import java.util.Vector;
  */
 
 
-public class Coffee implements Serializable  {
+public class Coffee extends Element implements Serializable  {
     //intro
 
     static String[] Tags = {"a", "b", "c"};

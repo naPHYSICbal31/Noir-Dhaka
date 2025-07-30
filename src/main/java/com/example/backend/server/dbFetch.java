@@ -6,9 +6,7 @@ import com.example.backend.User;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
-import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
-import org.bson.Document;
 import org.bson.conversions.Bson;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -527,7 +525,7 @@ public class dbFetch {
         List<Document> reviews = new ArrayList<>();
 
         for(Review review : coffee.getReviews()){
-            Document doc = new Document("review", review.getReviewid())
+            Document doc = new Document("review", review.getId())
                     .append("stars", review.getStars())
                     .append("coffeeid", review.getCoffeeid())
                     .append("description", review.getDescription())
@@ -551,7 +549,7 @@ public class dbFetch {
 
     public void addReview(Review review){
         this.collection = database.getCollection("reviews");
-        Document doc = new Document("review", review.getReviewid())
+        Document doc = new Document("review", review.getId())
                 .append("stars", review.getStars())
                 .append("coffeeid", review.getCoffeeid())
                 .append("description", review.getDescription())
@@ -686,7 +684,7 @@ public class dbFetch {
         }
 
 
-        Document newUser = new Document("id", user.getUserid()).append("username", user.getUsername()).append("email", user.getEmail()).append("address", user.getAddress()).append("isAds", user.isAds()).append("buyHistory", history).append("timehistory", timehistory).append("recipts", cartrecipt);
+        Document newUser = new Document("id", user.getId()).append("username", user.getUsername()).append("email", user.getEmail()).append("address", user.getAddress()).append("isAds", user.isAds()).append("buyHistory", history).append("timehistory", timehistory).append("recipts", cartrecipt);
 
 
         this.collection.findOneAndReplace(
@@ -704,7 +702,7 @@ public class dbFetch {
         List<Document> reviews = new ArrayList<>();
 
         for(Review review : coffee.getReviews()){
-            Document doc = new Document("review", review.getReviewid())
+            Document doc = new Document("review", review.getId())
                     .append("stars", review.getStars())
                     .append("coffeeid", review.getCoffeeid())
                     .append("description", review.getDescription())
@@ -725,7 +723,7 @@ public class dbFetch {
         try {
 
             Document reviewDoc = new Document()
-                    .append("reviewid", review.getReviewid())
+                    .append("reviewid", review.getId())
                     .append("userid", review.getUserid())
                     .append("coffeeid", review.getCoffeeid())
                     .append("stars", review.getStars())

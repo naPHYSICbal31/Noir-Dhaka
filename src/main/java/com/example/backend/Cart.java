@@ -10,7 +10,9 @@ import static com.example.noir.HelloApplication.client;
 //import static com.example.backend.Client.currentToken;
 
 
-public class Cart implements Serializable {
+public class Cart extends Element implements Serializable {
+    public static int numberOfCarts = 0;
+    private int id;
     private String token;
     private HashMap<Integer,Integer> buyHistory;
     private String timestamp;// coffeeId, count
@@ -32,18 +34,30 @@ public class Cart implements Serializable {
     }
 
     public Cart(String currentToken){
+        id = ++numberOfCarts;
         token = currentToken;
         buyHistory = new HashMap<>();
         timestamp = Instant.now().toString();
     }
     public Cart(int coffeeid, int count, String currentToken){
+        id = ++numberOfCarts;
         token = currentToken;
         buyHistory = new HashMap<>();
         timestamp = Instant.now().toString();
         buyHistory.put(coffeeid, count);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Cart(HashMap<Integer,Integer> buyHistory, String currentToken){
+        id = ++numberOfCarts;
         token = currentToken;
         this.buyHistory = buyHistory;
     }

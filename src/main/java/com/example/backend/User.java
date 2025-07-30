@@ -1,16 +1,12 @@
 package com.example.backend;
 import java.io.Serializable;
-import java.security.Timestamp;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.Vector;
 import java.util.Map;
-import org.mindrot.jbcrypt.BCrypt;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 
-public class User implements Serializable {
+public class User extends Element implements Serializable {
     private String username;
     private int userid;
     private String email;
@@ -164,11 +160,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public int getUserid() {
+    public int getId() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    public void setId(int userid) {
         this.userid = userid;
     }
 

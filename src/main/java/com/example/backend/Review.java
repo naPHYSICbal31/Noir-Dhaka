@@ -1,15 +1,13 @@
 package com.example.backend;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
 
 /*
  *
  * */
 
 
-public class Review implements Serializable {
+public class Review extends Element implements Serializable {
     private static final long serialVersionUID = 4505793262472345332L;
     private int reviewid;
     private double stars;
@@ -43,7 +41,7 @@ public class Review implements Serializable {
         this.stars = stars;
     }
     public Review(String title,String description,User user,double stars,boolean isVerified){
-        this.userid = user.getUserid();
+        this.userid = user.getId();
         this.title = title;
         this.description = description;
         this.stars = stars;
@@ -106,11 +104,11 @@ public class Review implements Serializable {
         isVerified = verified;
     }
 
-    public int getReviewid() {
+    public int getId() {
         return reviewid;
     }
 
-    public void setReviewid(int reviewid) {
+    public void setId(int reviewid) {
         this.reviewid = reviewid;
     }
 

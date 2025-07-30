@@ -156,6 +156,9 @@ public class logincontroller implements Initializable {
         alert.setTitle("Information");
         alert.setHeaderText("Registration Failed");
         alert.setContentText(message);
+        alert.getDialogPane().getStylesheets().add(
+                getClass().getResource("alert.css").toExternalForm()
+        );
         alert.showAndWait();
     }
 

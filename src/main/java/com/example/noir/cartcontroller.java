@@ -593,11 +593,16 @@ public class cartcontroller implements Initializable{
             alert.setTitle("Order Confirmation");
             alert.setHeaderText("Your Order Has Been Placed Successfully!");
             alert.setResizable(false);
-            int setX = 330,setY = 550;
+            int setX = 350,setY = 550;
             alert.getDialogPane().setPrefSize(setX,setY);
+            alert.getDialogPane().getStylesheets().add(
+                    getClass().getResource("scrollbar.css").toExternalForm()
+            );
+            alert.getDialogPane().getStylesheets().add(
+                    getClass().getResource("alert.css").toExternalForm()
+            );
             alert.getDialogPane().setMinSize(setX, setY);
             alert.getDialogPane().setMaxSize(setX,setY);
-
 
             TextArea receiptArea = new TextArea(receiptContent.toString());
             receiptArea.setEditable(false);

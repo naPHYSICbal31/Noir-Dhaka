@@ -1,0 +1,1 @@
+This project was a part of the CSE 108 course for L1-T2. It contains all the source codes and files necessary to run the project on any device. All the files are present in master branch. (To run make sure you got JDK 24 installed and have all the necessary jar files for JavaFX)
